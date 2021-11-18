@@ -6,3 +6,4 @@ export * from "./Logout";
 export * from "./ArrowLeft";
 export * from "./Eye";
 export * from "./EyeSlashed";
+export * from "./ArrowRight";

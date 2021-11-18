@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontFamily: "Montserrat-SemiBold",
-    fontSize: 13,
+    fontSize: 15,
     textAlign: "center"
   }
 });

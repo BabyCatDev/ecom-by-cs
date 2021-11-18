@@ -12,6 +12,7 @@ import { Stats, Cart, Bag, Users, Logout } from "../../icons";
 
 const AdminHomeScreen = ({ navigation }) => {
   const { colors } = useTheme();
+  const { navigate } = navigation;
 
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
@@ -27,9 +28,19 @@ const AdminHomeScreen = ({ navigation }) => {
         <RoundedCard icon={() => <Stats />}>
           {"Voir les\nStatistiques"}
         </RoundedCard>
-        <RoundedCard icon={() => <Cart />}>{"Voir les\nCommerces"}</RoundedCard>
-        <RoundedCard icon={() => <Bag />}>{"Voir les\nProduits"}</RoundedCard>
-        <RoundedCard icon={() => <Users />}>
+        <RoundedCard
+          onPress={() => navigate("Commerces")}
+          icon={() => <Cart />}
+        >
+          {"Voir les\nCommerces"}
+        </RoundedCard>
+        <RoundedCard onPress={() => navigate("Produits")} icon={() => <Bag />}>
+          {"Voir les\nProduits"}
+        </RoundedCard>
+        <RoundedCard
+          onPress={() => navigate("Personnels")}
+          icon={() => <Users />}
+        >
           {"Voir les\nPersonnels"}
         </RoundedCard>
       </ScrollView>
