@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { Container, Label, TopBar, ProduitRow } from "../../components";
+import { Container, Label, TopBar, CommandeRow } from "../../components";
 
 const CommandesScreen = ({ navigation }) => {
   const { colors } = useTheme();
@@ -9,11 +9,26 @@ const CommandesScreen = ({ navigation }) => {
   return (
     <Container containerstyle={{ paddingHorizontal: 15 }}>
       <TopBar />
-      <Label>{"Liste des\npersonnels"}</Label>
+      <Label>{"Liste des\ncommandes"}</Label>
       <View marginVertical={20} />
-      <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
-      <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
-      <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
+      <CommandeRow
+        status={"Status: Preparation"}
+        client={"Barbu"}
+        total={"1200 CFA"}
+        date={"07-11-2021"}
+      />
+      <CommandeRow
+        status={"Status: Preparation"}
+        client={"Barbu"}
+        total={"1200 CFA"}
+        date={"07-11-2021"}
+      />
+      <CommandeRow
+        status={"Status: Preparation"}
+        client={"Barbu"}
+        total={"1200 CFA"}
+        date={"07-11-2021"}
+      />
     </Container>
   );
 };

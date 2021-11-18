@@ -13,3 +13,4 @@ export * from "./RoundedCard";
 export * from "./CommerceRow";
 export * from "./PersonnelRow";
 export * from "./ProduitRow";
+export * from "./CommandeRow";

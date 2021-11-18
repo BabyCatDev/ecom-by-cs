@@ -25,7 +25,10 @@ const AdminHomeScreen = ({ navigation }) => {
           <Label>{"Salut\nBamba!"}</Label>
           <Logout />
         </View>
-        <RoundedCard icon={() => <Stats />}>
+        <RoundedCard
+          onPress={() => navigate("Commandes")}
+          icon={() => <Stats />}
+        >
           {"Voir les\nStatistiques"}
         </RoundedCard>
         <RoundedCard
