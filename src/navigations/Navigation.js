@@ -8,7 +8,7 @@ import MyTheme from "../Colors";
 const Navigation = () => {
   return (
     <NavigationContainer theme={MyTheme} ref={RootNavigation.navigationRef}>
-      <AdminStack />
+      <AuthStack />
     </NavigationContainer>
   );
 };

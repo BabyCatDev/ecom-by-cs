@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Text, Pressable } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { Label } from "./Label";
-// import { Eye, EyeSlashed } from "../icons";
+import { Eye, EyeSlashed } from "../icons";
 
 const Input = ({
   label,
@@ -17,28 +16,26 @@ const Input = ({
   const [isFocused, setFocused] = useState(false);
   return (
     <View style={styles.container}>
-      <View style={{ marginLeft: 6 }}>
-        <Label>{label}</Label>
-      </View>
+      <Text style={[styles.labelStyle, { color: colors.black }]}>{label}</Text>
       <View
         style={[
           styles.inputContainer,
           {
-            backgroundColor: colors.secondary + "63",
-            borderColor: isFocused ? colors.primary : "transparent",
-            width: fullWidth ? "auto" : 224,
-            height: multiline ? "auto" : 40
+            borderColor: isFocused ? colors.primary : colors.gray,
+            width: fullWidth ? "auto" : 260,
+            height: multiline ? "auto" : 45
           }
         ]}
       >
         <TextInput
+          selectionColor={colors.primary}
           secureTextEntry={password ? !isPasswordHidden : false}
           placeholder={placeholder}
-          placeholderTextColor={"#F2F4F544"}
+          placeholderTextColor={colors.gray + "66"}
           style={[
             styles.inputStyle,
             {
-              color: colors.white,
+              color: colors.black,
               textAlignVertical: multiline ? "top" : "auto",
               paddingTop: multiline ? 10 : 0
             }
@@ -53,7 +50,7 @@ const Input = ({
             style={{ paddingLeft: 4 }}
             onPress={() => setPasswordHidden(!isPasswordHidden)}
           >
-            {/* {isPasswordHidden ? <Eye /> : <EyeSlashed />} */}
+            {isPasswordHidden ? <Eye /> : <EyeSlashed />}
           </Pressable>
         )}
       </View>
@@ -65,18 +62,20 @@ const styles = StyleSheet.create({
   container: { marginVertical: 7 },
   inputContainer: {
     flexDirection: "row",
-    paddingLeft: 13,
-    marginTop: 5,
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: "transparent"
+    borderBottomWidth: 1,
+    paddingRight: 5,
+    paddingLeft: 2
   },
   inputStyle: {
-    fontSize: 12,
+    fontSize: 20,
     flex: 1,
-    fontFamily: "Montserrat-Regular"
+    fontFamily: "Montserrat-Medium"
+  },
+  labelStyle: {
+    fontSize: 16,
+    fontFamily: "Montserrat-Medium"
   }
 });
 
