@@ -37,7 +37,7 @@ const CommandStatus = ({ status, ...props }) => {
     <View style={styles.container} {...props}>
       <Text
         style={[styles.status, { color }]}
-      >{`STATUT : ${textStatus.toUpperCase()}`}</Text>
+      >{`${textStatus.toUpperCase()}`}</Text>
       {renderIcon()}
     </View>
   );

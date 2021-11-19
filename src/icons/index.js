@@ -11,3 +11,5 @@ export * from "./Playing";
 export * from "./X";
 export * from "./Info";
 export * from "./Checked";
+export * from "./FileText";
+export * from "./Plus";

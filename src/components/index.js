@@ -17,3 +17,5 @@ export * from "./CommandeRow";
 export * from "./CommandStatus";
 export * from "./ProduitDetails";
 export * from "./Currency";
+export * from "./Statistique";
+export * from "./AddButton";

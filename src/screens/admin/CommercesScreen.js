@@ -6,7 +6,7 @@ import {
   Label,
   TopBar,
   CommerceRow,
-  Button
+  AddButton
 } from "../../components";
 
 const CommercesScreen = ({ navigation }) => {
@@ -37,7 +37,27 @@ const CommercesScreen = ({ navigation }) => {
       >
         Mercedes
       </CommerceRow>
-      {/* <Button>Ajouter</Button> */}
+      <CommerceRow
+        onPress={() => navigate("CommerceProduits", { name: "Coca cola" })}
+      >
+        Coca cola
+      </CommerceRow>
+      <CommerceRow
+        onPress={() => navigate("CommerceProduits", { name: "Fanta" })}
+      >
+        Fanta
+      </CommerceRow>
+      <CommerceRow
+        onPress={() => navigate("CommerceProduits", { name: "Nike" })}
+      >
+        Nike
+      </CommerceRow>
+      <CommerceRow
+        onPress={() => navigate("CommerceProduits", { name: "Mercedes" })}
+      >
+        Mercedes
+      </CommerceRow>
+      <AddButton>Ajouter</AddButton>
     </Container>
   );
 };

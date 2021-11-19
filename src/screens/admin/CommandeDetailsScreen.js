@@ -24,7 +24,7 @@ const CommandeDetailsScreen = ({ navigation }) => {
         <CommandStatus status={"Delivered"} justifyContent={"center"} />
         <View marginVertical={20} />
         <Text style={[styles.key, { color: colors.black }]}>Nom de client</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>Achraf charafi</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>Didier Drogba</Text>
         <Text style={[styles.key, { color: colors.black }]}>Son address</Text>
         <Text
           style={[styles.value, { color: "#616161" }]}
