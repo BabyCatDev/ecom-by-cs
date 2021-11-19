@@ -13,7 +13,7 @@ const CommercesScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const { navigate } = navigation;
   return (
-    <Container containerstyle={{ paddingHorizontal: 15 }}>
+    <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
       <Label>{"Liste des\ncommerces"}</Label>
       <View marginVertical={20} />

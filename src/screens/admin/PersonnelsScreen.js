@@ -7,7 +7,7 @@ const PersonnelsScreen = ({ navigation }) => {
   const { colors } = useTheme();
 
   return (
-    <Container containerstyle={{ paddingHorizontal: 15 }}>
+    <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
       <Label>{"Liste des\npersonnels"}</Label>
       <View marginVertical={20} />

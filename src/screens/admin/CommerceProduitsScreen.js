@@ -7,7 +7,7 @@ const CommerceProduitsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
   const { name } = route.params;
   return (
-    <Container containerstyle={{ paddingHorizontal: 15 }}>
+    <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
       <Label>{name}</Label>
       <View marginVertical={20} />

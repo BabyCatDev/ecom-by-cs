@@ -7,9 +7,9 @@ const ProduitsScreen = ({ navigation }) => {
   const { colors } = useTheme();
 
   return (
-    <Container containerstyle={{ paddingHorizontal: 15 }}>
+    <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
-      <Label>{"Liste des\npersonnels"}</Label>
+      <Label>{"Liste des\nproduits"}</Label>
       <View marginVertical={20} />
       <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
       <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />

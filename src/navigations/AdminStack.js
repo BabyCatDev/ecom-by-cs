@@ -6,6 +6,7 @@ import PersonnelsScreen from "../screens/admin/PersonnelsScreen";
 import ProduitsScreen from "../screens/admin/ProduitsScreen";
 import CommandesScreen from "../screens/admin/CommandesScreen";
 import CommerceProduitsScreen from "../screens/admin/CommerceProduitsScreen";
+import CommandeDetailsScreen from "../screens/admin/CommandeDetailsScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ const MainStack = ({}) => (
     <Stack.Screen name="CommerceProduits" component={CommerceProduitsScreen} />
     <Stack.Screen name="Commandes" component={CommandesScreen} />
     <Stack.Screen name="Produits" component={ProduitsScreen} />
+    <Stack.Screen name="CommandeDetails" component={CommandeDetailsScreen} />
   </Stack.Navigator>
 );
 
