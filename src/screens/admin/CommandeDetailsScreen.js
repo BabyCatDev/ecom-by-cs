@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat-Bold",
     fontSize: 27,
     textAlign: "right",
-    marginVertical: 30
+    marginVertical: 30,
+    marginHorizontal: 20
   }
 });
 
