@@ -17,21 +17,6 @@ import {
 } from "./types";
 import apiInstance from "./Base";
 
-export const fetchCompanies = () => {
-  return dispatch => {
-    dispatch({ type: FETCH_COMPANIES });
-    apiInstance
-      .get(`/companies`)
-      .then(async response => {
-        dispatch({ type: FETCH_COMPANIES_SUCCESS, payload: response.data });
-      })
-      .catch(error => {
-        dispatch({ type: FETCH_COMPANIES_FAIL });
-        console.log(error);
-      });
-  };
-};
-
 export const fetchAdmins = () => {
   return dispatch => {
     dispatch({ type: FETCH_ADMINS });

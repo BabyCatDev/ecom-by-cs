@@ -19,7 +19,9 @@ const CommercesScreen = ({ navigation }) => {
     dispatch(fetchCompanies());
   }, []);
 
-  const [companies] = useSelector(({ data }) => [data.companies]);
+  const [companies] = useSelector(({ companiesData }) => [
+    companiesData.companies
+  ]);
 
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>

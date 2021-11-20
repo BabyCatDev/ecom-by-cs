@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { Container, Label, TopBar, Button, Input } from "../../components";
+import { addCompany } from "../../actions";
+import { useSelector, useDispatch } from "react-redux";
 
 const AjouterCommerceScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const [name, setName] = useState("");
+  const dispatch = useDispatch();
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
@@ -18,7 +21,7 @@ const AjouterCommerceScreen = ({ navigation }) => {
           value={name}
           onChangeText={val => setName(val)}
         />
-        <Button>Ajouter</Button>
+        <Button onPress={() => dispatch(addCompany({ name }))}>Ajouter</Button>
       </View>
     </Container>
   );

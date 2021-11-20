@@ -11,6 +11,7 @@ import {
 
 const CommerceProduitsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
+  const { navigate } = navigation;
   const { item } = route.params;
   const { name, products } = item;
   return (
@@ -25,7 +26,11 @@ const CommerceProduitsScreen = ({ navigation, route }) => {
           <ProduitRow name={item.name} prix={item.price + " CFA"} />
         )}
       />
-      <AddButton>Ajouter</AddButton>
+      <AddButton
+        onPress={() => navigate("AjouterProduit", { companyName: name })}
+      >
+        Ajouter
+      </AddButton>
     </Container>
   );
 };

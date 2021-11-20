@@ -11,26 +11,26 @@ import {
   Selector,
   SocietesModal
 } from "../../components";
+import { useSelector, useDispatch } from "react-redux";
+import { addProduct } from "../../actions";
 
-const AjouterProduitScreen = ({ navigation }) => {
+const AjouterProduitScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
-  const [entreprise, setEntreprise] = useState("Mercedes");
-  const [Price, setPrice] = useState("");
+  const companyName = route?.params?.companyName;
+  const [entreprise, setEntreprise] = useState(companyName);
+  const [price, setPrice] = useState("");
   const [entrepriseModal, setEntrepriseModal] = useState(false);
+  const [companies] = useSelector(({ companiesData }) => [
+    companiesData.companies
+  ]);
+  const items = companies.map(c => c.name);
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <Modal animationType="slide" transparent={true} visible={entrepriseModal}>
         <SocietesModal
-          items={[
-            "Mercedes",
-            "Audi",
-            "Lamborguini",
-            "ferrari",
-            "Fiat",
-            "Hyundai",
-            "Land Rover"
-          ]}
+          items={items}
           close={() => setEntrepriseModal(false)}
           value={entreprise}
           onSocieteSelect={val => setEntreprise(val)}
@@ -55,13 +55,20 @@ const AjouterProduitScreen = ({ navigation }) => {
           <Input
             label="Prix"
             placeholder="Prix"
-            value={Price}
+            value={price}
             onChangeText={val => setPrice(val)}
             keyboardType={"decimal-pad"}
           />
         </View>
         <View marginVertical={20} />
-        <Button>Ajouter</Button>
+        <Button
+          onPress={() => {
+            const companyId = companies.find(c => c.name === entreprise)._id;
+            dispatch(addProduct({ name, price, companyId }));
+          }}
+        >
+          Ajouter
+        </Button>
         <View marginVertical={20} />
       </View>
     </Container>
