@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import DeliveryHomeScreen from "../screens/admin/DeliveryHomeScreen";
+import DeliveryHomeScreen from "../screens/delivery/DeliveryHomeScreen";
 
 const Stack = createStackNavigator();
 

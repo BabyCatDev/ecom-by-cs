@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -11,15 +11,20 @@ import {
 
 const CommerceProduitsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
-  const { name } = route.params;
+  const { item } = route.params;
+  const { name, products } = item;
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
       <Label>{name}</Label>
       <View marginVertical={20} />
-      <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
-      <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
-      <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
+      <FlatList
+        data={products}
+        keyExtractor={item => item._id}
+        renderItem={({ item }) => (
+          <ProduitRow name={item.name} prix={item.price + " CFA"} />
+        )}
+      />
       <AddButton>Ajouter</AddButton>
     </Container>
   );

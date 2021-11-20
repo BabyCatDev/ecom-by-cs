@@ -8,7 +8,8 @@ import {
   LOGOUT_USER,
   LOGOUT_USER_SUCCESS,
   LOGOUT_USER_FAIL,
-  TOKEN_CHANGED
+  TOKEN_CHANGED,
+  SAVE_PROFILE
 } from "./types";
 import apiInstance from "./Base";
 import * as SecureStore from "expo-secure-store";
@@ -35,6 +36,7 @@ export const login = ({ username, password }) => {
         dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
       })
       .catch(error => {
+        console.log(error);
         dispatch({ type: LOGIN_USER_FAIL });
       });
   };
@@ -91,6 +93,19 @@ export const logout = () => {
       })
       .catch(error => {
         dispatch({ type: LOGOUT_USER_FAIL });
+        console.log(error);
+      });
+  };
+};
+//getProfile
+export const getProfile = () => {
+  return dispatch => {
+    apiInstance
+      .get("/user")
+      .then(async response => {
+        dispatch({ type: SAVE_PROFILE, payload: response.data });
+      })
+      .catch(error => {
         console.log(error);
       });
   };

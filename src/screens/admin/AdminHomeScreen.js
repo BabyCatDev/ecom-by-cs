@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -9,21 +9,30 @@ import {
   RoundedCard
 } from "../../components";
 import { Stats, Cart, Bag, Users, Logout } from "../../icons";
+import { useSelector, useDispatch } from "react-redux";
+import { getProfile, logout } from "../../actions";
 
 const AdminHomeScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const { navigate } = navigation;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProfile());
+  }, []);
 
+  const [user] = useSelector(({ auth }) => [auth.user]);
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <ScrollView
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
       >
-        <ModeParagraph>un administrateur</ModeParagraph>
+        <ModeParagraph>{`un ${user?.type?.toLowerCase()}`}</ModeParagraph>
         <View style={styles.helloContainer}>
-          <Label>{"Salut\nBamba!"}</Label>
-          <Logout />
+          <Label>{`Salut\n${user?.fullName}!`}</Label>
+          <Pressable onPress={() => dispatch(logout())}>
+            <Logout />
+          </Pressable>
         </View>
         <RoundedCard
           onPress={() => navigate("Statistiques")}

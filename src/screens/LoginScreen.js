@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { AuthContainer, Label, Input, Button } from "../components";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../actions";
 
 const LoginScreen = ({ navigation }) => {
   const { colors } = useTheme();
-  const [name, setName] = useState("");
+  const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   return (
     <AuthContainer
       containerstyle={{ alignItems: "center", justifyContent: "space-around" }}
@@ -20,8 +22,8 @@ const LoginScreen = ({ navigation }) => {
         <Input
           label="Identifiant :"
           placeholder="Votre identifiant"
-          value={name}
-          onChangeText={val => setName(val)}
+          value={username}
+          onChangeText={val => setUsername(val)}
         />
         <Input
           password
@@ -31,7 +33,9 @@ const LoginScreen = ({ navigation }) => {
           onChangeText={val => setPassword(val)}
         />
       </View>
-      <Button>Se connecter</Button>
+      <Button onPress={() => dispatch(login({ username, password }))}>
+        Se connecter
+      </Button>
     </AuthContainer>
   );
 };
