@@ -1,8 +1,12 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { useFonts } from "expo-font";
+import { Provider as StoreProvider } from "react-redux";
 import Navigation from "./src/navigations/Navigation";
+import { createStore, applyMiddleware } from "redux";
+import { StatusBar } from "expo-status-bar";
 import AppLoading from "expo-app-loading";
+import reducers from "./src/reducers";
+import { useFonts } from "expo-font";
+import thunk from "redux-thunk";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -12,6 +16,12 @@ export default function App() {
     "Montserrat-Medium": require("./assets/fonts/Montserrat-Medium.ttf"),
     "Montserrat-Light": require("./assets/fonts/Montserrat-Light.ttf")
   });
+  const store = createStore(reducers, applyMiddleware(thunk));
+
   if (!fontsLoaded) return <AppLoading />;
-  return <Navigation />;
+  return (
+    <StoreProvider store={store}>
+      <Navigation />
+    </StoreProvider>
+  );
 }
