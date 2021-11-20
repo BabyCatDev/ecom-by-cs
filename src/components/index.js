@@ -19,3 +19,5 @@ export * from "./ProduitDetails";
 export * from "./Currency";
 export * from "./Statistique";
 export * from "./AddButton";
+export * from "./TypeEmploiModal";
+export * from "./SocietesModal";

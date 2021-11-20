@@ -1,7 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { Container, Label, TopBar, ProduitRow } from "../../components";
+import {
+  Container,
+  Label,
+  TopBar,
+  ProduitRow,
+  AddButton
+} from "../../components";
 
 const CommerceProduitsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
@@ -14,6 +20,7 @@ const CommerceProduitsScreen = ({ navigation, route }) => {
       <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
       <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
       <ProduitRow name={"300 SL Gull-Wing"} prix={"1200 CFA"} />
+      <AddButton>Ajouter</AddButton>
     </Container>
   );
 };

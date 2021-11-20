@@ -37,7 +37,7 @@ const Input = ({
             {
               color: colors.black,
               textAlignVertical: multiline ? "top" : "auto",
-              paddingTop: multiline ? 10 : 0
+              paddingVertical: multiline ? 10 : 0
             }
           ]}
           onBlur={() => setFocused(false)}

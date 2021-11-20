@@ -14,28 +14,28 @@ const CommandesScreen = ({ navigation }) => {
       <CommandeRow
         onPress={() => navigate("CommandeDetails")}
         status={"Waiting"}
-        client={"Barbu"}
+        client={"Didier Drogba"}
         total={"1200 CFA"}
         date={"07-11-2021"}
       />
       <CommandeRow
         onPress={() => navigate("CommandeDetails")}
         status={"Delivered"}
-        client={"Barbu"}
+        client={"Didier Drogba"}
         total={"1200 CFA"}
         date={"07-11-2021"}
       />
       <CommandeRow
         onPress={() => navigate("CommandeDetails")}
         status={"Delivering"}
-        client={"Barbu"}
+        client={"Didier Drogba"}
         total={"1200 CFA"}
         date={"07-11-2021"}
       />
       <CommandeRow
         onPress={() => navigate("CommandeDetails")}
         status={"Refused"}
-        client={"Barbu"}
+        client={"Didier Drogba"}
         total={"1200 CFA"}
         date={"07-11-2021"}
       />

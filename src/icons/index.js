@@ -13,3 +13,4 @@ export * from "./Info";
 export * from "./Checked";
 export * from "./FileText";
 export * from "./Plus";
+export * from "./Triangle";

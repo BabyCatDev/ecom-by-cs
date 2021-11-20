@@ -8,7 +8,7 @@ import {
   ModeParagraph,
   RoundedCard
 } from "../../components";
-import { Stats, Cart, Bag, Users, Logout, FileText } from "../../icons";
+import { Stats, Cart, Bag, Users, Logout } from "../../icons";
 
 const AdminHomeScreen = ({ navigation }) => {
   const { colors } = useTheme();
@@ -26,12 +26,6 @@ const AdminHomeScreen = ({ navigation }) => {
           <Logout />
         </View>
         <RoundedCard
-          onPress={() => navigate("Commandes")}
-          icon={() => <FileText />}
-        >
-          {"Voir les\nCommandes"}
-        </RoundedCard>
-        <RoundedCard
           onPress={() => navigate("Statistiques")}
           icon={() => <Stats />}
         >
@@ -41,7 +35,7 @@ const AdminHomeScreen = ({ navigation }) => {
           onPress={() => navigate("Commerces")}
           icon={() => <Cart />}
         >
-          {"Voir les\nCommerces"}
+          {"Voir les\nEntreprises"}
         </RoundedCard>
         <RoundedCard onPress={() => navigate("Produits")} icon={() => <Bag />}>
           {"Voir les\nProduits"}

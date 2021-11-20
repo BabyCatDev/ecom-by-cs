@@ -15,7 +15,7 @@ const CommercesScreen = ({ navigation }) => {
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
-      <Label>{"Liste des\ncommerces"}</Label>
+      <Label>{"Liste des\nentreprises"}</Label>
       <View marginVertical={20} />
       <CommerceRow
         onPress={() => navigate("CommerceProduits", { name: "Coca cola" })}
@@ -57,7 +57,7 @@ const CommercesScreen = ({ navigation }) => {
       >
         Mercedes
       </CommerceRow>
-      <AddButton>Ajouter</AddButton>
+      <AddButton onPress={() => navigate("AjouterCommerce")}>Ajouter</AddButton>
     </Container>
   );
 };

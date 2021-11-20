@@ -30,10 +30,15 @@ const CommandeDetailsScreen = ({ navigation }) => {
           style={[styles.value, { color: "#616161" }]}
         >{`Cote d'ivoire Abidjan Rue 12\nN 123`}</Text>
         <Text style={[styles.key, { color: colors.black }]}>
+          Date de commande
+        </Text>
+        <Text style={[styles.value, { color: "#616161" }]}>07-11-2021</Text>
+        <Text style={[styles.key, { color: colors.black }]}>
           Date de livraison
         </Text>
         <Text style={[styles.value, { color: "#616161" }]}>07-11-2021</Text>
-
+        <Text style={[styles.key, { color: colors.black }]}>Commercial</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>Mohammad Salah</Text>
         <Text style={[styles.key, { color: colors.black }]}>Livreur</Text>
         <Text style={[styles.value, { color: "#616161" }]}>
           Cristiano Ronaldo
