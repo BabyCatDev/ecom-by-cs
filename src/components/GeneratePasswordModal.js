@@ -52,7 +52,7 @@ const GeneratePasswordModal = ({
       </Text>
       <View marginVertical={10} />
       <Pressable onPress={() => generatePassword()}>
-        <Text style={[styles.key, { color: colors.blue }]}>Generer</Text>
+        <Text style={[styles.key, { color: colors.blue }]}>Générer</Text>
       </Pressable>
       <Pressable onPress={() => copyUser()}>
         <Text style={[styles.key, { color: colors.green }]}>{copy}</Text>

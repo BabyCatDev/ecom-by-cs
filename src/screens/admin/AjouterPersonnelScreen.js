@@ -93,6 +93,7 @@ const AjouterPersonnelScreen = ({ navigation }) => {
             placeholder="01-23-45-56-78"
             value={phone}
             onChangeText={val => setPhone(val)}
+            keyboardType={"decimal-pad"}
           />
           <Input
             label="Emplacement"

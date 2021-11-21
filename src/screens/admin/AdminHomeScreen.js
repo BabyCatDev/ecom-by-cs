@@ -27,9 +27,14 @@ const AdminHomeScreen = ({ navigation }) => {
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
       >
-        <ModeParagraph>{`un ${user?.type?.toLowerCase()}`}</ModeParagraph>
+        <ModeParagraph>{user?.type}</ModeParagraph>
         <View style={styles.helloContainer}>
-          <Label>{`Salut\n${user?.fullName}!`}</Label>
+          <View>
+            <Label>{`Salut`}</Label>
+            <Label adjustsFontSizeToFit numberOfLines={1}>{`${
+              user?.fullName?.split(" ")[0]
+            }!`}</Label>
+          </View>
           <Pressable onPress={() => dispatch(logout())}>
             <Logout />
           </Pressable>

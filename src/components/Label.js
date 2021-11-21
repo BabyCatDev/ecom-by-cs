@@ -2,11 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
-const Label = ({ children }) => {
+const Label = ({ children, ...props }) => {
   const { colors } = useTheme();
   return (
     <View style={styles.contain}>
-      <Text style={[styles.textStyle, { color: colors.gray }]}>{children}</Text>
+      <Text style={[styles.textStyle, { color: colors.gray }]} {...props}>
+        {children}
+      </Text>
     </View>
   );
 };

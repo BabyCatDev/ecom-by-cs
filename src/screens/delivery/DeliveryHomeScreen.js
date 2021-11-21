@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { Container, Label, Button, ModeParagraph } from "../../components";
-import { Logout } from "../../icons";
+import { Logout, Stats, FileText } from "../../icons";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../actions";
 
@@ -22,13 +22,24 @@ const DeliveryHomeScreen = ({ navigation }) => {
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
       >
-        <ModeParagraph>{`un ${user?.type?.toLowerCase()}`}</ModeParagraph>
+        <ModeParagraph>{user?.type}</ModeParagraph>
         <View style={styles.helloContainer}>
-          <Label>{`Salut\n${user?.fullName}!`}</Label>
+          <View>
+            <Label>{`Salut`}</Label>
+            <Label adjustsFontSizeToFit numberOfLines={1}>{`${
+              user?.fullName?.split(" ")[0]
+            }!`}</Label>
+          </View>
           <Pressable onPress={() => dispatch(logout())}>
             <Logout />
           </Pressable>
         </View>
+        <RoundedCard onPress={() => null} icon={() => <Stats />}>
+          {"Voir les\nStatistiques"}
+        </RoundedCard>
+        <RoundedCard onPress={() => null} icon={() => <FileText />}>
+          {"Voir mes\nCommandes"}
+        </RoundedCard>
       </ScrollView>
     </Container>
   );

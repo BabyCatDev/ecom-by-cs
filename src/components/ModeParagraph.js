@@ -2,14 +2,20 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
-const ModeParagraph = ({ children, externalStyle }) => {
+const ModeParagraph = ({ children = "", externalStyle }) => {
   const { colors } = useTheme();
+  const color =
+    children === "Administrateur"
+      ? colors.primary
+      : children === "Commercial"
+      ? colors.blue
+      : colors.green;
   return (
     <Text style={[styles.textStyle, { color: colors.black }, externalStyle]}>
       {`vous êtes connecté en tant
 que `}
-      <Text style={[styles.modeStyle, { color: colors.primary }]}>
-        {children}
+      <Text style={[styles.modeStyle, { color }]}>
+        {"un " + children.toLowerCase()}
       </Text>
     </Text>
   );
