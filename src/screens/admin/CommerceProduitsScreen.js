@@ -8,12 +8,15 @@ import {
   ProduitRow,
   AddButton
 } from "../../components";
+import { useSelector, useDispatch } from "react-redux";
 
-const CommerceProduitsScreen = ({ navigation, route }) => {
+const CommerceProduitsScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const { navigate } = navigation;
-  const { item } = route.params;
-  const { name, products } = item;
+  const [selectedCompany] = useSelector(({ companiesData }) => [
+    companiesData.selectedCompany
+  ]);
+  const { name, products } = selectedCompany;
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />

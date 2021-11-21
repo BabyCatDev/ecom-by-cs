@@ -8,7 +8,7 @@ import {
   CommerceRow,
   AddButton
 } from "../../components";
-import { fetchCompanies } from "../../actions";
+import { fetchCompanies, selectCompany } from "../../actions";
 import { useSelector, useDispatch } from "react-redux";
 
 const CommercesScreen = ({ navigation }) => {
@@ -32,7 +32,12 @@ const CommercesScreen = ({ navigation }) => {
         data={companies}
         keyExtractor={item => item._id}
         renderItem={({ item }) => (
-          <CommerceRow onPress={() => navigate("CommerceProduits", { item })}>
+          <CommerceRow
+            onPress={() => {
+              dispatch(selectCompany({ companyId: item._id }));
+              navigate("CommerceProduits");
+            }}
+          >
             {item.name}
           </CommerceRow>
         )}
