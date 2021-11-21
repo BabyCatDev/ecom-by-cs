@@ -10,8 +10,9 @@ import {
   Currency
 } from "../../components";
 
-const PersonnelDetailsScreen = ({ navigation }) => {
+const PersonnelDetailsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
+  const { item } = route.params;
 
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
@@ -22,23 +23,25 @@ const PersonnelDetailsScreen = ({ navigation }) => {
         <TopBar />
         <View marginVertical={5} />
         <Text style={[styles.key, { color: colors.black }]}>Type d'emploi</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>Administrateur</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>{item?.type}</Text>
         <Text style={[styles.key, { color: colors.black }]}>Nom complet</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>Cheick Bamba</Text>
-        <Text style={[styles.key, { color: colors.black }]}>Identifiant</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>bamba</Text>
-        <Text style={[styles.key, { color: colors.black }]}>Mot de passe</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>bamba@123</Text>
-        <Text style={[styles.key, { color: colors.black }]}>Email</Text>
         <Text style={[styles.value, { color: "#616161" }]}>
-          bamba@gmail.com
+          {item?.fullName}
         </Text>
+        <Text style={[styles.key, { color: colors.black }]}>Identifiant</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>
+          {item?.username}
+        </Text>
+        <Text style={[styles.key, { color: colors.black }]}>Mot de passe</Text>
+        <Text style={[styles.generatePass, { color: colors.blue }]}>
+          Générer un nouveau mot de passe
+        </Text>
+        <Text style={[styles.key, { color: colors.black }]}>Email</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>{item?.email}</Text>
         <Text style={[styles.key, { color: colors.black }]}>Téléphone</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>01-23-45-56-78</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>{item?.phone}</Text>
         <Text style={[styles.key, { color: colors.black }]}>Emplacement</Text>
-        <Text
-          style={[styles.value, { color: "#616161" }]}
-        >{`Cote d'ivoire Abidjan Rue 12\nN 123`}</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>{item?.place}</Text>
         <View marginVertical={15} />
       </ScrollView>
     </Container>
@@ -55,6 +58,12 @@ const styles = StyleSheet.create({
   value: {
     fontFamily: "Montserrat-Medium",
     fontSize: 22,
+    marginBottom: 10,
+    lineHeight: 30
+  },
+  generatePass: {
+    fontFamily: "Montserrat-Bold",
+    fontSize: 14,
     marginBottom: 10,
     lineHeight: 30
   },

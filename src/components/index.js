@@ -21,3 +21,5 @@ export * from "./Statistique";
 export * from "./AddButton";
 export * from "./TypeEmploiModal";
 export * from "./SocietesModal";
+export * from "./Accordion";
+export * from "./GeneratePasswordModal";

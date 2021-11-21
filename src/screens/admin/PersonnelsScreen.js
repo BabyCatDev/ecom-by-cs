@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -6,32 +6,29 @@ import {
   Label,
   TopBar,
   PersonnelRow,
-  AddButton
+  AddButton,
+  Accordion
 } from "../../components";
+import { useSelector, useDispatch } from "react-redux";
+import { getUsers } from "../../actions";
 
 const PersonnelsScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const { navigate } = navigation;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+
+  const [users] = useSelector(({ usersData }) => [usersData.users]);
+
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
       <Label>{"Liste des\npersonnels"}</Label>
       <View marginVertical={20} />
-      <PersonnelRow
-        onPress={() => navigate("PersonnelDetails")}
-        name={"Cheick Bamba"}
-        type={"Administrateur"}
-      />
-      <PersonnelRow
-        onPress={() => navigate("PersonnelDetails")}
-        name={"Cristiano Ronaldo"}
-        type={"Commercial"}
-      />
-      <PersonnelRow
-        onPress={() => navigate("PersonnelDetails")}
-        name={"Didier Drogba"}
-        type={"Delivery"}
-      />
+      <Accordion data={users} />
       <AddButton onPress={() => navigate("AjouterPersonnel")}>
         Ajouter
       </AddButton>

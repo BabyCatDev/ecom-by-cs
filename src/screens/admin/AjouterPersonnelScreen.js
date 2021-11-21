@@ -8,18 +8,25 @@ import {
   Button,
   Input,
   TypeEmploiModal,
-  Selector
+  Selector,
+  GeneratePasswordModal
 } from "../../components";
+import { useSelector, useDispatch } from "react-redux";
+import { addUser } from "../../actions";
 
 const AjouterPersonnelScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const [type, setType] = useState("Administrateur");
-  const [name, setName] = useState("");
-  const [identifiant, setIdentifiant] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [place, setPlace] = useState("");
+  const [password, setPassword] = useState("");
   const [typeModal, setTypeModal] = useState(false);
+  const [passwordModal, setPasswordModal] = useState(false);
+  const dispatch = useDispatch();
+
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={typeModal}>
@@ -27,6 +34,27 @@ const AjouterPersonnelScreen = ({ navigation }) => {
           close={() => setTypeModal(false)}
           value={type}
           onTypeSelect={type => setType(type)}
+        />
+      </Modal>
+      <Modal animationType="slide" transparent={true} visible={passwordModal}>
+        <GeneratePasswordModal
+          username={username}
+          password={password}
+          setPassword={setPassword}
+          close={() => setPasswordModal(false)}
+          addUser={() => {
+            dispatch(
+              addUser({
+                type,
+                fullName,
+                username,
+                email,
+                phone,
+                place,
+                password
+              })
+            );
+          }}
         />
       </Modal>
       <ScrollView
@@ -45,14 +73,14 @@ const AjouterPersonnelScreen = ({ navigation }) => {
           <Input
             label="Nom complet"
             placeholder="Nom complet"
-            value={name}
-            onChangeText={val => setName(val)}
+            value={fullName}
+            onChangeText={val => setFullName(val)}
           />
           <Input
             label="Identifiant"
             placeholder="Identifiant"
-            value={identifiant}
-            onChangeText={val => setIdentifiant(val)}
+            value={username}
+            onChangeText={val => setUsername(val)}
           />
           <Input
             label="Email"
@@ -75,7 +103,13 @@ const AjouterPersonnelScreen = ({ navigation }) => {
           />
         </View>
         <View marginVertical={20} />
-        <Button>Ajouter</Button>
+        <Button
+          onPress={() => {
+            setPasswordModal(true);
+          }}
+        >
+          Ajouter
+        </Button>
         <View marginVertical={20} />
       </ScrollView>
     </Container>

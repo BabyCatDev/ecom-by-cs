@@ -7,7 +7,7 @@ const TypeEmploiModal = ({ close, onTypeSelect, value }) => {
     <View
       justifyContent="center"
       flex={1}
-      backgroundColor={colors.background + "BB"}
+      backgroundColor={colors.background + "DD"}
     >
       <View style={{ alignItems: "center" }}>
         <Pressable
@@ -29,17 +29,17 @@ const TypeEmploiModal = ({ close, onTypeSelect, value }) => {
         </Pressable>
         <Pressable
           onPress={() => {
-            onTypeSelect("Commerce");
+            onTypeSelect("Commercial");
             close();
           }}
         >
           <Text
             style={[
               styles.option,
-              { color: value == "Commerce" ? colors.primary : colors.black }
+              { color: value == "Commercial" ? colors.primary : colors.black }
             ]}
           >
-            Commerce
+            Commercial
           </Text>
         </Pressable>
         <Pressable
