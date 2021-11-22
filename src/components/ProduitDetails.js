@@ -9,7 +9,9 @@ const ProduitDetails = ({ name, price, qte }) => {
 
   return (
     <View style={[styles.container, { backgroundColor: colors.white }]}>
-      <Text style={[styles.name, { color: colors.black }]}>{name}</Text>
+      <Text style={[styles.name, { color: colors.black }]} numberOfLines={1}>
+        {name}
+      </Text>
       <Text style={[styles.priceQte, { color: "#8C8683" }]}>
         {price} <Currency /> x {qte}
       </Text>
@@ -35,7 +37,8 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     height: 140,
     justifyContent: "space-between",
-    marginVertical: 10
+    marginVertical: 10,
+    width: 250
   },
   name: {
     fontFamily: "Montserrat-SemiBold",

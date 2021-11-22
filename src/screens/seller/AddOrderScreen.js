@@ -10,10 +10,11 @@ import {
   TypeEmploiModal,
   Selector,
   SelectionModal,
-  CustomDatePicker
+  CustomDatePicker,
+  ProductsSelectionModal
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers } from "../../actions";
+import { getUsers, createOrder } from "../../actions";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -26,9 +27,11 @@ const AddOrderScreen = ({ navigation, route }) => {
   const [clientPhone, setClientPhone] = useState("");
   const [clientAddress, setClientAddress] = useState("");
   const [selectedDelivery, setSelectedDelivery] = useState({});
+  const [products, setProducts] = useState([]);
   const [deliveryDate, setDeliveryDate] = useState(new Date());
   const [deliveriesModal, setDeliveriesModal] = useState(false);
   const [dateModal, setDateModal] = useState(false);
+  const [productsSelectionModal, setProductsSelectionModal] = useState(false);
 
   useEffect(() => {
     dispatch(getUsers());
@@ -58,6 +61,17 @@ const AddOrderScreen = ({ navigation, route }) => {
           setValue={val => setDeliveryDate(val)}
         />
       </Modal>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={productsSelectionModal}
+      >
+        <ProductsSelectionModal
+          close={() => setProductsSelectionModal(false)}
+          products={products}
+          setProducts={val => setProducts(val)}
+        />
+      </Modal>
       <ScrollView
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
@@ -68,7 +82,7 @@ const AddOrderScreen = ({ navigation, route }) => {
         <View alignItems={"center"}>
           <Selector
             label="Livreur"
-            text={selectedDelivery?.fullName || "Choisir un livreur ici"}
+            text={selectedDelivery?.fullName || "Choisir un livreur"}
             onPress={() => setDeliveriesModal(true)}
           />
           <Input
@@ -98,11 +112,26 @@ const AddOrderScreen = ({ navigation, route }) => {
           <Selector
             label="Ajouter des produits"
             text={"Ajouter des produits"}
-            onPress={() => null}
+            onPress={() => setProductsSelectionModal(true)}
           />
         </View>
         <View marginVertical={20} />
-        <Button onPress={() => null}>Ajouter</Button>
+        <Button
+          onPress={() =>
+            dispatch(
+              createOrder({
+                deliveryDate,
+                clientAddress,
+                clientPhone,
+                clientName,
+                delivery: selectedDelivery._id,
+                productsDetails: products
+              })
+            )
+          }
+        >
+          Ajouter
+        </Button>
         <View marginVertical={20} />
       </ScrollView>
     </Container>

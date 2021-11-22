@@ -16,3 +16,4 @@ export * from "./Plus";
 export * from "./Triangle";
 export * from "./ArrowDown";
 export * from "./Buildings";
+export * from "./Minus";

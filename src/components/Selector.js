@@ -18,6 +18,7 @@ const Selector = ({ label, text, onPress }) => {
         ]}
       >
         <Text
+          numberOfLines={1}
           style={[
             styles.inputStyle,
             {
