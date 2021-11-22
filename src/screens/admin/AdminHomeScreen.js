@@ -8,7 +8,7 @@ import {
   ModeParagraph,
   RoundedCard
 } from "../../components";
-import { Stats, Cart, Bag, Users, Logout } from "../../icons";
+import { Stats, Buildings, Bag, Users, Logout } from "../../icons";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../actions";
 
@@ -27,13 +27,14 @@ const AdminHomeScreen = ({ navigation }) => {
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
       >
-        <ModeParagraph>{user?.type}</ModeParagraph>
+        <ModeParagraph>{user?.type || ""}</ModeParagraph>
         <View style={styles.helloContainer}>
           <View>
             <Label>{`Salut`}</Label>
-            <Label adjustsFontSizeToFit numberOfLines={1}>{`${
-              user?.fullName?.split(" ")[0]
-            }!`}</Label>
+            <Label
+              adjustsFontSizeToFit
+              numberOfLines={1}
+            >{`${user?.fullName?.split(" ")[0] || ""}!`}</Label>
           </View>
           <Pressable onPress={() => dispatch(logout())}>
             <Logout />
@@ -47,7 +48,7 @@ const AdminHomeScreen = ({ navigation }) => {
         </RoundedCard>
         <RoundedCard
           onPress={() => navigate("Commerces")}
-          icon={() => <Cart />}
+          icon={() => <Buildings />}
         >
           {"Voir les\nEntreprises"}
         </RoundedCard>

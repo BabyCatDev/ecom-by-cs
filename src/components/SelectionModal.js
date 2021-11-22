@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useTheme } from "@react-navigation/native";
-const SocietesModal = ({ close, onSocieteSelect, value, items }) => {
+const SelectionModal = ({ close, onSelect, value, items }) => {
   const { colors } = useTheme();
   return (
     <View
@@ -14,7 +14,7 @@ const SocietesModal = ({ close, onSocieteSelect, value, items }) => {
           <Pressable
             key={index}
             onPress={() => {
-              onSocieteSelect(item);
+              onSelect(item);
               close();
             }}
           >
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export { SocietesModal };
+export { SelectionModal };

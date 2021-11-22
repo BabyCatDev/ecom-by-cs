@@ -20,6 +20,6 @@ export * from "./Currency";
 export * from "./Statistique";
 export * from "./AddButton";
 export * from "./TypeEmploiModal";
-export * from "./SocietesModal";
+export * from "./SelectionModal";
 export * from "./Accordion";
 export * from "./GeneratePasswordModal";

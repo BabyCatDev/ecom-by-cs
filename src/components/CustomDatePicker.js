@@ -2,39 +2,47 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import DatePicker from "react-native-modern-datepicker";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
-const CustomDatePicker = ({ close, birthday, setBirthday }) => {
+const CustomDatePicker = ({ close, value, setValue }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate());
   return (
     <Pressable
       justifyContent="center"
       flex={1}
-      backgroundColor={colors.secondary + "33"}
+      backgroundColor={colors.background + "BB"}
       onPress={() => close()}
     >
       <DatePicker
         mode="calendar"
-        current={birthday}
-        selected={birthday}
-        minimumDate="1950-01-01"
-        maximumDate="2007-01-01"
+        current={value}
+        selected={value}
+        minimumDate={dayjs(yesterday).format("YYYY-MM-DD")}
         onSelectedChange={selectedDate => {
-          setBirthday(selectedDate);
+          setValue(selectedDate);
         }}
         onDateChange={selectedDate => {
-          setBirthday(selectedDate);
+          setValue(selectedDate);
           close();
         }}
         options={{
-          backgroundColor: colors.secondary,
-          textHeaderColor: colors.white,
+          backgroundColor: colors.background,
+          textHeaderColor: colors.gray,
           selectedTextColor: colors.white,
-          textDefaultColor: colors.white + "99",
+          textDefaultColor: colors.black,
           mainColor: colors.primary,
           defaultFont: "Montserrat-Regular",
           headerFont: "Montserrat-Regular"
+        }}
+        style={{
+          borderTopWidth: 1.5,
+          borderBottomWidth: 1.5,
+          borderColor: colors.primary
         }}
       />
     </Pressable>

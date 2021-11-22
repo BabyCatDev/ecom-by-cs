@@ -9,7 +9,7 @@ import {
   Input,
   TypeEmploiModal,
   Selector,
-  SocietesModal
+  SelectionModal
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { addProduct } from "../../actions";
@@ -29,11 +29,11 @@ const AjouterProduitScreen = ({ navigation, route }) => {
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <Modal animationType="slide" transparent={true} visible={entrepriseModal}>
-        <SocietesModal
+        <SelectionModal
           items={items}
           close={() => setEntrepriseModal(false)}
           value={entreprise}
-          onSocieteSelect={val => setEntreprise(val)}
+          onSelect={val => setEntreprise(val)}
         />
       </Modal>
       <TopBar />

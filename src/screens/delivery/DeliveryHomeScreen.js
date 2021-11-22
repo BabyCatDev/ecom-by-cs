@@ -22,13 +22,14 @@ const DeliveryHomeScreen = ({ navigation }) => {
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
       >
-        <ModeParagraph>{user?.type}</ModeParagraph>
+        <ModeParagraph>{user?.type || ""}</ModeParagraph>
         <View style={styles.helloContainer}>
           <View>
             <Label>{`Salut`}</Label>
-            <Label adjustsFontSizeToFit numberOfLines={1}>{`${
-              user?.fullName?.split(" ")[0]
-            }!`}</Label>
+            <Label
+              adjustsFontSizeToFit
+              numberOfLines={1}
+            >{`${user?.fullName?.split(" ")[0] || ""}!`}</Label>
           </View>
           <Pressable onPress={() => dispatch(logout())}>
             <Logout />

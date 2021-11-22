@@ -28,22 +28,26 @@ const SellerHomeScreen = ({ navigation }) => {
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
       >
-        <ModeParagraph>{user?.type}</ModeParagraph>
+        <ModeParagraph>{user?.type || ""}</ModeParagraph>
         <View style={styles.helloContainer}>
           <View>
             <Label>{`Salut`}</Label>
-            <Label adjustsFontSizeToFit numberOfLines={1}>{`${
-              user?.fullName?.split(" ")[0]
-            }!`}</Label>
+            <Label
+              adjustsFontSizeToFit
+              numberOfLines={1}
+            >{`${user?.fullName?.split(" ")[0] || ""}!`}</Label>
           </View>
           <Pressable onPress={() => dispatch(logout())}>
             <Logout />
           </Pressable>
         </View>
         <RoundedCard onPress={() => null} icon={() => <Stats />}>
-          {"Voir les\nStatistiques"}
+          {"Voir mes\nStatistiques"}
         </RoundedCard>
-        <RoundedCard onPress={() => null} icon={() => <FileText />}>
+        <RoundedCard
+          onPress={() => navigate("SellerOrders")}
+          icon={() => <FileText />}
+        >
           {"Voir mes\nCommandes"}
         </RoundedCard>
       </ScrollView>
