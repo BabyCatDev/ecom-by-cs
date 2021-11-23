@@ -9,16 +9,16 @@ import {
   AddButton
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { getSellerOrders } from "../../actions";
+import { getDeliveryOrders } from "../../actions";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-const SellerOrdersScreen = ({ navigation }) => {
+const DeliveryOrdersScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const { navigate } = navigation;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getSellerOrders());
+    dispatch(getDeliveryOrders());
   }, []);
 
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
@@ -30,7 +30,7 @@ const SellerOrdersScreen = ({ navigation }) => {
         keyExtractor={item => item._id}
         renderItem={({ item }) => (
           <CommandeRow
-            onPress={() => navigate("SellerCmdDetails", { item })}
+            onPress={() => navigate("DeliveryCmdDetails", { item })}
             status={item.status}
             client={item.clientName}
             total={
@@ -43,11 +43,10 @@ const SellerOrdersScreen = ({ navigation }) => {
           />
         )}
       />
-      <AddButton onPress={() => navigate("AddOrder")}>Ajouter</AddButton>
     </Container>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default SellerOrdersScreen;
+export default DeliveryOrdersScreen;

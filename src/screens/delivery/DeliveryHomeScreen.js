@@ -1,7 +1,13 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { Container, Label, Button, ModeParagraph } from "../../components";
+import {
+  Container,
+  Label,
+  Button,
+  ModeParagraph,
+  RoundedCard
+} from "../../components";
 import { Logout, Stats, FileText } from "../../icons";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../actions";
@@ -36,9 +42,12 @@ const DeliveryHomeScreen = ({ navigation }) => {
           </Pressable>
         </View>
         <RoundedCard onPress={() => null} icon={() => <Stats />}>
-          {"Voir les\nStatistiques"}
+          {"Voir mes\nStatistiques"}
         </RoundedCard>
-        <RoundedCard onPress={() => null} icon={() => <FileText />}>
+        <RoundedCard
+          onPress={() => navigate("DeliveryOrders")}
+          icon={() => <FileText />}
+        >
           {"Voir mes\nCommandes"}
         </RoundedCard>
       </ScrollView>

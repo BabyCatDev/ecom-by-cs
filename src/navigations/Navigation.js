@@ -5,7 +5,7 @@ import AppLoading from "expo-app-loading";
 import AuthStack from "./AuthStack";
 import AdminStack from "./AdminStack";
 import SellerStack from "./SellerStack";
-// import DeliveryStack from "./DeliveryStack";
+import DeliveryStack from "./DeliveryStack";
 import MyTheme from "../Colors";
 import { useSelector } from "react-redux";
 import apiInstance from "../actions/Base";
@@ -54,7 +54,7 @@ const Navigation = () => {
         ) : type === "Commercial" ? (
           <SellerStack />
         ) : (
-          <SellerStack />
+          <DeliveryStack />
         )
       ) : (
         <AuthStack />

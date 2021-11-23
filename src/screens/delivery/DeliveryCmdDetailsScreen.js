@@ -12,7 +12,7 @@ import {
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-const SellerCmdDetailsScreen = ({ navigation, route }) => {
+const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
   const { item } = route.params;
   const {
@@ -20,7 +20,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
     clientAddress,
     clientPhone,
     clientName,
-    delivery,
+    seller,
     products,
     createdAt,
     status
@@ -55,9 +55,9 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
         <Text style={[styles.value, { color: "#616161" }]}>
           {dayjs(deliveryDate).format("YYYY-MM-DD")}
         </Text>
-        <Text style={[styles.key, { color: colors.black }]}>Livreur</Text>
+        <Text style={[styles.key, { color: colors.black }]}>Commercial</Text>
         <Text style={[styles.value, { color: "#616161" }]}>
-          {delivery.fullName}
+          {seller.fullName}
         </Text>
         <Text style={[styles.key, { color: colors.black }]}>
           Liste des produits
@@ -111,4 +111,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default SellerCmdDetailsScreen;
+export default DeliveryCmdDetailsScreen;

@@ -3,13 +3,18 @@ import {
   FETCH_COMPANIES_SUCCESS,
   FETCH_COMPANIES_FAIL,
   LOGOUT_USER_SUCCESS,
+  FETCH_PRODUCTS,
+  FETCH_PRODUCTS_SUCCESS,
+  FETCH_PRODUCTS_FAIL,
   SELECT_COMPANY
 } from "../actions/types";
 
 const INITIAL_STATE = {
   companies: [],
+  loadingCompanies: false,
   selectedCompany: {},
-  loadingCompanies: false
+  products: [],
+  loadingProducts: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -29,6 +34,22 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loadingCompanies: false
+      };
+    case FETCH_PRODUCTS:
+      return {
+        ...state,
+        loadingProducts: true
+      };
+    case FETCH_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        products: action.payload,
+        loadingProducts: false
+      };
+    case FETCH_PRODUCTS_FAIL:
+      return {
+        ...state,
+        loadingProducts: false
       };
     case SELECT_COMPANY:
       return {

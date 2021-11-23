@@ -3,11 +3,25 @@ import apiInstance from "./Base";
 import { navigate } from "../navigations/RootNavigation";
 
 //getUsers
-export const getOrders = () => {
+export const getSellerOrders = () => {
   return dispatch => {
     dispatch({ type: FETCH_ORDERS });
     apiInstance
       .get("/sellerorders")
+      .then(response => {
+        dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch({ type: FETCH_ORDERS_FAIL });
+      });
+  };
+};
+export const getDeliveryOrders = () => {
+  return dispatch => {
+    dispatch({ type: FETCH_ORDERS });
+    apiInstance
+      .get("/deliveryorders")
       .then(response => {
         dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
       })
@@ -38,7 +52,7 @@ export const createOrder = ({
         productsDetails
       })
       .then(response => {
-        dispatch(getOrders());
+        dispatch(getSellerOrders());
         navigate("SellerOrders");
       })
       .catch(error => {
