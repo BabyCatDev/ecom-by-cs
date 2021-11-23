@@ -41,7 +41,10 @@ const DeliveryHomeScreen = ({ navigation }) => {
             <Logout />
           </Pressable>
         </View>
-        <RoundedCard onPress={() => null} icon={() => <Stats />}>
+        <RoundedCard
+          onPress={() => navigate("DeliveryStats")}
+          icon={() => <Stats />}
+        >
           {"Voir mes\nStatistiques"}
         </RoundedCard>
         <RoundedCard

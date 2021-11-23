@@ -24,3 +24,4 @@ export * from "./SelectionModal";
 export * from "./Accordion";
 export * from "./GeneratePasswordModal";
 export * from "./ProductsSelectionModal";
+export * from "./DeliveryStat";

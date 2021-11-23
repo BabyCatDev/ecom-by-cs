@@ -8,31 +8,20 @@ const CommandStatus = ({ status, ...props }) => {
   const navigation = useNavigation();
   const { navigate } = navigation;
   const color =
-    status === "Waiting"
-      ? colors.blue
-      : status === "Delivered"
-      ? colors.green
-      : status === "Delivering"
+    status === "Hold"
       ? colors.primary
+      : status === "Succeed"
+      ? colors.green
       : colors.red;
+
   const renderIcon = () =>
-    status === "Waiting" ? (
-      <Info />
-    ) : status === "Delivered" ? (
-      <Checked />
-    ) : status === "Delivering" ? (
-      <Playing />
-    ) : (
-      <X />
-    );
+    status === "Hold" ? <Info /> : status === "Succeed" ? <Checked /> : <X />;
   const textStatus =
-    status === "Waiting"
-      ? `en attente d'une réponse`
-      : status === "Delivered"
+    status === "Hold"
+      ? `Livraison en attente`
+      : status === "Succeed"
       ? `Livré avec succès`
-      : status === "Delivering"
-      ? `Livrer maintenant`
-      : `Non livré`;
+      : `Échec de livraison`;
   return (
     <View style={styles.container} {...props}>
       <Text

@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import AuthReducer from "./AuthReducer";
-import DataReducer from "./DataReducer";
 import UsersReducer from "./UsersReducer";
 import CompaniesReducer from "./CompaniesReducer";
 import OrderReducer from "./OrderReducer";
+import DeliveryReducer from "./DeliveryReducer";
 
 export default combineReducers({
   auth: AuthReducer,
@@ -11,5 +11,5 @@ export default combineReducers({
   usersData: UsersReducer,
   usersData: UsersReducer,
   orderData: OrderReducer,
-  data: DataReducer
+  deliveryData: DeliveryReducer
 });

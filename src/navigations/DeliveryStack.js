@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import DeliveryHomeScreen from "../screens/delivery/DeliveryHomeScreen";
 import DeliveryOrdersScreen from "../screens/delivery/DeliveryOrdersScreen";
 import DeliveryCmdDetailsScreen from "../screens/delivery/DeliveryCmdDetailsScreen";
+import DeliveryStatsScreen from "../screens/delivery/DeliveryStatsScreen";
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ const DeliveryStack = ({}) => (
       name="DeliveryCmdDetails"
       component={DeliveryCmdDetailsScreen}
     />
+    <Stack.Screen name="DeliveryStats" component={DeliveryStatsScreen} />
   </Stack.Navigator>
 );
 

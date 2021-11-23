@@ -22,6 +22,9 @@ const DeliveryOrdersScreen = ({ navigation }) => {
   }, []);
 
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
+  // orders?.sort((x, y) => {
+  //   return x.status == "Hold" ? -1 : y.status == "Hold" ? 1 : 0;
+  // })
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
