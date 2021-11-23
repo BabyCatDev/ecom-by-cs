@@ -44,7 +44,7 @@ const Accordion = ({ data }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
-  const [isAdminOpen, setAdminOpen] = useState(true);
+  const [isAdminOpen, setAdminOpen] = useState(false);
   const [isSellerOpen, setSellerOpen] = useState(false);
   const [isDeliveryOpen, setDeliveryOpen] = useState(false);
   const admins = data.filter(u => u.type === "Administrateur");
@@ -64,6 +64,7 @@ const Accordion = ({ data }) => {
       {isAdminOpen && (
         <FlatList
           data={admins}
+          style={{ flexGrow: 0 }}
           keyExtractor={item => item._id}
           renderItem={({ item }) => (
             <PersonnelRow
@@ -85,6 +86,7 @@ const Accordion = ({ data }) => {
       {isSellerOpen && (
         <FlatList
           data={sellers}
+          style={{ flexGrow: 0 }}
           keyExtractor={item => item._id}
           renderItem={({ item }) => (
             <PersonnelRow
@@ -107,6 +109,7 @@ const Accordion = ({ data }) => {
         <FlatList
           data={deliveries}
           keyExtractor={item => item._id}
+          style={{ flexGrow: 0 }}
           renderItem={({ item }) => (
             <PersonnelRow
               onPress={() => navigate("PersonnelDetails", { item })}
@@ -120,7 +123,7 @@ const Accordion = ({ data }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: { flex: 1 },
   personnelType: {
     fontFamily: "Montserrat-SemiBold",
     fontSize: 18

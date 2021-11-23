@@ -43,16 +43,16 @@ const styles = StyleSheet.create({
   },
   ProduitName: {
     fontFamily: "Montserrat-SemiBold",
-    fontSize: 23
+    fontSize: 18
   },
   circle: {
-    width: 16,
-    height: 16,
+    width: 12,
+    height: 12,
     borderRadius: 8
   },
   prix: {
     fontFamily: "Montserrat-SemiBold",
-    fontSize: 20
+    fontSize: 16
   }
 });
 

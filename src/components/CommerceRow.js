@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   commerceName: {
     fontFamily: "Montserrat-SemiBold",
-    fontSize: 25
+    fontSize: 18
   }
 });
 
