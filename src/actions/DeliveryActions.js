@@ -24,6 +24,21 @@ export const fetchDeliveryStats = () => {
   };
 };
 
+export const fetchSellerStats = ({ fromDate, toDate }) => {
+  return dispatch => {
+    dispatch({ type: DELIVERY_STATS });
+    apiInstance
+      .get(`/sellerstats?fromDate=${fromDate}&toDate=${toDate}`)
+      .then(response => {
+        dispatch({ type: DELIVERY_STATS_SUCCESS, payload: response.data });
+      })
+      .catch(error => {
+        dispatch({ type: DELIVERY_STATS_FAIL });
+        console.log(error);
+      });
+  };
+};
+
 export const getDeliveryOrders = () => {
   return dispatch => {
     dispatch({ type: FETCH_ORDERS });

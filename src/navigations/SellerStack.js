@@ -4,6 +4,7 @@ import SellerHomeScreen from "../screens/seller/SellerHomeScreen";
 import SellerOrdersScreen from "../screens/seller/SellerOrdersScreen";
 import AddOrderScreen from "../screens/seller/AddOrderScreen";
 import SellerCmdDetailsScreen from "../screens/seller/SellerCmdDetailsScreen";
+import SellerStatsScreen from "../screens/seller/SellerStatsScreen";
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,7 @@ const SellerStack = ({}) => (
     <Stack.Screen name="SellerOrders" component={SellerOrdersScreen} />
     <Stack.Screen name="AddOrder" component={AddOrderScreen} />
     <Stack.Screen name="SellerCmdDetails" component={SellerCmdDetailsScreen} />
+    <Stack.Screen name="SellerStats" component={SellerStatsScreen} />
   </Stack.Navigator>
 );
 

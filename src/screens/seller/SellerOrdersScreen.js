@@ -48,7 +48,10 @@ const SellerOrdersScreen = ({ navigation }) => {
         />
       </Modal>
       <TopBar />
-      <Pressable onPress={() => setRangeModal(true)}>
+      <Pressable
+        style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+        onPress={() => setRangeModal(true)}
+      >
         <Text style={[styles.text, { color: colors.gray }]}>
           {fromDate.length > 0 && toDate.length > 0
             ? `${dayjs(fromDate).format("YYYY-MM-DD")} - ${dayjs(toDate).format(

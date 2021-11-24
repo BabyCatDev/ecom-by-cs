@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme, useNavigation } from "@react-navigation/native";
+import { Currency } from "./Currency";
 
-const DeliveryStat = ({ color, title, value }) => {
+const DeliveryStat = ({ color, title, value, currencySign }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
@@ -15,7 +16,11 @@ const DeliveryStat = ({ color, title, value }) => {
       ]}
     >
       <Text style={[styles.titleStyle, { color }]}>{title}</Text>
-      <Text style={[styles.valueStyle, { color }]}>{value}</Text>
+      <Text style={[styles.valueStyle, { color }]}>
+        {value}
+        {currencySign && " "}
+        {currencySign && <Currency />}
+      </Text>
     </View>
   );
 };

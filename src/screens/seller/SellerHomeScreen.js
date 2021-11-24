@@ -41,7 +41,10 @@ const SellerHomeScreen = ({ navigation }) => {
             <Logout />
           </Pressable>
         </View>
-        <RoundedCard onPress={() => null} icon={() => <Stats />}>
+        <RoundedCard
+          onPress={() => navigate("SellerStats")}
+          icon={() => <Stats />}
+        >
           {"Voir mes\nStatistiques"}
         </RoundedCard>
         <RoundedCard

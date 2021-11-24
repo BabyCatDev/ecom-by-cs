@@ -5,7 +5,7 @@ import { Button } from "./Button";
 import * as Clipboard from "expo-clipboard";
 
 const GeneratePasswordModal = ({
-  addUser,
+  done,
   username,
   password,
   setPassword,
@@ -58,7 +58,7 @@ const GeneratePasswordModal = ({
         <Text style={[styles.key, { color: colors.green }]}>{copy}</Text>
       </Pressable>
       <View marginVertical={20} />
-      <Button onPress={() => addUser()}>Ajouter</Button>
+      <Button onPress={() => done()}>Terminer</Button>
       <Pressable onPress={() => close()}>
         <Text style={[styles.key, { color: colors.gray, fontSize: 20 }]}>
           Fermer

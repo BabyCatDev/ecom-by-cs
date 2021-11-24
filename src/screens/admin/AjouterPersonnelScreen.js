@@ -42,7 +42,7 @@ const AjouterPersonnelScreen = ({ navigation }) => {
           password={password}
           setPassword={setPassword}
           close={() => setPasswordModal(false)}
-          addUser={() => {
+          done={() => {
             dispatch(
               addUser({
                 type,

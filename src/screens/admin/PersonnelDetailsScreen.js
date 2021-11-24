@@ -1,5 +1,12 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Modal,
+  Pressable
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -7,15 +14,38 @@ import {
   TopBar,
   CommandStatus,
   ProduitDetails,
-  Currency
+  Currency,
+  GeneratePasswordModal
 } from "../../components";
+import { useSelector, useDispatch } from "react-redux";
+import { updatePassword } from "../../actions";
 
 const PersonnelDetailsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
+  const dispatch = useDispatch();
   const { item } = route.params;
+  const [passwordModal, setPasswordModal] = useState(false);
+  const [generatedPassword, setGeneratedPassword] = useState("");
 
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
+      <Modal animationType="slide" transparent={true} visible={passwordModal}>
+        <GeneratePasswordModal
+          username={item?.username}
+          password={generatedPassword}
+          setPassword={setGeneratedPassword}
+          close={() => setPasswordModal(false)}
+          done={() => {
+            dispatch(
+              updatePassword({
+                id: item?._id,
+                generatedPassword: generatedPassword
+              })
+            );
+            setPasswordModal(false);
+          }}
+        />
+      </Modal>
       <ScrollView
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
@@ -33,9 +63,14 @@ const PersonnelDetailsScreen = ({ navigation, route }) => {
           {item?.username}
         </Text>
         <Text style={[styles.key, { color: colors.black }]}>Mot de passe</Text>
-        <Text style={[styles.generatePass, { color: colors.blue }]}>
-          Générer un nouveau mot de passe
-        </Text>
+        <Pressable
+          style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+          onPress={() => setPasswordModal(true)}
+        >
+          <Text style={[styles.generatePass, { color: colors.blue }]}>
+            Générer un nouveau mot de passe
+          </Text>
+        </Pressable>
         <Text style={[styles.key, { color: colors.black }]}>Email</Text>
         <Text style={[styles.value, { color: "#616161" }]}>{item?.email}</Text>
         <Text style={[styles.key, { color: colors.black }]}>Téléphone</Text>
