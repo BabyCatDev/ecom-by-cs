@@ -36,7 +36,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
         <View marginVertical={5} />
         <CommandStatus status={status} justifyContent={"center"} />
         <View marginVertical={20} />
-        {deliveryFeedback.length > 0 && (
+        {deliveryFeedback?.length > 0 && (
           <Text style={[styles.message, { color: colors.red + "BB" }]}>
             {deliveryFeedback}
           </Text>

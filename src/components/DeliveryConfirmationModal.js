@@ -15,7 +15,7 @@ const DeliveryConfirmationModal = ({ close, response, orderId }) => {
     <View
       justifyContent="space-around"
       flex={1}
-      backgroundColor={colors.background + "EE"}
+      backgroundColor={colors.background + "DD"}
       paddingTop={130}
       paddingHorizontal={15}
     >

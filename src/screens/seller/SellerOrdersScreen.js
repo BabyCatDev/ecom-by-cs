@@ -1,12 +1,20 @@
-import React, { useEffect } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Modal,
+  Pressable
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
   Label,
   TopBar,
   CommandeRow,
-  AddButton
+  AddButton,
+  DateRangePickerModal
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getSellerOrders } from "../../actions";
@@ -18,13 +26,37 @@ const SellerOrdersScreen = ({ navigation }) => {
   const { navigate } = navigation;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getSellerOrders());
+    dispatch(getSellerOrders({ fromDate, toDate }));
   }, []);
-
+  const [rangeModal, setRangeModal] = useState(false);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
+      <Modal animationType="slide" transparent={true} visible={rangeModal}>
+        <DateRangePickerModal
+          fromDate={fromDate}
+          setFromDate={setFromDate}
+          toDate={toDate}
+          setToDate={setToDate}
+          close={() => setRangeModal(false)}
+          submit={() => {
+            dispatch(getSellerOrders({ fromDate, toDate }));
+            setRangeModal(false);
+          }}
+        />
+      </Modal>
       <TopBar />
+      <Pressable onPress={() => setRangeModal(true)}>
+        <Text style={[styles.text, { color: colors.gray }]}>
+          {fromDate.length > 0 && toDate.length > 0
+            ? `${dayjs(fromDate).format("YYYY-MM-DD")} - ${dayjs(toDate).format(
+                "YYYY-MM-DD"
+              )}`
+            : `Aujourd'hui`}
+        </Text>
+      </Pressable>
       <FlatList
         data={orders}
         keyExtractor={item => item._id}
@@ -48,6 +80,13 @@ const SellerOrdersScreen = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontFamily: "Montserrat-SemiBold",
+    fontSize: 20,
+    textAlign: "center",
+    marginBottom: 40
+  }
+});
 
 export default SellerOrdersScreen;

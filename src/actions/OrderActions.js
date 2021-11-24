@@ -3,11 +3,11 @@ import apiInstance from "./Base";
 import { navigate } from "../navigations/RootNavigation";
 
 //getUsers
-export const getSellerOrders = () => {
+export const getSellerOrders = ({ fromDate, toDate }) => {
   return dispatch => {
     dispatch({ type: FETCH_ORDERS });
     apiInstance
-      .get("/sellerorders")
+      .get(`/sellerorders?fromDate=${fromDate}&toDate=${toDate}`)
       .then(response => {
         dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
       })

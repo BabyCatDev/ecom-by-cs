@@ -7,7 +7,7 @@ const SelectionModal = ({ close, onSelect, value, items }) => {
     <View
       justifyContent="center"
       flex={1}
-      backgroundColor={colors.background + "BB"}
+      backgroundColor={colors.background + "DD"}
     >
       <ScrollView style={{ paddingTop: 130 }}>
         {items.map((item, index) => (

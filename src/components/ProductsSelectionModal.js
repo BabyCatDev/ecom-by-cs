@@ -37,7 +37,7 @@ const ProductsSelectionModal = ({ close, products, setProducts }) => {
     <View
       justifyContent="center"
       flex={1}
-      backgroundColor={colors.background + "EE"}
+      backgroundColor={colors.background + "DD"}
     >
       <Modal animationType="slide" transparent={true} visible={companiesModal}>
         <SelectionModal

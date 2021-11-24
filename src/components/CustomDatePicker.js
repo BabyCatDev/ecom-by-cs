@@ -5,7 +5,7 @@ import DatePicker from "react-native-modern-datepicker";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-const CustomDatePicker = ({ close, value, setValue }) => {
+const CustomDatePicker = ({ close, value, setValue, ...props }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
@@ -15,7 +15,7 @@ const CustomDatePicker = ({ close, value, setValue }) => {
     <Pressable
       justifyContent="center"
       flex={1}
-      backgroundColor={colors.background + "BB"}
+      backgroundColor={colors.background + "DD"}
       onPress={() => close()}
     >
       <DatePicker
@@ -44,6 +44,7 @@ const CustomDatePicker = ({ close, value, setValue }) => {
           borderBottomWidth: 1.5,
           borderColor: colors.primary
         }}
+        {...props}
       />
     </Pressable>
   );
