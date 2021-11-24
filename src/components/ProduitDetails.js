@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.08,
     shadowRadius: 2.22,
-    elevation: 1,
+    elevation: 2,
     borderRadius: 20,
     paddingHorizontal: 20,
     paddingVertical: 13,
@@ -42,15 +42,15 @@ const styles = StyleSheet.create({
   },
   name: {
     fontFamily: "Montserrat-SemiBold",
-    fontSize: 25
+    fontSize: 22
   },
   priceQte: {
     fontFamily: "Montserrat-Medium",
-    fontSize: 26
+    fontSize: 18
   },
   total: {
     fontFamily: "Montserrat-SemiBold",
-    fontSize: 22,
+    fontSize: 18,
     textAlign: "right"
   }
 });

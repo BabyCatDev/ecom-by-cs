@@ -17,20 +17,6 @@ export const getSellerOrders = () => {
       });
   };
 };
-export const getDeliveryOrders = () => {
-  return dispatch => {
-    dispatch({ type: FETCH_ORDERS });
-    apiInstance
-      .get("/deliveryorders")
-      .then(response => {
-        dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
-      })
-      .catch(error => {
-        console.log(error);
-        dispatch({ type: FETCH_ORDERS_FAIL });
-      });
-  };
-};
 
 //getUsers
 export const createOrder = ({

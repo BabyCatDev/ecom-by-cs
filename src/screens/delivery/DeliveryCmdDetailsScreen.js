@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, ScrollView, Modal } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -7,7 +7,9 @@ import {
   TopBar,
   CommandStatus,
   ProduitDetails,
-  Currency
+  Currency,
+  Button,
+  DeliveryConfirmationModal
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -23,10 +25,24 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
     seller,
     products,
     createdAt,
-    status
+    status,
+    _id
   } = item;
+  const [response, setResponse] = useState("");
+  const [confimationModal, setConfimationModal] = useState(false);
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={confimationModal}
+      >
+        <DeliveryConfirmationModal
+          close={() => setConfimationModal(false)}
+          response={response}
+          orderId={_id}
+        />
+      </Modal>
       <ScrollView
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
@@ -80,6 +96,27 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
           )}{" "}
           <Currency bigger />
         </Text>
+        {status === "Hold" && (
+          <>
+            <Button
+              onPress={() => {
+                setConfimationModal(true);
+                setResponse("yes");
+              }}
+            >
+              Livré
+            </Button>
+            <Button
+              onPress={() => {
+                setConfimationModal(true);
+                setResponse("non");
+              }}
+            >
+              Non Livré
+            </Button>
+            <View marginVertical={15} />
+          </>
+        )}
       </ScrollView>
     </Container>
   );
@@ -104,8 +141,8 @@ const styles = StyleSheet.create({
   },
   total: {
     fontFamily: "Montserrat-Bold",
-    fontSize: 27,
-    textAlign: "right",
+    fontSize: 24,
+    textAlign: "center",
     marginVertical: 30,
     marginHorizontal: 20
   }

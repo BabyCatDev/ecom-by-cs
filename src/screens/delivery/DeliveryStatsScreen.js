@@ -51,7 +51,7 @@ const DeliveryStatsScreen = ({ navigation }) => {
         />
         <DeliveryStat
           title={"TAUX DE CONVERSION"}
-          value={conversionRate.toFixed(2) + "%"}
+          value={(conversionRate ? conversionRate.toFixed(2) : 0) + "%"}
           color={colors.blue}
         />
         <View marginVertical={20} />

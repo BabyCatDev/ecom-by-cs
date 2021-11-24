@@ -1,9 +1,13 @@
 import {
   DELIVERY_STATS,
   DELIVERY_STATS_SUCCESS,
-  DELIVERY_STATS_FAIL
+  DELIVERY_STATS_FAIL,
+  FETCH_ORDERS,
+  FETCH_ORDERS_SUCCESS,
+  FETCH_ORDERS_FAIL
 } from "./types";
 import apiInstance from "./Base";
+import { navigate } from "../navigations/RootNavigation";
 
 export const fetchDeliveryStats = () => {
   return dispatch => {
@@ -15,6 +19,38 @@ export const fetchDeliveryStats = () => {
       })
       .catch(error => {
         dispatch({ type: DELIVERY_STATS_FAIL });
+        console.log(error);
+      });
+  };
+};
+
+export const getDeliveryOrders = () => {
+  return dispatch => {
+    dispatch({ type: FETCH_ORDERS });
+    apiInstance
+      .get("/deliveryorders")
+      .then(response => {
+        dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch({ type: FETCH_ORDERS_FAIL });
+      });
+  };
+};
+
+export const respondToOrder = ({ orderId, deliveryFeedback, status }) => {
+  return dispatch => {
+    apiInstance
+      .patch(`/delivery/` + orderId, {
+        status,
+        deliveryFeedback
+      })
+      .then(response => {
+        dispatch(getDeliveryOrders());
+        navigate("DeliveryOrders");
+      })
+      .catch(error => {
         console.log(error);
       });
   };
