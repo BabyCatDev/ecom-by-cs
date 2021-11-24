@@ -23,7 +23,8 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
     delivery,
     products,
     createdAt,
-    status
+    status,
+    deliveryFeedback
   } = item;
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
@@ -35,6 +36,11 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
         <View marginVertical={5} />
         <CommandStatus status={status} justifyContent={"center"} />
         <View marginVertical={20} />
+        {deliveryFeedback.length > 0 && (
+          <Text style={[styles.message, { color: colors.red + "BB" }]}>
+            {deliveryFeedback}
+          </Text>
+        )}
         <Text style={[styles.key, { color: colors.black }]}>Nom de client</Text>
         <Text style={[styles.value, { color: "#616161" }]}>{clientName}</Text>
         <Text style={[styles.key, { color: colors.black }]}>Son address</Text>
@@ -86,6 +92,12 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
 };
 
 const styles = StyleSheet.create({
+  message: {
+    fontFamily: "Montserrat-Medium",
+    fontSize: 20,
+    marginHorizontal: 20,
+    marginBottom: 40
+  },
   key: {
     fontFamily: "Montserrat-SemiBold",
     fontSize: 25,
