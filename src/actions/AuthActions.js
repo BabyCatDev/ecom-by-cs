@@ -36,7 +36,7 @@ export const login = ({ username, password }) => {
         dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
       })
       .catch(error => {
-        console.log(error);
+        alert("Indentifiant ou mot de passe incorrect");
         dispatch({ type: LOGIN_USER_FAIL });
       });
   };

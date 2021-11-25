@@ -23,7 +23,6 @@ export { Label };
 const styles = StyleSheet.create({
   textStyle: {
     fontSize: 45,
-    fontFamily: "Montserrat-Bold",
-    flex: 1
+    fontFamily: "Montserrat-Bold"
   }
 });
