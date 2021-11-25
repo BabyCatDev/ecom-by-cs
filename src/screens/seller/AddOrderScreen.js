@@ -22,10 +22,10 @@ const AddOrderScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const companyName = route?.params?.companyName;
-  // const [entreprise, setEntreprise] = useState(companyName);
   const [clientName, setClientName] = useState("");
   const [clientPhone, setClientPhone] = useState("");
   const [clientAddress, setClientAddress] = useState("");
+  const [comments, setComments] = useState("");
   const [selectedDelivery, setSelectedDelivery] = useState({});
   const [products, setProducts] = useState([]);
   const [deliveryDate, setDeliveryDate] = useState(new Date());
@@ -103,6 +103,7 @@ const AddOrderScreen = ({ navigation, route }) => {
             placeholder="Adresse de client"
             value={clientAddress}
             onChangeText={val => setClientAddress(val)}
+            multiline
           />
           <Selector
             label="Date de livraison"
@@ -111,8 +112,19 @@ const AddOrderScreen = ({ navigation, route }) => {
           />
           <Selector
             label="Ajouter des produits"
-            text={"Ajouter des produits"}
+            text={
+              products.length > 0
+                ? products.reduce((acc, p) => acc + p.name + " ", "")
+                : "Ajouter des produits"
+            }
             onPress={() => setProductsSelectionModal(true)}
+          />
+          <Input
+            label="Comments"
+            placeholder="Comments"
+            value={comments}
+            onChangeText={val => setComments(val)}
+            multiline
           />
         </View>
         <View marginVertical={20} />
@@ -125,7 +137,8 @@ const AddOrderScreen = ({ navigation, route }) => {
                 clientPhone,
                 clientName,
                 delivery: selectedDelivery._id,
-                productsDetails: products
+                productsDetails: products,
+                comments
               })
             )
           }

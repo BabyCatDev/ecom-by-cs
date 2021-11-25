@@ -95,7 +95,7 @@ const SellerStatsScreen = ({ navigation }) => {
         />
         <DeliveryStat
           title={"REVENU MOYEN"}
-          value={stats.averageIncome || "0"}
+          value={stats?.averageIncome?.toFixed(2) || "0"}
           color={"#B7931F"}
           currencySign
         />
@@ -107,7 +107,7 @@ const SellerStatsScreen = ({ navigation }) => {
         />
         <DeliveryStat
           title={"MOYENNE POTENTIELLE"}
-          value={stats.potentialAverage || "0"}
+          value={stats?.potentialAverage?.toFixed(2) || "0"}
           color={"#08AD8C"}
           currencySign
         />

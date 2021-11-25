@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Modal } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Modal,
+  Pressable
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -26,7 +33,8 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
     products,
     createdAt,
     status,
-    _id
+    _id,
+    comments
   } = item;
   const [response, setResponse] = useState("");
   const [confimationModal, setConfimationModal] = useState(false);
@@ -59,6 +67,8 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
         </Text>
         <Text style={[styles.key, { color: colors.black }]}>Son téléphone</Text>
         <Text style={[styles.value, { color: "#616161" }]}>{clientPhone}</Text>
+        <Text style={[styles.key, { color: colors.black }]}>Commentaires</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>{comments}</Text>
         <Text style={[styles.key, { color: colors.black }]}>
           Date de commande
         </Text>
@@ -71,10 +81,24 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
         <Text style={[styles.value, { color: "#616161" }]}>
           {dayjs(deliveryDate).format("YYYY-MM-DD")}
         </Text>
-        <Text style={[styles.key, { color: colors.black }]}>Commercial</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>
-          {seller.fullName}
+        <Text style={[styles.key, { color: colors.black }]}>
+          Nom de commercial
         </Text>
+        <Text style={[styles.value, { color: "#616161" }]}>
+          {seller?.fullName}
+        </Text>
+        <Text style={[styles.key, { color: colors.black }]}>
+          Téléphone de commercial
+        </Text>
+        {seller?.phones.map((p, i) => (
+          <Pressable
+            onPress={() => Linking.openURL("tel:" + p)}
+            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+            key={i}
+          >
+            <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
+          </Pressable>
+        ))}
         <Text style={[styles.key, { color: colors.black }]}>
           Liste des produits
         </Text>

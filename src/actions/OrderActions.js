@@ -25,7 +25,8 @@ export const createOrder = ({
   clientPhone,
   clientName,
   delivery,
-  productsDetails
+  productsDetails,
+  comments
 }) => {
   return dispatch => {
     apiInstance
@@ -35,7 +36,8 @@ export const createOrder = ({
         clientPhone,
         clientName,
         delivery,
-        productsDetails
+        productsDetails,
+        comments
       })
       .then(response => {
         dispatch(getSellerOrders({ fromDate: "", toDate: "" }));

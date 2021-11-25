@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ecom-by-cs",
+    "name": "Ecom By CS orders managements",
     "slug": "ecom-by-cs",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

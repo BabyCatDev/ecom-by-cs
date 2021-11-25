@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -11,6 +11,7 @@ import {
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import * as Linking from "expo-linking";
 
 const SellerCmdDetailsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
@@ -24,7 +25,8 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
     products,
     createdAt,
     status,
-    deliveryFeedback
+    deliveryFeedback,
+    comments
   } = item;
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
@@ -48,7 +50,16 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
           {clientAddress}
         </Text>
         <Text style={[styles.key, { color: colors.black }]}>Son téléphone</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>{clientPhone}</Text>
+        <Pressable
+          onPress={() => Linking.openURL("tel:" + clientPhone)}
+          style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+        >
+          <Text style={[styles.value, { color: "#616161" }]}>
+            {clientPhone}
+          </Text>
+        </Pressable>
+        <Text style={[styles.key, { color: colors.black }]}>Commentaires</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>{comments}</Text>
         <Text style={[styles.key, { color: colors.black }]}>
           Date de commande
         </Text>
@@ -61,10 +72,24 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
         <Text style={[styles.value, { color: "#616161" }]}>
           {dayjs(deliveryDate).format("YYYY-MM-DD")}
         </Text>
-        <Text style={[styles.key, { color: colors.black }]}>Livreur</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>
-          {delivery.fullName}
+        <Text style={[styles.key, { color: colors.black }]}>
+          Nom de livreur
         </Text>
+        <Text style={[styles.value, { color: "#616161" }]}>
+          {delivery?.fullName}
+        </Text>
+        <Text style={[styles.key, { color: colors.black }]}>
+          Téléphone de livreur
+        </Text>
+        {delivery?.phones.map((p, i) => (
+          <Pressable
+            onPress={() => Linking.openURL("tel:" + p)}
+            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+            key={i}
+          >
+            <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
+          </Pressable>
+        ))}
         <Text style={[styles.key, { color: colors.black }]}>
           Liste des produits
         </Text>
