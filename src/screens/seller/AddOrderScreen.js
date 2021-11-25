@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, Modal } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Modal,
+  Pressable
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -23,7 +30,7 @@ const AddOrderScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const companyName = route?.params?.companyName;
   const [clientName, setClientName] = useState("");
-  const [clientPhone, setClientPhone] = useState("");
+  const [clientPhones, setClientPhones] = useState([""]);
   const [clientAddress, setClientAddress] = useState("");
   const [comments, setComments] = useState("");
   const [selectedDelivery, setSelectedDelivery] = useState({});
@@ -38,8 +45,8 @@ const AddOrderScreen = ({ navigation, route }) => {
   }, []);
 
   const [users] = useSelector(({ usersData }) => [usersData.users]);
-  const deliveries = users.filter(u => u.type === "Livreur");
-  const deliveriesName = deliveries.map(d => d.fullName);
+  const deliveries = users?.filter(u => u.type === "Livreur");
+  const deliveriesName = deliveries?.map(d => d.fullName);
 
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
@@ -49,7 +56,7 @@ const AddOrderScreen = ({ navigation, route }) => {
           close={() => setDeliveriesModal(false)}
           value={deliveriesName}
           onSelect={val => {
-            const foundDelivery = deliveries.find(d => d.fullName === val);
+            const foundDelivery = deliveries?.find(d => d.fullName === val);
             setSelectedDelivery(foundDelivery);
           }}
         />
@@ -91,13 +98,46 @@ const AddOrderScreen = ({ navigation, route }) => {
             value={clientName}
             onChangeText={val => setClientName(val)}
           />
-          <Input
-            label="Téléphone de client"
-            placeholder="Téléphone de client"
-            value={clientPhone}
-            onChangeText={val => setClientPhone(val)}
-            keyboardType={"decimal-pad"}
-          />
+          {clientPhones.map((p, index1) => (
+            <Input
+              key={index1}
+              label={`Téléphone (${index1 + 1})`}
+              placeholder="01-23-45-56-78"
+              value={p}
+              onChangeText={val =>
+                setClientPhones([
+                  ...clientPhones.map((phone, index2) =>
+                    index1 === index2 ? val : phone
+                  )
+                ])
+              }
+              keyboardType={"decimal-pad"}
+            />
+          ))}
+          <View flexDirection={"row"}>
+            <Pressable
+              style={({ pressed }) => [
+                { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 }
+              ]}
+              onPress={() => setClientPhones([...clientPhones, ""])}
+            >
+              <Text style={[styles.btn, { color: colors.green }]}>
+                AJOUTER PLUS
+              </Text>
+            </Pressable>
+            {clientPhones.length > 1 && (
+              <Pressable
+                style={({ pressed }) => [
+                  { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 }
+                ]}
+                onPress={() => setClientPhones([...clientPhones.slice(0, -1)])}
+              >
+                <Text style={[styles.btn, { color: colors.red }]}>
+                  SUPPRIMER
+                </Text>
+              </Pressable>
+            )}
+          </View>
           <Input
             label="Adresse de client"
             placeholder="Adresse de client"
@@ -134,7 +174,7 @@ const AddOrderScreen = ({ navigation, route }) => {
               createOrder({
                 deliveryDate,
                 clientAddress,
-                clientPhone,
+                clientPhones,
                 clientName,
                 delivery: selectedDelivery._id,
                 productsDetails: products,
@@ -155,6 +195,11 @@ const styles = StyleSheet.create({
   scrollStyle: {
     paddingHorizontal: 25,
     paddingTop: 30
+  },
+  btn: {
+    fontFamily: "Montserrat-SemiBold",
+    marginVertical: 10,
+    fontSize: 14
   }
 });
 

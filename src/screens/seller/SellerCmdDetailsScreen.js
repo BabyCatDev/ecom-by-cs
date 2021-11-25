@@ -29,7 +29,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
   const {
     deliveryDate,
     clientAddress,
-    clientPhone,
+    clientPhones,
     clientName,
     delivery,
     products,
@@ -68,15 +68,18 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
         <Text style={[styles.value, { color: "#616161" }]}>
           {clientAddress}
         </Text>
-        <Text style={[styles.key, { color: colors.black }]}>Son téléphone</Text>
-        <Pressable
-          onPress={() => Linking.openURL("tel:" + clientPhone)}
-          style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
-        >
-          <Text style={[styles.value, { color: "#616161" }]}>
-            {clientPhone}
-          </Text>
-        </Pressable>
+        <Text style={[styles.key, { color: colors.black }]}>
+          Ses téléphones
+        </Text>
+        {clientPhones.map((p, i) => (
+          <Pressable
+            onPress={() => Linking.openURL("tel:" + p)}
+            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+            key={i}
+          >
+            <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
+          </Pressable>
+        ))}
         <Text style={[styles.key, { color: colors.black }]}>Commentaires</Text>
         <Text style={[styles.value, { color: "#616161" }]}>{comments}</Text>
         <Text style={[styles.key, { color: colors.black }]}>

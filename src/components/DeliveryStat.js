@@ -15,7 +15,13 @@ const DeliveryStat = ({ color, title, value, currencySign }) => {
         { backgroundColor: color + "22", borderColor: color }
       ]}
     >
-      <Text style={[styles.titleStyle, { color }]}>{title}</Text>
+      <Text
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        style={[styles.titleStyle, { color }]}
+      >
+        {title}
+      </Text>
       <Text style={[styles.valueStyle, { color }]}>
         {value}
         {currencySign && " "}
@@ -30,12 +36,14 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 20,
     borderWidth: 2,
-    marginBottom: 10
+    marginBottom: 10,
+    paddingHorizontal: 30
   },
   titleStyle: {
     fontFamily: "Montserrat-SemiBold",
     fontSize: 16,
-    textAlign: "center"
+    textAlign: "center",
+    flex: 1
   },
   valueStyle: {
     fontFamily: "Montserrat-Bold",

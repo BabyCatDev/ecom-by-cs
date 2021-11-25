@@ -58,7 +58,7 @@ export const getSellerReports = () => {
 export const createOrder = ({
   deliveryDate,
   clientAddress,
-  clientPhone,
+  clientPhones,
   clientName,
   delivery,
   productsDetails,
@@ -69,7 +69,7 @@ export const createOrder = ({
       .post("/order", {
         deliveryDate,
         clientAddress,
-        clientPhone,
+        clientPhones,
         clientName,
         delivery,
         productsDetails,
