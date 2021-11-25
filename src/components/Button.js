@@ -22,7 +22,11 @@ const Button = ({ children, bgColor, onPress }) => {
             : [colors.secondary, colors.primary]
         }
       >
-        <Text style={[styles.textStyle, { color: colors.white }]}>
+        <Text
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          style={[styles.textStyle, { color: colors.white }]}
+        >
           {children.toUpperCase()}
         </Text>
       </LinearGradient>

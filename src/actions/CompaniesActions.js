@@ -11,7 +11,7 @@ import {
   FETCH_PRODUCTS_FAIL
 } from "./types";
 import apiInstance from "./Base";
-import { navigate } from "../navigations/RootNavigation";
+import { navigate, goBack } from "../navigations/RootNavigation";
 
 export const fetchCompanies = companyId => {
   return dispatch => {
@@ -53,7 +53,7 @@ export const addCompany = ({ name }) => {
       .post(`/company`, { name })
       .then(async response => {
         dispatch(fetchCompanies());
-        navigate("Commerces");
+        goBack();
         dispatch({ type: ADD_COMPANY_SUCCESS, payload: response.data });
       })
       .catch(error => {
@@ -69,7 +69,7 @@ export const addProduct = ({ name, price, companyId }) => {
       .post(`/product`, { name, price, companyId })
       .then(async response => {
         dispatch(fetchCompanies(companyId));
-        navigate("CommerceProduits");
+        goBack();
       })
       .catch(error => {
         console.log(error);

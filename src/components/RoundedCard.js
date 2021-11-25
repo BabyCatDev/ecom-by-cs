@@ -21,7 +21,9 @@ const RoundedCard = ({ children, icon, onPress }) => {
       >
         {icon()}
       </LinearGradient>
-      <Text style={styles.textStyle}>{children}</Text>
+      <Text numberOfLines={2} adjustsFontSizeToFit style={styles.textStyle}>
+        {children}
+      </Text>
     </Pressable>
   );
 };

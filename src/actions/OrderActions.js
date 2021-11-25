@@ -1,6 +1,6 @@
 import { FETCH_ORDERS, FETCH_ORDERS_SUCCESS, FETCH_ORDERS_FAIL } from "./types";
 import apiInstance from "./Base";
-import { navigate } from "../navigations/RootNavigation";
+import { navigate, goBack } from "../navigations/RootNavigation";
 
 //getUsers
 export const getSellerOrders = ({ fromDate, toDate }) => {
@@ -38,8 +38,8 @@ export const createOrder = ({
         productsDetails
       })
       .then(response => {
-        dispatch(getSellerOrders());
-        navigate("SellerOrders");
+        dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
+        goBack();
       })
       .catch(error => {
         console.log(error);

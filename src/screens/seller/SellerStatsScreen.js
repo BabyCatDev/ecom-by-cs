@@ -32,7 +32,6 @@ const SellerStatsScreen = ({ navigation }) => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
-  console.log(stats);
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={rangeModal}>
@@ -69,46 +68,46 @@ const SellerStatsScreen = ({ navigation }) => {
         </Pressable>
         <View marginVertical={20} />
         <DeliveryStat
-          title={"LIVRAISONS TOTALES"}
-          value={stats.totalOrders || " "}
+          title={"TOTAL DES COMMANDES"}
+          value={stats.totalOrders || "0"}
           color={"#4D4A49"}
         />
         <DeliveryStat
           title={"LIVRAISONS EN ATTENTE"}
-          value={stats.holdOrders || " "}
+          value={stats.holdOrders || "0"}
           color={colors.primary}
         />
         <DeliveryStat
           title={"LIVRÉ AVEC SUCCÈS"}
-          value={stats.succeedOrders || " "}
+          value={stats.succeedOrders || "0"}
           color={colors.green}
         />
         <DeliveryStat
           title={"ÉCHEC DE LIVRAISON"}
-          value={stats.failedOrders || " "}
+          value={stats.failedOrders || "0"}
           color={colors.red}
         />
         <DeliveryStat
           title={"REVENU RÉALISÉ"}
-          value={stats.realizedIncome || " "}
+          value={stats.realizedIncome || "0"}
           color={"#B7931F"}
           currencySign
         />
         <DeliveryStat
           title={"REVENU MOYEN"}
-          value={stats.averageIncome || " "}
+          value={stats.averageIncome || "0"}
           color={"#B7931F"}
           currencySign
         />
         <DeliveryStat
           title={"REVENU POTENTIEL"}
-          value={stats.potentialIncome || " "}
+          value={stats.potentialIncome || "0"}
           color={"#08AD8C"}
           currencySign
         />
         <DeliveryStat
           title={"MOYENNE POTENTIELLE"}
-          value={stats.potentialAverage || " "}
+          value={stats.potentialAverage || "0"}
           color={"#08AD8C"}
           currencySign
         />

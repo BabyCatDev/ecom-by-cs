@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat-Medium",
     fontSize: 20,
     marginHorizontal: 20,
-    marginBottom: 40
+    marginBottom: 40,
+    lineHeight: 28
   },
   key: {
     fontFamily: "Montserrat-SemiBold",

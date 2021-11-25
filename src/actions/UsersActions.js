@@ -54,7 +54,7 @@ export const addUser = ({
       })
       .then(response => {
         dispatch(getUsers());
-        navigate("Personnels");
+        goBack();
       })
       .catch(error => {
         console.log(error);

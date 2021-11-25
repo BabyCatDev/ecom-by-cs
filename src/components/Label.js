@@ -6,7 +6,12 @@ const Label = ({ children, ...props }) => {
   const { colors } = useTheme();
   return (
     <View style={styles.contain}>
-      <Text style={[styles.textStyle, { color: colors.gray }]} {...props}>
+      <Text
+        numberOfLines={2}
+        adjustsFontSizeToFit
+        style={[styles.textStyle, { color: colors.gray }]}
+        {...props}
+      >
         {children}
       </Text>
     </View>

@@ -9,7 +9,10 @@ const TopBar = ({ children }) => {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => goBack()}>
+      <Pressable
+        style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+        onPress={() => goBack()}
+      >
         <ArrowLeft />
       </Pressable>
       <Text
