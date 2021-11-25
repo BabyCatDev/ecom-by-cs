@@ -80,8 +80,14 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
             <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
           </Pressable>
         ))}
-        <Text style={[styles.key, { color: colors.black }]}>Commentaires</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>{comments}</Text>
+        {comments.length > 0 && (
+          <>
+            <Text style={[styles.key, { color: colors.black }]}>
+              Commentaires
+            </Text>
+            <Text style={[styles.value, { color: "#616161" }]}>{comments}</Text>
+          </>
+        )}
         <Text style={[styles.key, { color: colors.black }]}>
           Date de commande
         </Text>
@@ -101,7 +107,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
           {delivery?.fullName}
         </Text>
         <Text style={[styles.key, { color: colors.black }]}>
-          Téléphone de livreur
+          Téléphones de livreur
         </Text>
         {delivery?.phones.map((p, i) => (
           <Pressable

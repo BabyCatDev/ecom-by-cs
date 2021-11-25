@@ -27,7 +27,7 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
   const {
     deliveryDate,
     clientAddress,
-    clientPhone,
+    clientPhones,
     clientName,
     seller,
     products,
@@ -65,10 +65,26 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
         <Text style={[styles.value, { color: "#616161" }]}>
           {clientAddress}
         </Text>
-        <Text style={[styles.key, { color: colors.black }]}>Son téléphone</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>{clientPhone}</Text>
-        <Text style={[styles.key, { color: colors.black }]}>Commentaires</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>{comments}</Text>
+        <Text style={[styles.key, { color: colors.black }]}>
+          Ses téléphones
+        </Text>
+        {clientPhones.map((p, i) => (
+          <Pressable
+            onPress={() => Linking.openURL("tel:" + p)}
+            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+            key={i}
+          >
+            <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
+          </Pressable>
+        ))}
+        {comments.length > 0 && (
+          <>
+            <Text style={[styles.key, { color: colors.black }]}>
+              Commentaires
+            </Text>
+            <Text style={[styles.value, { color: "#616161" }]}>{comments}</Text>
+          </>
+        )}
         <Text style={[styles.key, { color: colors.black }]}>
           Date de commande
         </Text>
@@ -88,7 +104,7 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
           {seller?.fullName}
         </Text>
         <Text style={[styles.key, { color: colors.black }]}>
-          Téléphone de commercial
+          Téléphones de commercial
         </Text>
         {seller?.phones.map((p, i) => (
           <Pressable
