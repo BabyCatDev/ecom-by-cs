@@ -53,7 +53,10 @@ const SellerHomeScreen = ({ navigation }) => {
         >
           {"Voir mes\nCommandes"}
         </RoundedCard>
-        <RoundedCard onPress={() => null} icon={() => <Reports />}>
+        <RoundedCard
+          onPress={() => navigate("SellerReports")}
+          icon={() => <Reports />}
+        >
           {"Voir mes\nRapports"}
         </RoundedCard>
       </ScrollView>

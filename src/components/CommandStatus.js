@@ -12,16 +12,28 @@ const CommandStatus = ({ status, ...props }) => {
       ? colors.primary
       : status === "Succeed"
       ? colors.green
-      : colors.red;
+      : status === "Failed"
+      ? colors.red
+      : "#787878";
 
   const renderIcon = () =>
-    status === "Hold" ? <Info /> : status === "Succeed" ? <Checked /> : <X />;
+    status === "Hold" ? (
+      <Playing />
+    ) : status === "Succeed" ? (
+      <Checked />
+    ) : status === "Failed" ? (
+      <X />
+    ) : (
+      <Info />
+    );
   const textStatus =
     status === "Hold"
       ? `Livraison en attente`
       : status === "Succeed"
       ? `Livré avec succès`
-      : `Échec de livraison`;
+      : status === "Failed"
+      ? `Échec de livraison`
+      : `Rapport`;
   return (
     <View style={styles.container} {...props}>
       <Text

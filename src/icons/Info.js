@@ -9,7 +9,7 @@ function Info(props) {
       height={16}
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#F66C16"
+      stroke="#787878"
       strokeWidth={3}
       strokeLinecap="round"
       strokeLinejoin="round"

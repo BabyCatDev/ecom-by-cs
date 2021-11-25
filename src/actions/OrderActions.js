@@ -1,4 +1,11 @@
-import { FETCH_ORDERS, FETCH_ORDERS_SUCCESS, FETCH_ORDERS_FAIL } from "./types";
+import {
+  FETCH_ORDERS,
+  FETCH_ORDERS_SUCCESS,
+  FETCH_ORDERS_FAIL,
+  FETCH_REPORTS,
+  FETCH_REPORTS_SUCCESS,
+  FETCH_REPORTS_FAIL
+} from "./types";
 import apiInstance from "./Base";
 import { navigate, goBack } from "../navigations/RootNavigation";
 
@@ -14,6 +21,21 @@ export const getSellerOrders = ({ fromDate, toDate }) => {
       .catch(error => {
         console.log(error);
         dispatch({ type: FETCH_ORDERS_FAIL });
+      });
+  };
+};
+
+export const getSellerReports = () => {
+  return dispatch => {
+    dispatch({ type: FETCH_REPORTS });
+    apiInstance
+      .get(`/sellerreports`)
+      .then(response => {
+        dispatch({ type: FETCH_REPORTS_SUCCESS, payload: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch({ type: FETCH_REPORTS_FAIL });
       });
   };
 };
