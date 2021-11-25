@@ -8,7 +8,7 @@ import {
   ModeParagraph,
   RoundedCard
 } from "../../components";
-import { Logout, Stats, FileText } from "../../icons";
+import { Logout, Stats, FileText, Reports } from "../../icons";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../actions";
 
@@ -52,6 +52,9 @@ const SellerHomeScreen = ({ navigation }) => {
           icon={() => <FileText />}
         >
           {"Voir mes\nCommandes"}
+        </RoundedCard>
+        <RoundedCard onPress={() => null} icon={() => <Reports />}>
+          {"Voir mes\nRapports"}
         </RoundedCard>
       </ScrollView>
     </Container>
