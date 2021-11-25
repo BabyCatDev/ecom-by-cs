@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "#5C5C5C",
     lineHeight: 40,
-    marginLeft: 20
+    marginLeft: 20,
+    flex: 1
   },
   iconContainer: {
     width: 94,

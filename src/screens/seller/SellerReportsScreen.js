@@ -22,7 +22,6 @@ const SellerReportsScreen = ({ navigation }) => {
     dispatch(getSellerReports());
   }, []);
   const [reports] = useSelector(({ orderData }) => [orderData.reports]);
-  console.log(reports);
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />

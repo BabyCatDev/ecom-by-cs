@@ -25,7 +25,11 @@ const AddButton = ({ children, bgColor, onPress }) => {
         }
       >
         <Plus width={20} height={20} />
-        <Text style={[styles.textStyle, { color: colors.white }]}>
+        <Text
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          style={[styles.textStyle, { color: colors.white }]}
+        >
           {children}
         </Text>
       </LinearGradient>
@@ -51,6 +55,7 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat-SemiBold",
     fontSize: 17,
     textAlign: "center",
-    paddingLeft: 15
+    paddingLeft: 15,
+    flex: 1
   }
 });
