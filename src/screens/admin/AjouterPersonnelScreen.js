@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Modal } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Modal,
+  Pressable
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -21,12 +28,12 @@ const AjouterPersonnelScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [phones, setPhones] = useState([""]);
   const [place, setPlace] = useState("");
   const [password, setPassword] = useState("");
   const [typeModal, setTypeModal] = useState(false);
   const [passwordModal, setPasswordModal] = useState(false);
   const dispatch = useDispatch();
-
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={typeModal}>
@@ -49,7 +56,7 @@ const AjouterPersonnelScreen = ({ navigation }) => {
                 fullName,
                 username,
                 email,
-                phone,
+                phones,
                 place,
                 password
               })
@@ -88,13 +95,46 @@ const AjouterPersonnelScreen = ({ navigation }) => {
             value={email}
             onChangeText={val => setEmail(val)}
           />
-          <Input
-            label="Téléphone"
-            placeholder="01-23-45-56-78"
-            value={phone}
-            onChangeText={val => setPhone(val)}
-            keyboardType={"decimal-pad"}
-          />
+          {phones.map((p, index1) => (
+            <Input
+              key={index1}
+              label={`Téléphone (${index1 + 1})`}
+              placeholder="01-23-45-56-78"
+              value={p}
+              onChangeText={val =>
+                setPhones([
+                  ...phones.map((phone, index2) =>
+                    index1 === index2 ? val : phone
+                  )
+                ])
+              }
+              keyboardType={"decimal-pad"}
+            />
+          ))}
+          <View flexDirection={"row"}>
+            <Pressable
+              style={({ pressed }) => [
+                { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 }
+              ]}
+              onPress={() => setPhones([...phones, ""])}
+            >
+              <Text style={[styles.btn, { color: colors.green }]}>
+                AJOUTER PLUS
+              </Text>
+            </Pressable>
+            {phones.length > 1 && (
+              <Pressable
+                style={({ pressed }) => [
+                  { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 }
+                ]}
+                onPress={() => setPhones([...phones.slice(0, -1)])}
+              >
+                <Text style={[styles.btn, { color: colors.red }]}>
+                  SUPPRIMER
+                </Text>
+              </Pressable>
+            )}
+          </View>
           <Input
             label="Emplacement"
             placeholder="Emplacement"
@@ -121,6 +161,11 @@ const styles = StyleSheet.create({
   scrollStyle: {
     paddingHorizontal: 25,
     paddingTop: 30
+  },
+  btn: {
+    fontFamily: "Montserrat-SemiBold",
+    marginVertical: 10,
+    fontSize: 14
   }
 });
 

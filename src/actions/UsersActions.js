@@ -1,6 +1,6 @@
 import { FETCH_USERS, FETCH_USERS_SUCCESS, FETCH_USERS_FAIL } from "./types";
 import apiInstance from "./Base";
-import { navigate } from "../navigations/RootNavigation";
+import { navigate, goBack } from "../navigations/RootNavigation";
 
 //getUsers
 export const getUsers = () => {
@@ -37,7 +37,7 @@ export const addUser = ({
   fullName,
   username,
   email,
-  phone,
+  phones,
   place,
   password
 }) => {
@@ -48,7 +48,7 @@ export const addUser = ({
         fullName,
         username,
         email,
-        phone,
+        phones,
         place,
         password
       })

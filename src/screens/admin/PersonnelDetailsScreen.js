@@ -19,6 +19,7 @@ import {
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { updatePassword } from "../../actions";
+import * as Linking from "expo-linking";
 
 const PersonnelDetailsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
@@ -72,9 +73,24 @@ const PersonnelDetailsScreen = ({ navigation, route }) => {
           </Text>
         </Pressable>
         <Text style={[styles.key, { color: colors.black }]}>Email</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>{item?.email}</Text>
-        <Text style={[styles.key, { color: colors.black }]}>Téléphone</Text>
-        <Text style={[styles.value, { color: "#616161" }]}>{item?.phone}</Text>
+        <Pressable
+          onPress={() => Linking.openURL("mailto:" + item?.email)}
+          style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+        >
+          <Text style={[styles.value, { color: "#616161" }]}>
+            {item?.email}
+          </Text>
+        </Pressable>
+        <Text style={[styles.key, { color: colors.black }]}>Téléphone(s)</Text>
+        {item?.phones.map((p, i) => (
+          <Pressable
+            onPress={() => Linking.openURL("tel:" + p)}
+            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+            key={i}
+          >
+            <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
+          </Pressable>
+        ))}
         <Text style={[styles.key, { color: colors.black }]}>Emplacement</Text>
         <Text style={[styles.value, { color: "#616161" }]}>{item?.place}</Text>
         <View marginVertical={15} />
