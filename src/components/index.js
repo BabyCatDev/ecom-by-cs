@@ -27,3 +27,4 @@ export * from "./ProductsSelectionModal";
 export * from "./DeliveryStat";
 export * from "./DeliveryConfirmationModal";
 export * from "./DateRangePickerModal";
+export * from "./SellerValidationModal";

@@ -1,5 +1,12 @@
-import React from "react";
-import { View, Text, StyleSheet, ScrollView, Pressable } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  Modal
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -7,11 +14,14 @@ import {
   TopBar,
   CommandStatus,
   ProduitDetails,
-  Currency
+  Currency,
+  Button,
+  SellerValidationModal
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import * as Linking from "expo-linking";
+import { validateOrder } from "../../actions";
 
 const SellerCmdDetailsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
@@ -26,10 +36,19 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
     createdAt,
     status,
     deliveryFeedback,
-    comments
+    comments,
+    _id
   } = item;
+  const [validationModal, setValidationModal] = useState(false);
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
+      <Modal animationType="slide" transparent={true} visible={validationModal}>
+        <SellerValidationModal
+          orderId={_id}
+          deliveryDate={deliveryDate}
+          close={() => setValidationModal(false)}
+        />
+      </Modal>
       <ScrollView
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
@@ -111,6 +130,12 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
           )}{" "}
           <Currency bigger />
         </Text>
+        {status === "Reported" && (
+          <>
+            <Button onPress={() => setValidationModal(true)}>Valider</Button>
+            <View marginVertical={10} />
+          </>
+        )}
       </ScrollView>
     </Container>
   );
