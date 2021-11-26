@@ -80,20 +80,21 @@ export const logout = () => {
     dispatch({ type: LOGOUT_USER });
     apiInstance
       .post("/logout")
-      .then(async () => {
+      .then(() => {
+        dispatch({ type: LOGOUT_USER_SUCCESS });
+      })
+      .catch(error => {
+        dispatch({ type: LOGOUT_USER_FAIL });
+        console.log(error);
+      })
+      .finally(async () => {
         try {
           await SecureStore.deleteItemAsync("token");
           await SecureStore.deleteItemAsync("type");
         } catch (error) {
           throw new Error(error);
         }
-
         dispatch({ type: TOKEN_CHANGED });
-        dispatch({ type: LOGOUT_USER_SUCCESS });
-      })
-      .catch(error => {
-        dispatch({ type: LOGOUT_USER_FAIL });
-        console.log(error);
       });
   };
 };
