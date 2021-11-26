@@ -143,9 +143,11 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
           )}{" "}
           <Currency bigger />
         </Text>
-        {status === "Reported" && (
+        {(status === "Reported" || status === "Failed") && (
           <>
-            <Button onPress={() => setValidationModal(true)}>Valider</Button>
+            <Button onPress={() => setValidationModal(true)}>
+              {status === "Reported" ? "Valider" : "Reprogrammer"}
+            </Button>
             <View marginVertical={10} />
           </>
         )}

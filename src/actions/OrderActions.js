@@ -28,7 +28,11 @@ export const getSellerOrders = ({ fromDate, toDate }) => {
 export const validateOrder = ({ orderId, status, deliveryDate }) => {
   return dispatch => {
     apiInstance
-      .patch(`/order/${orderId}`, { status, deliveryDate })
+      .patch(`/order/${orderId}`, {
+        status,
+        deliveryDate,
+        deliveryFeedback: ""
+      })
       .then(response => {
         dispatch(getSellerReports());
         goBack();
