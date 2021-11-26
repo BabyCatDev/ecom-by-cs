@@ -41,8 +41,8 @@ const PersonnelsScreen = ({ navigation }) => {
       <OwnBottomSheet
         ref={sheetRef}
         editFunction={() => {
-          alert("navigate to update");
           sheetRef.current.closeSheet();
+          navigate("UpdatePersonnel", { user: selectedUser });
         }}
         deleteFunction={() => {
           dispatch(deleteUser({ userId: selectedUser._id }));

@@ -77,17 +77,10 @@ export const deleteUser = ({ userId }) => {
 };
 
 //update User
-export const updateUser = ({
-  userId,
-  type,
-  fullName,
-  email,
-  phones,
-  place
-}) => {
+export const updateUser = ({ userId, fullName, email, phones, place }) => {
   return dispatch => {
     apiInstance
-      .patch(`/user/${userId}`, { type, fullName, email, phones, place })
+      .patch(`/user/${userId}`, { fullName, email, phones, place })
       .then(response => {
         dispatch(getUsers());
         goBack();
