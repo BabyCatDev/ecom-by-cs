@@ -19,7 +19,7 @@ const AjouterProduitScreen = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const companyName = route?.params?.companyName;
   const product = route?.params?.product;
-  const productId = product._id;
+  const productId = product?._id;
 
   const [name, setName] = useState(product?.name || "");
   const [entreprise, setEntreprise] = useState(companyName);
