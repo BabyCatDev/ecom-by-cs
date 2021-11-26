@@ -105,20 +105,26 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
           Nom de commercial
         </Text>
         <Text style={[styles.value, { color: "#616161" }]}>
-          {seller?.fullName}
+          {seller?.fullName || "Des données supprimées "}
         </Text>
         <Text style={[styles.key, { color: colors.black }]}>
           Téléphones de commercial
         </Text>
-        {seller?.phones.map((p, i) => (
-          <Pressable
-            onPress={() => Linking.openURL("tel:" + p)}
-            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
-            key={i}
-          >
-            <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
-          </Pressable>
-        ))}
+        {seller?.phones ? (
+          seller?.phones.map((p, i) => (
+            <Pressable
+              onPress={() => Linking.openURL("tel:" + p)}
+              style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+              key={i}
+            >
+              <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
+            </Pressable>
+          ))
+        ) : (
+          <Text style={[styles.value, { color: "#616161" }]}>
+            {"Des données supprimées"}
+          </Text>
+        )}
         <Text style={[styles.key, { color: colors.black }]}>
           Liste des produits
         </Text>

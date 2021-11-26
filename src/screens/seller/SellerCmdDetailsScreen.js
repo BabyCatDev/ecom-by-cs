@@ -108,20 +108,26 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
           Nom de livreur
         </Text>
         <Text style={[styles.value, { color: "#616161" }]}>
-          {delivery?.fullName}
+          {delivery?.fullName || "Des données supprimées "}
         </Text>
         <Text style={[styles.key, { color: colors.black }]}>
           Téléphones de livreur
         </Text>
-        {delivery?.phones.map((p, i) => (
-          <Pressable
-            onPress={() => Linking.openURL("tel:" + p)}
-            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
-            key={i}
-          >
-            <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
-          </Pressable>
-        ))}
+        {delivery?.phones ? (
+          delivery?.phones.map((p, i) => (
+            <Pressable
+              onPress={() => Linking.openURL("tel:" + p)}
+              style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+              key={i}
+            >
+              <Text style={[styles.value, { color: "#616161" }]}>{p}</Text>
+            </Pressable>
+          ))
+        ) : (
+          <Text style={[styles.value, { color: "#616161" }]}>
+            {"Des données supprimées"}
+          </Text>
+        )}
         <Text style={[styles.key, { color: colors.black }]}>
           Liste des produits
         </Text>

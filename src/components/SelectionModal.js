@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useTheme } from "@react-navigation/native";
+import { Button } from "./Button";
 const SelectionModal = ({ close, onSelect, value, items }) => {
   const { colors } = useTheme();
   return (
@@ -31,6 +32,8 @@ const SelectionModal = ({ close, onSelect, value, items }) => {
           </Pressable>
         ))}
       </ScrollView>
+      <Button onPress={() => close()}>Fermer</Button>
+      <View marginVertical={20} />
     </View>
   );
 };
