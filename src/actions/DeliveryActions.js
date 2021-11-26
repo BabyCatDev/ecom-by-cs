@@ -9,6 +9,20 @@ import {
 import apiInstance from "./Base";
 import { navigate } from "../navigations/RootNavigation";
 
+export const fetchAdminStats = () => {
+  return dispatch => {
+    dispatch({ type: DELIVERY_STATS });
+    apiInstance
+      .get(`/adminstats`)
+      .then(response => {
+        dispatch({ type: DELIVERY_STATS_SUCCESS, payload: response.data });
+      })
+      .catch(error => {
+        dispatch({ type: DELIVERY_STATS_FAIL });
+        console.log(error);
+      });
+  };
+};
 export const fetchDeliveryStats = () => {
   return dispatch => {
     dispatch({ type: DELIVERY_STATS });

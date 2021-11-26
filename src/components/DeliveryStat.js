@@ -42,8 +42,7 @@ const styles = StyleSheet.create({
   titleStyle: {
     fontFamily: "Montserrat-SemiBold",
     fontSize: 16,
-    textAlign: "center",
-    flex: 1
+    textAlign: "center"
   },
   valueStyle: {
     fontFamily: "Montserrat-Bold",

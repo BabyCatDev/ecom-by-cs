@@ -1,33 +1,72 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { Container, Label, TopBar, Statistique } from "../../components";
+import { Container, Label, TopBar, DeliveryStat } from "../../components";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchAdminStats } from "../../actions";
 
 const StatistiquesScreen = ({ navigation }) => {
   const { colors } = useTheme();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAdminStats());
+  }, []);
 
+  const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
+  const conversionRate = (stats.succeedOrders / stats.totalOrders) * 100;
   return (
-    <Container containerstyle={{ paddingHorizontal: 10 }}>
-      <TopBar />
-      <Label>{"Les\nStatistiques"}</Label>
-      <View marginVertical={20} />
-      <View style={styles.row}>
-        <Statistique title={"Revenu total"} value={120} />
-        <Statistique title={"Total cmds"} value={50} />
-      </View>
-      <View style={styles.row}>
-        <Statistique title={"Livraisons"} value={26} />
-        <Statistique title={"Produits"} value={19} />
-      </View>
+    <Container containerstyle={{ margin: 0, marginTop: 0 }}>
+      <ScrollView
+        overScrollMode={"never"}
+        contentContainerStyle={styles.scrollStyle}
+      >
+        <TopBar />
+        <Label>{"Les\nStatistiques"}</Label>
+        <View marginVertical={20} />
+        <DeliveryStat
+          title={"LIVRAISONS TOTALES"}
+          value={stats.totalOrders}
+          color={"#4D4A49"}
+        />
+        <DeliveryStat
+          title={"LIVRÉ AVEC SUCCÈS"}
+          value={stats.succeedOrders}
+          color={colors.green}
+        />
+        <DeliveryStat
+          title={"ÉCHEC DE LIVRAISON"}
+          value={stats.failedOrders}
+          color={colors.red}
+        />
+        <DeliveryStat
+          title={"TAUX DE CONVERSION"}
+          value={(conversionRate ? conversionRate.toFixed(2) : 0) + "%"}
+          color={colors.blue}
+        />
+        <DeliveryStat
+          title={"C.A RÉALISÉ"}
+          value={stats.turnoverRealized || "0"}
+          color={"#B7931F"}
+          currencySign
+        />
+        <DeliveryStat
+          title={"C.A A ÉCHOUÉ"}
+          value={stats.failedTurnover || "0"}
+          color={"#ff6347"}
+          currencySign
+        />
+        <View marginVertical={20} />
+      </ScrollView>
     </Container>
   );
 };
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginVertical: 10
+  scrollStyle: {
+    paddingHorizontal: 25,
+    paddingTop: 30
   }
 });
 
