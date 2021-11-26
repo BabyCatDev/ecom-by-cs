@@ -127,7 +127,7 @@ export const deleteProduct = ({ productId, companyId }) => {
 };
 
 //update Product
-export const updateProduct = ({ productId, companyId }) => {
+export const updateProduct = ({ productId, companyId, name, price }) => {
   return dispatch => {
     apiInstance
       .patch(`/product/${productId}`, { name, price })

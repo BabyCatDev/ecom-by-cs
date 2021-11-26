@@ -44,8 +44,11 @@ const CommerceProduitsScreen = ({ navigation }) => {
       <OwnBottomSheet
         ref={sheetRef}
         editFunction={() => {
-          alert("navigate to update");
           sheetRef.current.closeSheet();
+          navigate("AjouterProduit", {
+            companyName: name,
+            product: selectedProduct
+          });
         }}
         deleteFunction={() => {
           dispatch(

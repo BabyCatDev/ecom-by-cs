@@ -12,15 +12,18 @@ import {
   SelectionModal
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { addProduct } from "../../actions";
+import { addProduct, updateProduct } from "../../actions";
 
 const AjouterProduitScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
   const companyName = route?.params?.companyName;
+  const product = route?.params?.product;
+  const productId = product._id;
+
+  const [name, setName] = useState(product?.name || "");
   const [entreprise, setEntreprise] = useState(companyName);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(product?.price || "");
   const [entrepriseModal, setEntrepriseModal] = useState(false);
   const [companies] = useSelector(({ companiesData }) => [
     companiesData.companies
@@ -37,7 +40,9 @@ const AjouterProduitScreen = ({ navigation, route }) => {
         />
       </Modal>
       <TopBar />
-      <Label>{"Ajouter \nun produit"}</Label>
+      <Label>
+        {(productId ? "Mettre à jour" : "Ajouter") + " \nun produit"}
+      </Label>
       <View flex={1} justifyContent={"space-between"}>
         <View marginVertical={20} />
         <View alignItems={"center"}>
@@ -64,10 +69,12 @@ const AjouterProduitScreen = ({ navigation, route }) => {
         <Button
           onPress={() => {
             const companyId = companies.find(c => c.name === entreprise)._id;
-            dispatch(addProduct({ name, price, companyId }));
+            productId
+              ? dispatch(updateProduct({ name, price, companyId, productId }))
+              : dispatch(addProduct({ name, price, companyId }));
           }}
         >
-          Ajouter
+          {productId ? "Mettre à jour" : "Ajouter"}
         </Button>
         <View marginVertical={20} />
       </View>
