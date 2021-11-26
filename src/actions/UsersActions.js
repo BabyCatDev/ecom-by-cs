@@ -21,7 +21,7 @@ export const getUsers = () => {
 export const updatePassword = ({ id, generatedPassword }) => {
   return dispatch => {
     apiInstance
-      .patch(`/user/${id}`, { password: generatedPassword })
+      .patch(`/password/${id}`, { password: generatedPassword })
       .then(response => {
         alert("Le mot de passe a été changé avec succès :)");
       })
