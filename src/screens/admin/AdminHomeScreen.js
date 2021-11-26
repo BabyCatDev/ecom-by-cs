@@ -36,7 +36,10 @@ const AdminHomeScreen = ({ navigation }) => {
               numberOfLines={1}
             >{`${user?.fullName?.split(" ")[0] || ""}!`}</Label>
           </View>
-          <Pressable onPress={() => dispatch(logout())}>
+          <Pressable
+            style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+            onPress={() => dispatch(logout())}
+          >
             <Logout />
           </Pressable>
         </View>
