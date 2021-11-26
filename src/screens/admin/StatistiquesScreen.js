@@ -25,8 +25,12 @@ const StatistiquesScreen = ({ navigation }) => {
         <TopBar />
         <Label>{"Les\nStatistiques"}</Label>
         <View marginVertical={20} />
+        <Text style={[styles.text, { color: colors.gray }]}>
+          {dayjs(new Date()).format("YYYY-MM-DD")}
+        </Text>
+        <View marginVertical={20} />
         <DeliveryStat
-          title={"LIVRAISONS TOTALES"}
+          title={"TOTAL DES COMMANDES"}
           value={stats.totalOrders}
           color={"#4D4A49"}
         />
@@ -67,6 +71,12 @@ const styles = StyleSheet.create({
   scrollStyle: {
     paddingHorizontal: 25,
     paddingTop: 30
+  },
+  text: {
+    fontFamily: "Montserrat-SemiBold",
+    fontSize: 20,
+    textAlign: "center",
+    lineHeight: 29
   }
 });
 
