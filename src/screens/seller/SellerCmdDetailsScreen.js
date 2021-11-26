@@ -62,6 +62,10 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
             {deliveryFeedback}
           </Text>
         )}
+        <Text style={[styles.key, { color: colors.black }]}>
+          {"ID de commande"}
+        </Text>
+        <Text style={[styles.value, { color: "#616161" }]}>{_id}</Text>
         <Text style={[styles.key, { color: colors.black }]}>Nom de client</Text>
         <Text style={[styles.value, { color: "#616161" }]}>{clientName}</Text>
         <Text style={[styles.key, { color: colors.black }]}>Son address</Text>
