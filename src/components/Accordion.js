@@ -40,7 +40,7 @@ const AccordionHeader = ({ title, color, onPress, isOpen }) => {
     </Pressable>
   );
 };
-const Accordion = ({ data }) => {
+const Accordion = ({ data, openBottomSheet, setSelectedUser }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
@@ -69,6 +69,10 @@ const Accordion = ({ data }) => {
           renderItem={({ item }) => (
             <PersonnelRow
               onPress={() => navigate("PersonnelDetails", { item })}
+              onLongPress={() => {
+                setSelectedUser(item);
+                openBottomSheet();
+              }}
               name={item.fullName}
             />
           )}
@@ -91,6 +95,10 @@ const Accordion = ({ data }) => {
           renderItem={({ item }) => (
             <PersonnelRow
               onPress={() => navigate("PersonnelDetails", { item })}
+              onLongPress={() => {
+                setSelectedUser(item);
+                openBottomSheet();
+              }}
               name={item.fullName}
             />
           )}
@@ -113,6 +121,10 @@ const Accordion = ({ data }) => {
           renderItem={({ item }) => (
             <PersonnelRow
               onPress={() => navigate("PersonnelDetails", { item })}
+              onLongPress={() => {
+                setSelectedUser(item);
+                openBottomSheet();
+              }}
               name={item.fullName}
             />
           )}

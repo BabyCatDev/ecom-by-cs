@@ -18,3 +18,5 @@ export * from "./ArrowDown";
 export * from "./Buildings";
 export * from "./Minus";
 export * from "./Reports";
+export * from "./Delete";
+export * from "./Edit";

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -6,9 +6,10 @@ import {
   Label,
   TopBar,
   CommerceRow,
-  AddButton
+  AddButton,
+  OwnBottomSheet
 } from "../../components";
-import { fetchCompanies, selectCompany } from "../../actions";
+import { fetchCompanies, selectCompany, deleteCompany } from "../../actions";
 import { useSelector, useDispatch } from "react-redux";
 
 const CommercesScreen = ({ navigation }) => {
@@ -22,7 +23,8 @@ const CommercesScreen = ({ navigation }) => {
   const [companies] = useSelector(({ companiesData }) => [
     companiesData.companies
   ]);
-
+  const [selectedCompany, setSelectedCompany] = useState({});
+  const sheetRef = useRef(null);
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
@@ -37,12 +39,26 @@ const CommercesScreen = ({ navigation }) => {
               dispatch(selectCompany({ companyId: item._id }));
               navigate("CommerceProduits");
             }}
+            onLongPress={() => {
+              sheetRef.current.openSheet();
+              setSelectedCompany(item);
+            }}
           >
             {item.name}
           </CommerceRow>
         )}
       />
-
+      <OwnBottomSheet
+        ref={sheetRef}
+        editFunction={() => {
+          alert("navigate to update");
+          sheetRef.current.closeSheet();
+        }}
+        deleteFunction={() => {
+          dispatch(deleteCompany({ companyId: selectedCompany._id }));
+          sheetRef.current.closeSheet();
+        }}
+      />
       <AddButton onPress={() => navigate("AjouterCommerce")}>Ajouter</AddButton>
     </Container>
   );

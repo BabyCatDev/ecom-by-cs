@@ -82,3 +82,61 @@ export const selectCompany = ({ companyId }) => {
     dispatch({ type: SELECT_COMPANY, payload: companyId });
   };
 };
+
+//delete Company
+export const deleteCompany = ({ companyId }) => {
+  return dispatch => {
+    apiInstance
+      .delete(`/company/${companyId}`)
+      .then(response => {
+        dispatch(fetchCompanies());
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+//update Company
+export const updateCompany = ({ companyId, name }) => {
+  return dispatch => {
+    apiInstance
+      .patch(`/company/${companyId}`, { name })
+      .then(response => {
+        dispatch(fetchCompanies());
+        goBack();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+//delete product
+export const deleteProduct = ({ productId, companyId }) => {
+  return dispatch => {
+    apiInstance
+      .delete(`/product/${productId}?companyId=${companyId}`)
+      .then(response => {
+        dispatch(fetchCompanies(companyId));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+//update Product
+export const updateProduct = ({ productId, companyId }) => {
+  return dispatch => {
+    apiInstance
+      .patch(`/product/${productId}`, { name, price })
+      .then(response => {
+        dispatch(fetchCompanies(companyId));
+        goBack();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};

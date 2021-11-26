@@ -2,13 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme, useNavigation } from "@react-navigation/native";
 
-const PersonnelRow = ({ name, onPress }) => {
+const PersonnelRow = ({ name, onPress, onLongPress }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
   return (
     <Pressable
       onPress={onPress}
+      onLongPress={onLongPress}
       style={({ pressed }) => [
         styles.container,
         { backgroundColor: pressed ? "#BABABA0B" : "#BABABA22" }

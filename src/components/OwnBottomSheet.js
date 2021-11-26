@@ -2,15 +2,14 @@ import React, { useRef, forwardRef, useImperativeHandle } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import RBSheet from "react-native-raw-bottom-sheet";
-// import { LinearGradient } from "expo-linear-gradient";
-// import { Out, AddUser, Highfive, Block } from "../icons";
+import { Edit, Delete } from "../icons";
 
 const OwnBottomSheet = forwardRef((props, ref) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
   const refRBSheet = useRef(null);
-
+  const { editFunction, deleteFunction } = props;
   useImperativeHandle(ref, () => ({
     openSheet() {
       refRBSheet.current.open();
@@ -21,30 +20,60 @@ const OwnBottomSheet = forwardRef((props, ref) => {
   }));
   return (
     <RBSheet
-      height={230}
+      height={120}
       ref={refRBSheet}
       closeOnPressMask={true}
       customStyles={{
         wrapper: {
           backgroundColor: "transparent"
+        },
+        container: {
+          ...styles.container,
+          backgroundColor: colors.white,
+          borderColor: "#BABABA"
         }
       }}
-    ></RBSheet>
+    >
+      <Pressable
+        onPress={() => editFunction()}
+        style={({ pressed }) => [styles.item, { opacity: pressed ? 0.7 : 1 }]}
+      >
+        <Text style={[styles.textItem, { color: colors.black }]}>Modifier</Text>
+        <Edit />
+      </Pressable>
+      <Pressable
+        onPress={() => deleteFunction()}
+        style={({ pressed }) => [styles.item, { opacity: pressed ? 0.7 : 1 }]}
+      >
+        <Text style={[styles.textItem, { color: colors.red }]}>Supprimer</Text>
+        <View
+          width={22}
+          height={22}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Delete />
+        </View>
+      </Pressable>
+    </RBSheet>
   );
 });
 
 const styles = StyleSheet.create({
-  container: {},
-  item: {
+  container: {
+    justifyContent: "space-around",
+    paddingVertical: 13,
     paddingHorizontal: 30,
+    borderTopWidth: 1
+  },
+  item: {
     flexDirection: "row",
-    paddingVertical: 10,
-    alignItems: "center"
+    alignItems: "center",
+    justifyContent: "space-between"
   },
   textItem: {
-    fontFamily: "Montserrat-Regular",
-    fontSize: 18,
-    paddingHorizontal: 20
+    fontFamily: "Montserrat-Medium",
+    fontSize: 18
   }
 });
 

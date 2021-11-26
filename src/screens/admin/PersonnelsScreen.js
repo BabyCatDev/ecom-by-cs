@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -7,31 +7,48 @@ import {
   TopBar,
   PersonnelRow,
   AddButton,
-  Accordion
+  Accordion,
+  OwnBottomSheet
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers } from "../../actions";
+import { getUsers, deleteUser } from "../../actions";
 
 const PersonnelsScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const { navigate } = navigation;
   const dispatch = useDispatch();
+  const sheetRef = useRef(null);
 
   useEffect(() => {
     dispatch(getUsers());
   }, []);
 
   const [users] = useSelector(({ usersData }) => [usersData.users]);
-
+  const [selectedUser, setSelectedUser] = useState({});
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
       <Label>{"Liste des\npersonnels"}</Label>
       <View marginVertical={20} />
-      <Accordion data={users} />
+      <Accordion
+        data={users}
+        setSelectedUser={setSelectedUser}
+        openBottomSheet={() => sheetRef.current.openSheet()}
+      />
       <AddButton onPress={() => navigate("AjouterPersonnel")}>
         Ajouter
       </AddButton>
+      <OwnBottomSheet
+        ref={sheetRef}
+        editFunction={() => {
+          alert("navigate to update");
+          sheetRef.current.closeSheet();
+        }}
+        deleteFunction={() => {
+          dispatch(deleteUser({ userId: selectedUser._id }));
+          sheetRef.current.closeSheet();
+        }}
+      />
     </Container>
   );
 };

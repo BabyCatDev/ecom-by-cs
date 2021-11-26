@@ -61,3 +61,39 @@ export const addUser = ({
       });
   };
 };
+
+//delete User
+export const deleteUser = ({ userId }) => {
+  return dispatch => {
+    apiInstance
+      .delete(`/user/${userId}`)
+      .then(response => {
+        dispatch(getUsers());
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+
+//update User
+export const updateUser = ({
+  userId,
+  type,
+  fullName,
+  email,
+  phones,
+  place
+}) => {
+  return dispatch => {
+    apiInstance
+      .patch(`/user/${userId}`, { type, fullName, email, phones, place })
+      .then(response => {
+        dispatch(getUsers());
+        goBack();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
