@@ -51,8 +51,8 @@ const CommercesScreen = ({ navigation }) => {
       <OwnBottomSheet
         ref={sheetRef}
         editFunction={() => {
-          alert("navigate to update");
           sheetRef.current.closeSheet();
+          navigate("AjouterCommerce", { item: selectedCompany });
         }}
         deleteFunction={() => {
           dispatch(deleteCompany({ companyId: selectedCompany._id }));
