@@ -4,7 +4,10 @@ import {
   FETCH_USERS_FAIL,
   FETCH_USER_STATS,
   FETCH_USER_STATS_SUCCESS,
-  FETCH_USER_STATS_FAIL
+  FETCH_USER_STATS_FAIL,
+  FETCH_PRODUCT_STATS,
+  FETCH_PRODUCT_STATS_SUCCESS,
+  FETCH_PRODUCT_STATS_FAIL
 } from "./types";
 import apiInstance from "./Base";
 import { navigate, goBack } from "../navigations/RootNavigation";
@@ -50,6 +53,21 @@ export const fetchAdminDeliveryStats = ({ userId, fromDate, toDate }) => {
       })
       .catch(error => {
         dispatch({ type: FETCH_USER_STATS_FAIL });
+      });
+  };
+};
+export const fetchAdminProductStats = ({ productId, fromDate, toDate }) => {
+  return dispatch => {
+    dispatch({ type: FETCH_PRODUCT_STATS, payload: {} });
+    apiInstance
+      .get(
+        `/adminproductstats/${productId}?fromDate=${fromDate}&toDate=${toDate}`
+      )
+      .then(response => {
+        dispatch({ type: FETCH_PRODUCT_STATS_SUCCESS, payload: response.data });
+      })
+      .catch(error => {
+        dispatch({ type: FETCH_PRODUCT_STATS_FAIL });
       });
   };
 };
