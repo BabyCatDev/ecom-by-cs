@@ -25,6 +25,7 @@ const StatistiquesScreen = ({ navigation }) => {
   const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
   const conversionRate = (stats.succeedOrders / stats.totalOrders) * 100;
   const averageBasket = stats.turnoverRealized / stats.totalOrders;
+  const daily = (stats.yesterdayOrders + stats.totalOrders) / 2;
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <ScrollView
@@ -73,6 +74,11 @@ const StatistiquesScreen = ({ navigation }) => {
         <DeliveryStat
           title={"PANIER MOYEN"}
           value={averageBasket.toFixed(2) || "0"}
+          color={"#4D4A98"}
+        />
+        <DeliveryStat
+          title={"MOYENNE DES COMMANDES"}
+          value={daily.toFixed(2) || "0"}
           color={"#4D4A98"}
         />
         <View flexDirection={"row"}>
