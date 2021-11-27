@@ -13,6 +13,8 @@ import AjouterPersonnelScreen from "../screens/admin/AjouterPersonnelScreen";
 import AjouterProduitScreen from "../screens/admin/AjouterProduitScreen";
 import PersonnelDetailsScreen from "../screens/admin/PersonnelDetailsScreen";
 import UpdatePersonnelScreen from "../screens/admin/UpdatePersonnelScreen";
+import UsersStatsScreen from "../screens/admin/UsersStatsScreen";
+import UserStatsScreen from "../screens/admin/UserStatsScreen";
 
 const Stack = createStackNavigator();
 
@@ -31,6 +33,8 @@ const MainStack = ({}) => (
     <Stack.Screen name="AjouterProduit" component={AjouterProduitScreen} />
     <Stack.Screen name="PersonnelDetails" component={PersonnelDetailsScreen} />
     <Stack.Screen name="UpdatePersonnel" component={UpdatePersonnelScreen} />
+    <Stack.Screen name="UsersStats" component={UsersStatsScreen} />
+    <Stack.Screen name="UserStats" component={UserStatsScreen} />
   </Stack.Navigator>
 );
 

@@ -1,21 +1,30 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { Container, Label, TopBar, DeliveryStat } from "../../components";
+import {
+  Container,
+  Label,
+  TopBar,
+  DeliveryStat,
+  StatsButton
+} from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAdminStats } from "../../actions";
+import { UserChecked, Truck, Bag } from "../../icons";
 
 const StatistiquesScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
+  const { navigate } = navigation;
   useEffect(() => {
     dispatch(fetchAdminStats());
   }, []);
 
   const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
   const conversionRate = (stats.succeedOrders / stats.totalOrders) * 100;
+  const averageBasket = stats.turnoverRealized / stats.totalOrders;
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <ScrollView
@@ -61,6 +70,36 @@ const StatistiquesScreen = ({ navigation }) => {
           color={"#ff6347"}
           currencySign
         />
+        <DeliveryStat
+          title={"PANIER MOYEN"}
+          value={averageBasket.toFixed(2) || "0"}
+          color={"#4D4A98"}
+        />
+        <View flexDirection={"row"}>
+          <StatsButton
+            onPress={() => navigate("UsersStats", { type: "Commercial" })}
+            icon={() => <UserChecked marginLeft={8} />}
+            color={colors.blue}
+          >
+            {"COMMERCIALS"}
+          </StatsButton>
+          <StatsButton
+            onPress={() => navigate("UsersStats", { type: "Livreur" })}
+            icon={() => <Truck marginLeft={4} />}
+            color={colors.green}
+          >
+            {"LIVREURS"}
+          </StatsButton>
+        </View>
+        <View flexDirection={"row"}>
+          <StatsButton
+            onPress={() => null}
+            icon={() => <Bag />}
+            color={colors.gray}
+          >
+            {"PRODUITS"}
+          </StatsButton>
+        </View>
         <View marginVertical={20} />
       </ScrollView>
     </Container>

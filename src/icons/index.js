@@ -20,3 +20,5 @@ export * from "./Minus";
 export * from "./Reports";
 export * from "./Delete";
 export * from "./Edit";
+export * from "./UserChecked";
+export * from "./Truck";

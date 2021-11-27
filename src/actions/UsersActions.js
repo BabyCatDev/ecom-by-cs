@@ -1,4 +1,11 @@
-import { FETCH_USERS, FETCH_USERS_SUCCESS, FETCH_USERS_FAIL } from "./types";
+import {
+  FETCH_USERS,
+  FETCH_USERS_SUCCESS,
+  FETCH_USERS_FAIL,
+  FETCH_USER_STATS,
+  FETCH_USER_STATS_SUCCESS,
+  FETCH_USER_STATS_FAIL
+} from "./types";
 import apiInstance from "./Base";
 import { navigate, goBack } from "../navigations/RootNavigation";
 
@@ -13,6 +20,36 @@ export const getUsers = () => {
       })
       .catch(error => {
         dispatch({ type: FETCH_USERS_FAIL });
+      });
+  };
+};
+
+export const fetchAdminSellerStats = ({ userId, fromDate, toDate }) => {
+  return dispatch => {
+    dispatch({ type: FETCH_USER_STATS, payload: {} });
+    apiInstance
+      .get(`/adminsellerstats/${userId}?fromDate=${fromDate}&toDate=${toDate}`)
+      .then(response => {
+        dispatch({ type: FETCH_USER_STATS_SUCCESS, payload: response.data });
+      })
+      .catch(error => {
+        dispatch({ type: FETCH_USER_STATS_FAIL });
+      });
+  };
+};
+
+export const fetchAdminDeliveryStats = ({ userId, fromDate, toDate }) => {
+  return dispatch => {
+    dispatch({ type: FETCH_USER_STATS, payload: {} });
+    apiInstance
+      .get(
+        `/admindeliverystats/${userId}?fromDate=${fromDate}&toDate=${toDate}`
+      )
+      .then(response => {
+        dispatch({ type: FETCH_USER_STATS_SUCCESS, payload: response.data });
+      })
+      .catch(error => {
+        dispatch({ type: FETCH_USER_STATS_FAIL });
       });
   };
 };
