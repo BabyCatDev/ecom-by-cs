@@ -7,7 +7,8 @@ import { Label } from "./Label";
 import { CustomDatePicker } from "./CustomDatePicker";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-
+const localizedFormat = require("dayjs/plugin/localizedFormat");
+dayjs.extend(localizedFormat);
 const DateRangePickerModal = ({
   close,
   fromDate,
@@ -21,6 +22,7 @@ const DateRangePickerModal = ({
   const { navigate } = navigation;
   const [fromModal, setFromModal] = useState(false);
   const [toModal, setToModal] = useState(false);
+  const [mode, setMode] = useState(`Aujourd'hui`);
   return (
     <View
       justifyContent="space-around"
@@ -32,7 +34,16 @@ const DateRangePickerModal = ({
       <Modal animationType="slide" transparent={true} visible={fromModal}>
         <CustomDatePicker
           value={dayjs(fromDate || new Date()).format("YYYY-MM-DD")}
-          setValue={val => setFromDate(val)}
+          setValue={val => {
+            if (mode === "Jour") {
+              setFromDate(val);
+              const nextDay = dayjs(val).add(1, "day");
+              const parsedNextDay = dayjs(nextDay).format("YYYY/MM/DD");
+              setToDate(parsedNextDay);
+            } else {
+              setFromDate(val);
+            }
+          }}
           close={() => setFromModal(false)}
           minimumDate={null}
         />
@@ -48,6 +59,7 @@ const DateRangePickerModal = ({
       <View>
         <Pressable
           onPress={() => {
+            setMode(`Aujourd'hui`);
             setToDate("");
             setFromDate("");
           }}
@@ -58,9 +70,9 @@ const DateRangePickerModal = ({
               {
                 color: colors.black,
                 fontFamily:
-                  fromDate.length > 0 || toDate.length > 0
-                    ? "Montserrat-Regular"
-                    : "Montserrat-SemiBold"
+                  mode === `Aujourd'hui`
+                    ? "Montserrat-SemiBold"
+                    : "Montserrat-Regular"
               }
             ]}
           >
@@ -68,25 +80,50 @@ const DateRangePickerModal = ({
           </Text>
         </Pressable>
         <View style={styles.separator} backgroundColor={colors.primary} />
-
-        <Text
-          style={[
-            styles.text,
-            {
-              color: colors.black,
-              fontFamily:
-                fromDate.length > 0 || toDate.length > 0
-                  ? "Montserrat-SemiBold"
-                  : "Montserrat-Regular"
-            }
-          ]}
+        <Pressable
+          onPress={() => {
+            setMode("Jour");
+          }}
         >
-          Date personnalisée
-        </Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                color: colors.black,
+                fontFamily:
+                  mode === `Jour` ? "Montserrat-SemiBold" : "Montserrat-Regular"
+              }
+            ]}
+          >
+            Un jour précis
+          </Text>
+        </Pressable>
+
+        <View style={styles.separator} backgroundColor={colors.primary} />
+        <Pressable
+          onPress={() => {
+            setMode("Period");
+          }}
+        >
+          <Text
+            style={[
+              styles.text,
+              {
+                color: colors.black,
+                fontFamily:
+                  mode === `Period`
+                    ? "Montserrat-SemiBold"
+                    : "Montserrat-Regular"
+              }
+            ]}
+          >
+            Une période de jours
+          </Text>
+        </Pressable>
       </View>
-      <View>
+      {mode === `Jour` ? (
         <Selector
-          label="De"
+          label="Choisir Un jour"
           text={
             fromDate.length > 0
               ? `${dayjs(fromDate).format("YYYY-MM-DD")}`
@@ -94,16 +131,28 @@ const DateRangePickerModal = ({
           }
           onPress={() => setFromModal(true)}
         />
-        <Selector
-          label="Jusqu'à"
-          text={
-            toDate.length > 0
-              ? `${dayjs(toDate).format("YYYY-MM-DD")}`
-              : "Choisir une date"
-          }
-          onPress={() => setToModal(true)}
-        />
-      </View>
+      ) : mode === `Period` ? (
+        <View>
+          <Selector
+            label="De"
+            text={
+              fromDate.length > 0
+                ? `${dayjs(fromDate).format("YYYY-MM-DD")}`
+                : "Choisir une date"
+            }
+            onPress={() => setFromModal(true)}
+          />
+          <Selector
+            label="Jusqu'à"
+            text={
+              toDate.length > 0
+                ? `${dayjs(toDate).format("YYYY-MM-DD")}`
+                : "Choisir une date"
+            }
+            onPress={() => setToModal(true)}
+          />
+        </View>
+      ) : null}
       <View>
         <Button onPress={submit}>Terminer</Button>
         <Button onPress={close}>Fermer</Button>
