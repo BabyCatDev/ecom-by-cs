@@ -35,6 +35,7 @@ export const validateOrder = ({ orderId, status, deliveryDate }) => {
       })
       .then(response => {
         dispatch(getSellerReports());
+        dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
         goBack();
       })
       .catch(error => {

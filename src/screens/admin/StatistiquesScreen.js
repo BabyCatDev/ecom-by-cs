@@ -75,12 +75,12 @@ const StatistiquesScreen = ({ navigation }) => {
         />
         <DeliveryStat
           title={"PANIER MOYEN"}
-          value={averageBasket.toFixed(2) || "0"}
+          value={averageBasket ? averageBasket.toFixed(2) : "0"}
           color={"#4D4A98"}
         />
         <DeliveryStat
           title={"MOYENNE DES COMMANDES"}
-          value={succededBasket.toFixed(2) || "0"}
+          value={succededBasket ? succededBasket.toFixed(2) : "0"}
           color={"#4D4A98"}
         />
         <DeliveryStat

@@ -68,7 +68,7 @@ export const signup = ({
         dispatch({ type: SIGNUP_USER_SUCCESS, payload: response.data });
       })
       .catch(error => {
-        aert(error);
+        alert("Vous avez inséré une valeur incorrecte");
         dispatch({ type: SIGNUP_USER_FAIL });
       });
   };
