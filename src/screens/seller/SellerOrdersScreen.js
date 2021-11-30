@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import {
   View,
   Text,
@@ -33,8 +33,17 @@ const SellerOrdersScreen = ({ navigation }) => {
   const [rangeModal, setRangeModal] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [orders] = useSelector(({ orderData }) => [orderData.orders]);
   const [selectedOrder, setSelectedOrder] = useState({});
+
+  const [orders] = useSelector(({ orderData }) => [orderData.orders]);
+  const sortedOrders = useMemo(() => {
+    return [
+      ...orders.filter(o => o.status === "Hold"),
+      ...orders.filter(o => o.status === "Failed"),
+      ...orders.filter(o => o.status === "Succeed")
+    ];
+  }, [orders]);
+
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <Modal animationType="slide" transparent={true} visible={rangeModal}>
@@ -64,7 +73,7 @@ const SellerOrdersScreen = ({ navigation }) => {
         </Text>
       </Pressable>
       <FlatList
-        data={orders}
+        data={sortedOrders}
         keyExtractor={item => item._id}
         renderItem={({ item }) => (
           <CommandeRow
