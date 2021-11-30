@@ -25,10 +25,45 @@ export const getSellerOrders = ({ fromDate, toDate }) => {
   };
 };
 
-export const validateOrder = ({ orderId, status, deliveryDate }) => {
+export const updateOrder = ({
+  orderId,
+  clientAddress,
+  deliveryDate,
+  clientPhones,
+  clientName,
+  comments,
+  delivery,
+  oldDelivery,
+  productsDetails,
+  oldProductsIds
+}) => {
   return dispatch => {
     apiInstance
       .patch(`/order/${orderId}`, {
+        clientAddress,
+        deliveryDate,
+        clientPhones,
+        clientName,
+        comments,
+        delivery,
+        oldDelivery,
+        productsDetails,
+        oldProductsIds
+      })
+      .then(response => {
+        dispatch(getSellerReports());
+        dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
+        goBack();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+export const validateOrder = ({ orderId, status, deliveryDate }) => {
+  return dispatch => {
+    apiInstance
+      .patch(`/postpone/${orderId}`, {
         status,
         deliveryDate,
         deliveryFeedback: ""

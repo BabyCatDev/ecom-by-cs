@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { CommandStatus } from "./CommandStatus";
 
-const CommandeRow = ({ status, client, total, date, onPress }) => {
+const CommandeRow = ({ status, client, total, date, onPress, onLongPress }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
@@ -11,6 +11,7 @@ const CommandeRow = ({ status, client, total, date, onPress }) => {
   return (
     <Pressable
       onPress={onPress}
+      onLongPress={onLongPress}
       style={[styles.container, { backgroundColor: colors.white }]}
     >
       <Text style={[styles.client, { color: colors.black }]}>

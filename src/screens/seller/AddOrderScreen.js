@@ -21,21 +21,33 @@ import {
   ProductsSelectionModal
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
-import { getUsers, createOrder } from "../../actions";
+import { getUsers, createOrder, updateOrder } from "../../actions";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 const AddOrderScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const companyName = route?.params?.companyName;
-  const [clientName, setClientName] = useState("");
-  const [clientPhones, setClientPhones] = useState([""]);
-  const [clientAddress, setClientAddress] = useState("");
-  const [comments, setComments] = useState("");
-  const [selectedDelivery, setSelectedDelivery] = useState({});
-  const [products, setProducts] = useState([]);
-  const [deliveryDate, setDeliveryDate] = useState(new Date());
+  const order = route?.params?.order;
+  const [clientName, setClientName] = useState(order?.clientName || "");
+  const [clientPhones, setClientPhones] = useState(order?.clientPhones || [""]);
+  const [clientAddress, setClientAddress] = useState(
+    order?.clientAddress || ""
+  );
+  const [comments, setComments] = useState(order?.comments || "");
+  const [selectedDelivery, setSelectedDelivery] = useState(
+    order?.delivery.fullName ? order?.delivery : {}
+  );
+  const oldProducts = order?.products.map(p => ({
+    quantity: p.quantity,
+    productId: p.product._id,
+    name: p.product.name,
+    price: p.product.price
+  }));
+  const [products, setProducts] = useState(oldProducts || []);
+  const [deliveryDate, setDeliveryDate] = useState(
+    order?.deliveryDate || new Date()
+  );
   const [deliveriesModal, setDeliveriesModal] = useState(false);
   const [dateModal, setDateModal] = useState(false);
   const [productsSelectionModal, setProductsSelectionModal] = useState(false);
@@ -169,21 +181,38 @@ const AddOrderScreen = ({ navigation, route }) => {
         </View>
         <View marginVertical={20} />
         <Button
-          onPress={() =>
-            dispatch(
-              createOrder({
-                deliveryDate,
-                clientAddress,
-                clientPhones,
-                clientName,
-                delivery: selectedDelivery._id,
-                productsDetails: products,
-                comments
-              })
-            )
-          }
+          onPress={() => {
+            if (order?.clientName) {
+              dispatch(
+                updateOrder({
+                  orderId: order?._id,
+                  deliveryDate,
+                  clientAddress,
+                  clientPhones,
+                  clientName,
+                  delivery: selectedDelivery._id,
+                  productsDetails: products,
+                  comments,
+                  oldDelivery: order?.delivery._id,
+                  oldProductsIds: order?.products.map(o => o._id)
+                })
+              );
+            } else {
+              dispatch(
+                createOrder({
+                  deliveryDate,
+                  clientAddress,
+                  clientPhones,
+                  clientName,
+                  delivery: selectedDelivery._id,
+                  productsDetails: products,
+                  comments
+                })
+              );
+            }
+          }}
         >
-          Ajouter
+          {order?.clientName ? "Mettre à jour" : "Ajouter"}
         </Button>
         <View marginVertical={20} />
       </ScrollView>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,8 @@ import {
   TopBar,
   CommandeRow,
   AddButton,
-  DateRangePickerModal
+  DateRangePickerModal,
+  OrderBottomSheet
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getSellerOrders } from "../../actions";
@@ -24,6 +25,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 const SellerOrdersScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const { navigate } = navigation;
+  const sheetRef = useRef(null);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSellerOrders({ fromDate, toDate }));
@@ -32,6 +34,7 @@ const SellerOrdersScreen = ({ navigation }) => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
+  const [selectedOrder, setSelectedOrder] = useState({});
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <Modal animationType="slide" transparent={true} visible={rangeModal}>
@@ -66,6 +69,10 @@ const SellerOrdersScreen = ({ navigation }) => {
         renderItem={({ item }) => (
           <CommandeRow
             onPress={() => navigate("SellerCmdDetails", { item })}
+            onLongPress={() => {
+              sheetRef.current.openSheet();
+              setSelectedOrder(item);
+            }}
             status={item.status}
             client={item.clientName}
             total={
@@ -79,6 +86,14 @@ const SellerOrdersScreen = ({ navigation }) => {
         )}
       />
       <AddButton onPress={() => navigate("AddOrder")}>Ajouter</AddButton>
+      <OrderBottomSheet
+        ref={sheetRef}
+        editFunction={() => {
+          sheetRef.current.closeSheet();
+          navigate("AddOrder", { order: selectedOrder });
+        }}
+        deleteFunction={() => null}
+      />
     </Container>
   );
 };
