@@ -8,7 +8,8 @@ import {
   FETCH_PRODUCT_STATS,
   FETCH_PRODUCT_STATS_SUCCESS,
   FETCH_PRODUCT_STATS_FAIL,
-  LOGOUT_USER_SUCCESS
+  LOGOUT_USER_SUCCESS,
+  ADMIN_DELIVERY_STATS_SUCCESS
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -17,7 +18,8 @@ const INITIAL_STATE = {
   productStats: {},
   loadingProductStats: false,
   loadingUsers: false,
-  loadingUserStats: false
+  loadingUserStats: false,
+  deliveryOrders: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -43,6 +45,11 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         userStats: action.payload,
         loadingUserStats: true
+      };
+    case ADMIN_DELIVERY_STATS_SUCCESS:
+      return {
+        ...state,
+        deliveryOrders: action.payload
       };
     case FETCH_USER_STATS_SUCCESS:
       return {

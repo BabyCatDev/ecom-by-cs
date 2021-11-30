@@ -1,12 +1,20 @@
-import React, { useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  Modal
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
   Label,
   TopBar,
   DeliveryStat,
-  StatsButton
+  StatsButton,
+  DateRangePickerModal
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -19,7 +27,7 @@ const StatistiquesScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const { navigate } = navigation;
   useEffect(() => {
-    dispatch(fetchAdminStats());
+    dispatch(fetchAdminStats({ fromDate, toDate }));
   }, []);
 
   const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
@@ -27,9 +35,24 @@ const StatistiquesScreen = ({ navigation }) => {
   const averageBasket = stats.turnoverRealized / stats.totalOrders;
   const succededBasket = stats.turnoverRealized / stats.succeedOrders;
   const daily = (stats.yesterdayOrders + stats.totalOrders) / 2;
-
+  const [rangeModal, setRangeModal] = useState(false);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
+      <Modal animationType="slide" transparent={true} visible={rangeModal}>
+        <DateRangePickerModal
+          fromDate={fromDate}
+          setFromDate={setFromDate}
+          toDate={toDate}
+          setToDate={setToDate}
+          close={() => setRangeModal(false)}
+          submit={() => {
+            dispatch(fetchAdminStats({ fromDate, toDate }));
+            setRangeModal(false);
+          }}
+        />
+      </Modal>
       <ScrollView
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
@@ -37,9 +60,18 @@ const StatistiquesScreen = ({ navigation }) => {
         <TopBar />
         <Label>{"Les\nStatistiques"}</Label>
         <View marginVertical={20} />
-        <Text style={[styles.text, { color: colors.gray }]}>
-          {dayjs(new Date()).format("YYYY-MM-DD")}
-        </Text>
+        <Pressable
+          style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
+          onPress={() => setRangeModal(true)}
+        >
+          <Text style={[styles.text, { color: colors.gray }]}>
+            {fromDate.length > 0 && toDate.length > 0
+              ? `${dayjs(fromDate).format("YYYY-MM-DD")} - ${dayjs(
+                  toDate
+                ).format("YYYY-MM-DD")}`
+              : `Aujourd'hui`}
+          </Text>
+        </Pressable>
         <View marginVertical={20} />
         <DeliveryStat
           title={"TOTAL DES COMMANDES"}

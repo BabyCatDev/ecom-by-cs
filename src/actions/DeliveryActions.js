@@ -4,16 +4,17 @@ import {
   DELIVERY_STATS_FAIL,
   FETCH_ORDERS,
   FETCH_ORDERS_SUCCESS,
-  FETCH_ORDERS_FAIL
+  FETCH_ORDERS_FAIL,
+  ADMIN_DELIVERY_STATS_SUCCESS
 } from "./types";
 import apiInstance from "./Base";
 import { navigate } from "../navigations/RootNavigation";
 
-export const fetchAdminStats = () => {
+export const fetchAdminStats = ({ fromDate, toDate }) => {
   return dispatch => {
     dispatch({ type: DELIVERY_STATS });
     apiInstance
-      .get(`/adminstats`)
+      .get(`/adminstats?fromDate=${fromDate}&toDate=${toDate}`)
       .then(response => {
         dispatch({ type: DELIVERY_STATS_SUCCESS, payload: response.data });
       })
@@ -64,6 +65,24 @@ export const getDeliveryOrders = () => {
       .catch(error => {
         console.log(error);
         dispatch({ type: FETCH_ORDERS_FAIL });
+      });
+  };
+};
+
+export const getAdminDeliveryOrders = ({ deliveryId, fromDate, toDate }) => {
+  return dispatch => {
+    apiInstance
+      .get(
+        `/admindeliveryorders/${deliveryId}?fromDate=${fromDate}&toDate=${toDate}`
+      )
+      .then(response => {
+        dispatch({
+          type: ADMIN_DELIVERY_STATS_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(error => {
+        console.log(error);
       });
   };
 };

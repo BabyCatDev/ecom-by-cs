@@ -85,11 +85,22 @@ const UserStatsScreen = ({ navigation, route }) => {
           </Text>
         </Pressable>
         <View marginVertical={20} />
-        <DeliveryStat
-          title={"TOTAL DES COMMANDES"}
-          value={userStats.totalOrders || "0"}
-          color={"#4D4A49"}
-        />
+        <Pressable
+          onPress={() => {
+            if (type === "Livreur")
+              navigate("AdminDeliveryOrders", {
+                fromDate,
+                toDate,
+                deliveryId: userId
+              });
+          }}
+        >
+          <DeliveryStat
+            title={"TOTAL DES COMMANDES"}
+            value={userStats.totalOrders || "0"}
+            color={"#4D4A49"}
+          />
+        </Pressable>
         <DeliveryStat
           title={"LIVRÉ AVEC SUCCÈS"}
           value={userStats.succeedOrders || "0"}
