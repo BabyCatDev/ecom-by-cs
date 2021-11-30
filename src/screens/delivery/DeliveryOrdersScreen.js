@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -22,14 +22,19 @@ const DeliveryOrdersScreen = ({ navigation }) => {
   }, []);
 
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
-  // orders?.sort((x, y) => {
-  //   return x.status == "Hold" ? -1 : y.status == "Hold" ? 1 : 0;
-  // })
+  const sortedOrders = useMemo(() => {
+    return [
+      ...orders.filter(o => o.status === "Hold"),
+      ...orders.filter(o => o.status === "Failed"),
+      ...orders.filter(o => o.status === "Succeed")
+    ];
+  }, [orders]);
+
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
       <FlatList
-        data={orders}
+        data={sortedOrders}
         keyExtractor={item => item._id}
         renderItem={({ item }) => (
           <CommandeRow
