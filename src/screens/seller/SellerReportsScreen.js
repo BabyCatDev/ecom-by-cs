@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,13 @@ import {
   Pressable
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import { Container, Label, TopBar, CommandeRow } from "../../components";
+import {
+  Container,
+  Label,
+  TopBar,
+  CommandeRow,
+  OrderBottomSheet
+} from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getSellerReports } from "../../actions";
 import dayjs from "dayjs";
@@ -17,11 +23,13 @@ import relativeTime from "dayjs/plugin/relativeTime";
 const SellerReportsScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const { navigate } = navigation;
+  const sheetRef = useRef(null);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getSellerReports());
   }, []);
   const [reports] = useSelector(({ orderData }) => [orderData.reports]);
+  const [selectedOrder, setSelectedOrder] = useState({});
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
@@ -31,6 +39,10 @@ const SellerReportsScreen = ({ navigation }) => {
         renderItem={({ item }) => (
           <CommandeRow
             onPress={() => navigate("SellerCmdDetails", { item })}
+            onLongPress={() => {
+              sheetRef.current.openSheet();
+              setSelectedOrder(item);
+            }}
             status={item.status}
             client={item.clientName}
             total={
@@ -42,6 +54,14 @@ const SellerReportsScreen = ({ navigation }) => {
             date={dayjs(item.deliveryDate).format("YYYY-MM-DD")}
           />
         )}
+      />
+      <OrderBottomSheet
+        ref={sheetRef}
+        editFunction={() => {
+          sheetRef.current.closeSheet();
+          navigate("AddOrder", { order: selectedOrder });
+        }}
+        deleteFunction={() => null}
       />
     </Container>
   );

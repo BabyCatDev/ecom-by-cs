@@ -33,7 +33,7 @@ const StatistiquesScreen = ({ navigation }) => {
   const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
   const conversionRate = (stats.succeedOrders / stats.totalOrders) * 100;
   const averageBasket = stats.turnoverRealized / stats.totalOrders;
-  const succededBasket = stats.turnoverRealized / stats.succeedOrders;
+
   const daily = (stats.yesterdayOrders + stats.totalOrders) / 2;
   const [rangeModal, setRangeModal] = useState(false);
   const [fromDate, setFromDate] = useState("");
@@ -112,12 +112,12 @@ const StatistiquesScreen = ({ navigation }) => {
         />
         <DeliveryStat
           title={"MOYENNE DES COMMANDES"}
-          value={succededBasket ? succededBasket.toFixed(2) : "0"}
+          value={stats.averageDaily}
           color={"#4D4A98"}
         />
         <DeliveryStat
           title={"LIVRAISONS QUOTIDIENNES"}
-          value={(daily.toFixed(2) || "0") + "%"}
+          value={stats?.percentageDailyDeliveries?.toFixed(2) + "%"}
           color={"#4D4A98"}
         />
         <View flexDirection={"row"}>
