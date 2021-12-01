@@ -117,7 +117,7 @@ const StatistiquesScreen = ({ navigation }) => {
         />
         <DeliveryStat
           title={"LIVRAISONS QUOTIDIENNES"}
-          value={stats?.percentageDailyDeliveries?.toFixed(2) + "%"}
+          value={(stats?.percentageDailyDeliveries?.toFixed(2) || 0) + "%"}
           color={"#4D4A98"}
         />
         <View flexDirection={"row"}>
