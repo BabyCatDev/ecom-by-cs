@@ -19,25 +19,30 @@ import {
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAdminStats } from "../../actions";
-import { UserChecked, Truck, Bag, Buildings } from "../../icons";
+import { fetchAdminCompanyStats } from "../../actions";
 
-const StatistiquesScreen = ({ navigation }) => {
+const CompanyStatsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const { navigate } = navigation;
-  useEffect(() => {
-    dispatch(fetchAdminStats({ fromDate, toDate }));
-  }, []);
 
-  const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
-  const conversionRate = (stats.succeedOrders / stats.totalOrders) * 100;
-  const averageBasket = stats.turnoverRealized / stats.totalOrders;
-
-  const daily = (stats.yesterdayOrders + stats.totalOrders) / 2;
   const [rangeModal, setRangeModal] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
+
+  const companyId = route.params.item?._id;
+  const companyName = route.params.item?.name;
+  useEffect(() => {
+    dispatch(fetchAdminCompanyStats({ companyId, fromDate, toDate }));
+  }, []);
+
+  const [companyStats] = useSelector(({ usersData }) => [
+    usersData.companyStats
+  ]);
+  const conversionRate =
+    (companyStats.succeedOrders / companyStats.totalOrders) * 100;
+  const averageBasket =
+    companyStats.turnoverRealized / companyStats.totalOrders;
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={rangeModal}>
@@ -48,7 +53,7 @@ const StatistiquesScreen = ({ navigation }) => {
           setToDate={setToDate}
           close={() => setRangeModal(false)}
           submit={() => {
-            dispatch(fetchAdminStats({ fromDate, toDate }));
+            dispatch(fetchAdminCompanyStats({ companyId, fromDate, toDate }));
             setRangeModal(false);
           }}
         />
@@ -58,7 +63,7 @@ const StatistiquesScreen = ({ navigation }) => {
         contentContainerStyle={styles.scrollStyle}
       >
         <TopBar />
-        <Label>{"Les\nStatistiques"}</Label>
+        <Label>{companyName}</Label>
         <View marginVertical={20} />
         <Pressable
           style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
@@ -75,17 +80,17 @@ const StatistiquesScreen = ({ navigation }) => {
         <View marginVertical={20} />
         <DeliveryStat
           title={"TOTAL DES COMMANDES"}
-          value={stats.totalOrders}
+          value={companyStats.totalOrders || "0"}
           color={"#4D4A49"}
         />
         <DeliveryStat
           title={"LIVRÉ AVEC SUCCÈS"}
-          value={stats.succeedOrders}
+          value={companyStats.succeedOrders || "0"}
           color={colors.green}
         />
         <DeliveryStat
           title={"ÉCHEC DE LIVRAISON"}
-          value={stats.failedOrders}
+          value={companyStats.failedOrders || "0"}
           color={colors.red}
         />
         <DeliveryStat
@@ -94,65 +99,22 @@ const StatistiquesScreen = ({ navigation }) => {
           color={colors.blue}
         />
         <DeliveryStat
-          title={"C.A RÉALISÉ"}
-          value={stats.turnoverRealized || "0"}
+          title={"REVENU RÉALISÉ"}
+          value={companyStats.turnoverRealized || "0"}
           color={"#B7931F"}
           currencySign
         />
         <DeliveryStat
-          title={"C.A A ÉCHOUÉ"}
-          value={stats.failedTurnover || "0"}
+          title={"REVENU ÉCHOUÉ"}
+          value={companyStats.failedTurnover || "0"}
           color={"#ff6347"}
           currencySign
         />
         <DeliveryStat
-          title={"PANIER MOYEN"}
+          title={"LIVRAISON MOYENNE"}
           value={averageBasket ? averageBasket.toFixed(2) : "0"}
           color={"#4D4A98"}
         />
-        <DeliveryStat
-          title={"MOYENNE DES COMMANDES"}
-          value={stats.averageDaily}
-          color={"#4D4A98"}
-        />
-        <DeliveryStat
-          title={"LIVRAISONS QUOTIDIENNES"}
-          value={(stats?.percentageDailyDeliveries?.toFixed(2) || 0) + "%"}
-          color={"#4D4A98"}
-        />
-        <View marginVertical={20} />
-        <View flexDirection={"row"}>
-          <StatsButton
-            onPress={() => navigate("UsersStats", { type: "Commercial" })}
-            icon={() => <UserChecked marginLeft={8} />}
-            color={colors.blue}
-          >
-            {"COMMERCIALS"}
-          </StatsButton>
-          <StatsButton
-            onPress={() => navigate("UsersStats", { type: "Livreur" })}
-            icon={() => <Truck marginLeft={4} />}
-            color={colors.green}
-          >
-            {"LIVREURS"}
-          </StatsButton>
-        </View>
-        <View flexDirection={"row"}>
-          <StatsButton
-            onPress={() => navigate("ProductsStats")}
-            icon={() => <Bag />}
-            color={colors.gray}
-          >
-            {"PRODUITS"}
-          </StatsButton>
-          <StatsButton
-            onPress={() => navigate("CommercesStats")}
-            icon={() => <Buildings />}
-            color={colors.red}
-          >
-            {"ENTREPRISES"}
-          </StatsButton>
-        </View>
         <View marginVertical={20} />
       </ScrollView>
     </Container>
@@ -172,4 +134,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default StatistiquesScreen;
+export default CompanyStatsScreen;

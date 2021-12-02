@@ -9,14 +9,19 @@ import {
   FETCH_PRODUCT_STATS_SUCCESS,
   FETCH_PRODUCT_STATS_FAIL,
   LOGOUT_USER_SUCCESS,
-  ADMIN_DELIVERY_STATS_SUCCESS
+  ADMIN_DELIVERY_STATS_SUCCESS,
+  FETCH_COMPANY_STATS,
+  FETCH_COMPANY_STATS_SUCCESS,
+  FETCH_COMPANY_STATS_FAIL
 } from "../actions/types";
 
 const INITIAL_STATE = {
   users: [],
   userStats: {},
   productStats: {},
+  companyStats: {},
   loadingProductStats: false,
+  loadingCompanyStats: false,
   loadingUsers: false,
   loadingUserStats: false,
   deliveryOrders: []
@@ -78,6 +83,23 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loadingProductStats: false
+      };
+    case FETCH_COMPANY_STATS:
+      return {
+        ...state,
+        companyStats: action.payload,
+        loadingCompanyStats: true
+      };
+    case FETCH_COMPANY_STATS_SUCCESS:
+      return {
+        ...state,
+        companyStats: action.payload,
+        loadingCompanyStats: false
+      };
+    case FETCH_COMPANY_STATS_FAIL:
+      return {
+        ...state,
+        loadingCompanyStats: false
       };
     case LOGOUT_USER_SUCCESS:
       return INITIAL_STATE;

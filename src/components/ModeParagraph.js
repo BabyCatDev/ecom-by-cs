@@ -25,7 +25,7 @@ export { ModeParagraph };
 
 const styles = StyleSheet.create({
   textStyle: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: "Montserrat-Medium",
     lineHeight: 30,
     paddingHorizontal: 30,
