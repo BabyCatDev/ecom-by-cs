@@ -104,7 +104,8 @@ const ProductsSelectionModal = ({ close, products, setProducts }) => {
                 productId: selectedProduct?._id,
                 quantity: quantity,
                 name: selectedProduct?.name,
-                price: selectedProduct?.price
+                price: selectedProduct?.price,
+                companyId: companies.find(c => c.name === company)._id
               }
             ])
           }

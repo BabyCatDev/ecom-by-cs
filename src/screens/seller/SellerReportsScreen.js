@@ -47,7 +47,7 @@ const SellerReportsScreen = ({ navigation }) => {
             client={item.clientName}
             total={
               item.products.reduce(
-                (acc, val) => acc + val.product.price * val.quantity,
+                (acc, val) => acc + val.sellingPrice * val.quantity,
                 0
               ) + " CFA"
             }

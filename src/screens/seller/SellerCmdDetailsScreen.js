@@ -136,7 +136,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
             <ProduitDetails
               key={p._id}
               name={p.product.name}
-              price={p.product.price}
+              price={p.sellingPrice}
               qte={p.quantity}
             />
           ))}
@@ -144,7 +144,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
         <Text style={[styles.total, { color: colors.black }]}>
           Total:{" "}
           {products.reduce(
-            (acc, val) => acc + val.product.price * val.quantity,
+            (acc, val) => acc + val.sellingPrice * val.quantity,
             0
           )}{" "}
           <Currency bigger />

@@ -42,7 +42,7 @@ const AddOrderScreen = ({ navigation, route }) => {
     quantity: p.quantity,
     productId: p.product._id,
     name: p.product.name,
-    price: p.product.price
+    price: p.sellingPrice
   }));
   const [products, setProducts] = useState(oldProducts || []);
   const [deliveryDate, setDeliveryDate] = useState(
