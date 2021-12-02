@@ -135,7 +135,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
           {products.map(p => (
             <ProduitDetails
               key={p._id}
-              name={p.product.name}
+              name={p?.product?.name || "Produit supprimé"}
               price={p.sellingPrice}
               qte={p.quantity}
             />

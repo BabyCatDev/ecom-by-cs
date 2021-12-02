@@ -40,8 +40,9 @@ const AddOrderScreen = ({ navigation, route }) => {
   );
   const oldProducts = order?.products.map(p => ({
     quantity: p.quantity,
-    productId: p.product._id,
-    name: p.product.name,
+    productId: p.product?._id || "",
+    name: p?.product?.name || "Produit supprimé",
+    companyId: p.company,
     price: p.sellingPrice
   }));
   const [products, setProducts] = useState(oldProducts || []);
