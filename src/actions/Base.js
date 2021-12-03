@@ -1,8 +1,7 @@
 import axios from "axios";
-import { BASE_URL } from "@env";
-
+import { getApiUrl } from "../Constants";
 const apiInstance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: getApiUrl(),
   headers: {
     "Content-Type": "application/json"
   }

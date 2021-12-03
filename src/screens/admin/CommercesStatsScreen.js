@@ -19,7 +19,7 @@ const CommercesStatsScreen = ({ navigation }) => {
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
-      <Label>{"Liste des\nentreprises"}</Label>
+      <Label>{"Stats des\nentreprises"}</Label>
       <View marginVertical={20} />
       <FlatList
         data={companies}

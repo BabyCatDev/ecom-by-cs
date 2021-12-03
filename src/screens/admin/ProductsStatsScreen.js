@@ -24,7 +24,7 @@ const ProductsStatsScreen = ({ navigation }) => {
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
-      <Label>{"Liste des\nproduits"}</Label>
+      <Label>{"Stats des\nproduits"}</Label>
       <View marginVertical={20} />
       <FlatList
         data={products}

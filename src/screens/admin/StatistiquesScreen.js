@@ -32,7 +32,7 @@ const StatistiquesScreen = ({ navigation }) => {
 
   const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
   const conversionRate = (stats.succeedOrders / stats.totalOrders) * 100;
-  const averageBasket = stats.turnoverRealized / stats.totalOrders;
+  const averageBasket = stats.turnoverRealized / stats.succeedOrders;
 
   const daily = (stats.yesterdayOrders + stats.totalOrders) / 2;
   const [rangeModal, setRangeModal] = useState(false);
