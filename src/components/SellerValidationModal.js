@@ -18,7 +18,7 @@ import { validateOrder } from "../actions";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-const SellerValidationModal = ({ close, orderId, deliveryDate }) => {
+const SellerValidationModal = ({ close, orderId, deliveryDate, status }) => {
   const { colors } = useTheme();
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const SellerValidationModal = ({ close, orderId, deliveryDate }) => {
                 validateOrder({
                   orderId,
                   deliveryDate: scheduledDate,
-                  status: "Hold"
+                  status: status
                 })
               );
             }}

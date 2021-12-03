@@ -46,6 +46,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
         <SellerValidationModal
           orderId={_id}
           deliveryDate={deliveryDate}
+          status={status}
           close={() => setValidationModal(false)}
         />
       </Modal>
