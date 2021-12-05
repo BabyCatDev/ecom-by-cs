@@ -66,6 +66,7 @@ const SellerOrdersScreen = ({ navigation }) => {
         fromDate={fromDate}
         toDate={toDate}
       />
+      <View marginVertical={20} />
       <FlatList
         data={sortedOrders}
         keyExtractor={item => item._id}
