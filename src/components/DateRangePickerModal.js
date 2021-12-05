@@ -123,7 +123,7 @@ const DateRangePickerModal = ({
       </View>
       {mode === `Jour` ? (
         <Selector
-          label="Choisir Un jour"
+          label="Choisir un jour"
           text={
             fromDate.length > 0
               ? `${dayjs(fromDate).format("YYYY-MM-DD")}`
