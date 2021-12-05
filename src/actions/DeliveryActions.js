@@ -9,12 +9,13 @@ import {
 } from "./types";
 import apiInstance from "./Base";
 import { navigate } from "../navigations/RootNavigation";
+import { addDaytoDate } from "../helpers";
 
 export const fetchAdminStats = ({ fromDate, toDate }) => {
   return dispatch => {
     dispatch({ type: DELIVERY_STATS });
     apiInstance
-      .get(`/adminstats?fromDate=${fromDate}&toDate=${toDate}`)
+      .get(`/adminstats?fromDate=${fromDate}&toDate=${addDaytoDate(toDate)}`)
       .then(response => {
         dispatch({ type: DELIVERY_STATS_SUCCESS, payload: response.data });
       })
@@ -43,7 +44,7 @@ export const fetchSellerStats = ({ fromDate, toDate }) => {
   return dispatch => {
     dispatch({ type: DELIVERY_STATS });
     apiInstance
-      .get(`/sellerstats?fromDate=${fromDate}&toDate=${toDate}`)
+      .get(`/sellerstats?fromDate=${fromDate}&toDate=${addDaytoDate(toDate)}`)
       .then(response => {
         dispatch({ type: DELIVERY_STATS_SUCCESS, payload: response.data });
       })
@@ -73,7 +74,9 @@ export const getAdminDeliveryOrders = ({ deliveryId, fromDate, toDate }) => {
   return dispatch => {
     apiInstance
       .get(
-        `/admindeliveryorders/${deliveryId}?fromDate=${fromDate}&toDate=${toDate}`
+        `/admindeliveryorders/${deliveryId}?fromDate=${fromDate}&toDate=${addDaytoDate(
+          toDate
+        )}`
       )
       .then(response => {
         dispatch({

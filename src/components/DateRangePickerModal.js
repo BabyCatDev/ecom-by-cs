@@ -35,14 +35,8 @@ const DateRangePickerModal = ({
         <CustomDatePicker
           value={dayjs(fromDate || new Date()).format("YYYY-MM-DD")}
           setValue={val => {
-            if (mode === "Jour") {
-              setFromDate(val);
-              const nextDay = dayjs(val).add(1, "day");
-              const parsedNextDay = dayjs(nextDay).format("YYYY/MM/DD");
-              setToDate(parsedNextDay);
-            } else {
-              setFromDate(val);
-            }
+            setFromDate(val);
+            setToDate(val);
           }}
           close={() => setFromModal(false)}
           minimumDate={null}

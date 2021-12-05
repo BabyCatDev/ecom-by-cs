@@ -8,13 +8,14 @@ import {
 } from "./types";
 import apiInstance from "./Base";
 import { navigate, goBack } from "../navigations/RootNavigation";
+import { addDaytoDate } from "../helpers";
 
 //getUsers
 export const getSellerOrders = ({ fromDate, toDate }) => {
   return dispatch => {
     dispatch({ type: FETCH_ORDERS });
     apiInstance
-      .get(`/sellerorders?fromDate=${fromDate}&toDate=${toDate}`)
+      .get(`/sellerorders?fromDate=${fromDate}&toDate=${addDaytoDate(toDate)}`)
       .then(response => {
         dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
       })

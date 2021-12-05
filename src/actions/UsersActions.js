@@ -14,6 +14,7 @@ import {
 } from "./types";
 import apiInstance from "./Base";
 import { navigate, goBack } from "../navigations/RootNavigation";
+import { addDaytoDate } from "../helpers";
 
 //getUsers
 export const getUsers = () => {
@@ -34,7 +35,11 @@ export const fetchAdminSellerStats = ({ userId, fromDate, toDate }) => {
   return dispatch => {
     dispatch({ type: FETCH_USER_STATS, payload: {} });
     apiInstance
-      .get(`/adminsellerstats/${userId}?fromDate=${fromDate}&toDate=${toDate}`)
+      .get(
+        `/adminsellerstats/${userId}?fromDate=${fromDate}&toDate=${addDaytoDate(
+          toDate
+        )}`
+      )
       .then(response => {
         dispatch({ type: FETCH_USER_STATS_SUCCESS, payload: response.data });
       })
@@ -49,7 +54,9 @@ export const fetchAdminDeliveryStats = ({ userId, fromDate, toDate }) => {
     dispatch({ type: FETCH_USER_STATS, payload: {} });
     apiInstance
       .get(
-        `/admindeliverystats/${userId}?fromDate=${fromDate}&toDate=${toDate}`
+        `/admindeliverystats/${userId}?fromDate=${fromDate}&toDate=${addDaytoDate(
+          toDate
+        )}`
       )
       .then(response => {
         dispatch({ type: FETCH_USER_STATS_SUCCESS, payload: response.data });
@@ -64,7 +71,9 @@ export const fetchAdminProductStats = ({ productId, fromDate, toDate }) => {
     dispatch({ type: FETCH_PRODUCT_STATS, payload: {} });
     apiInstance
       .get(
-        `/adminproductstats/${productId}?fromDate=${fromDate}&toDate=${toDate}`
+        `/adminproductstats/${productId}?fromDate=${fromDate}&toDate=${addDaytoDate(
+          toDate
+        )}`
       )
       .then(response => {
         dispatch({ type: FETCH_PRODUCT_STATS_SUCCESS, payload: response.data });
@@ -79,7 +88,9 @@ export const fetchAdminCompanyStats = ({ companyId, fromDate, toDate }) => {
     dispatch({ type: FETCH_COMPANY_STATS, payload: {} });
     apiInstance
       .get(
-        `/admincompanystats/${companyId}?fromDate=${fromDate}&toDate=${toDate}`
+        `/admincompanystats/${companyId}?fromDate=${fromDate}&toDate=${addDaytoDate(
+          toDate
+        )}`
       )
       .then(response => {
         dispatch({ type: FETCH_COMPANY_STATS_SUCCESS, payload: response.data });
