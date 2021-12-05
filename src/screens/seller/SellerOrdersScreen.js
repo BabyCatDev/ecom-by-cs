@@ -15,7 +15,8 @@ import {
   CommandeRow,
   AddButton,
   DateRangePickerModal,
-  OrderBottomSheet
+  OrderBottomSheet,
+  DateHeader
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getSellerOrders } from "../../actions";
@@ -60,18 +61,11 @@ const SellerOrdersScreen = ({ navigation }) => {
         />
       </Modal>
       <TopBar />
-      <Pressable
-        style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
-        onPress={() => setRangeModal(true)}
-      >
-        <Text style={[styles.text, { color: colors.gray }]}>
-          {fromDate.length > 0 && toDate.length > 0
-            ? `${dayjs(fromDate).format("YYYY-MM-DD")} - ${dayjs(toDate).format(
-                "YYYY-MM-DD"
-              )}`
-            : `Aujourd'hui`}
-        </Text>
-      </Pressable>
+      <DateHeader
+        setRangeModal={setRangeModal}
+        fromDate={fromDate}
+        toDate={toDate}
+      />
       <FlatList
         data={sortedOrders}
         keyExtractor={item => item._id}
@@ -107,13 +101,6 @@ const SellerOrdersScreen = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  text: {
-    fontFamily: "Montserrat-SemiBold",
-    fontSize: 20,
-    textAlign: "center",
-    marginBottom: 40
-  }
-});
+const styles = StyleSheet.create({});
 
 export default SellerOrdersScreen;

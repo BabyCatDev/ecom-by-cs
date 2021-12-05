@@ -14,7 +14,8 @@ import {
   TopBar,
   DeliveryStat,
   StatsButton,
-  DateRangePickerModal
+  DateRangePickerModal,
+  DateHeader
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -72,18 +73,11 @@ const UserStatsScreen = ({ navigation, route }) => {
         <TopBar />
         <Label>{userName}</Label>
         <View marginVertical={20} />
-        <Pressable
-          style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1 }]}
-          onPress={() => setRangeModal(true)}
-        >
-          <Text style={[styles.text, { color: colors.gray }]}>
-            {fromDate.length > 0 && toDate.length > 0
-              ? `${dayjs(fromDate).format("YYYY-MM-DD")} - ${dayjs(
-                  toDate
-                ).format("YYYY-MM-DD")}`
-              : `Aujourd'hui`}
-          </Text>
-        </Pressable>
+        <DateHeader
+          setRangeModal={setRangeModal}
+          fromDate={fromDate}
+          toDate={toDate}
+        />
         <View marginVertical={20} />
         <Pressable
           onPress={() => {
@@ -150,12 +144,6 @@ const styles = StyleSheet.create({
   scrollStyle: {
     paddingHorizontal: 25,
     paddingTop: 30
-  },
-  text: {
-    fontFamily: "Montserrat-SemiBold",
-    fontSize: 20,
-    textAlign: "center",
-    lineHeight: 29
   }
 });
 
