@@ -21,7 +21,6 @@ import {
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import * as Linking from "expo-linking";
-import { validateOrder } from "../../actions";
 
 const SellerCmdDetailsScreen = ({ navigation, route }) => {
   const { colors } = useTheme();

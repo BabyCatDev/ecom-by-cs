@@ -14,7 +14,7 @@ import { Label } from "./Label";
 import { Selector } from "./Selector";
 import { CustomDatePicker } from "./CustomDatePicker";
 import { useSelector, useDispatch } from "react-redux";
-import { validateOrder } from "../actions";
+import { confirmOrder, postponeOrder } from "../actions";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -43,7 +43,11 @@ const SellerValidationModal = ({ close, orderId, deliveryDate, status }) => {
         overScrollMode={"never"}
         contentContainerStyle={styles.scrollStyle}
       >
-        <Label>{"Confirmation de la commande"}</Label>
+        <Label>
+          {status === "Reported"
+            ? "Confirmation de la commande"
+            : "Reprogrammation de la commande"}
+        </Label>
 
         <View marginVertical={20} />
         <Selector
@@ -56,16 +60,23 @@ const SellerValidationModal = ({ close, orderId, deliveryDate, status }) => {
         <View>
           <Button
             onPress={() => {
-              dispatch(
-                validateOrder({
-                  orderId,
-                  deliveryDate: scheduledDate,
-                  status: status
-                })
-              );
+              status === "Reported"
+                ? dispatch(
+                    confirmOrder({
+                      orderId,
+                      deliveryDate: scheduledDate
+                    })
+                  )
+                : dispatch(
+                    postponeOrder({
+                      orderId,
+                      deliveryDate: scheduledDate,
+                      status: status
+                    })
+                  );
             }}
           >
-            {"Valider"}
+            {status === "Reported" ? "Confirmer" : "Reprogrammer"}
           </Button>
           <Button onPress={() => close()}>Fermer</Button>
         </View>

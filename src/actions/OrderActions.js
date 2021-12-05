@@ -60,13 +60,29 @@ export const updateOrder = ({
       });
   };
 };
-export const validateOrder = ({ orderId, status, deliveryDate }) => {
+export const postponeOrder = ({ orderId, status, deliveryDate }) => {
   return dispatch => {
     apiInstance
       .patch(`/postpone/${orderId}`, {
         status,
         deliveryDate,
         deliveryFeedback: ""
+      })
+      .then(response => {
+        dispatch(getSellerReports());
+        dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
+        goBack();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
+export const confirmOrder = ({ orderId, deliveryDate }) => {
+  return dispatch => {
+    apiInstance
+      .patch(`/confirm/${orderId}`, {
+        deliveryDate
       })
       .then(response => {
         dispatch(getSellerReports());
