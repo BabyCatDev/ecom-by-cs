@@ -36,7 +36,8 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
     status,
     deliveryFeedback,
     comments,
-    _id
+    _id,
+    postponed
   } = item;
   const [validationModal, setValidationModal] = useState(false);
   return (
@@ -55,7 +56,11 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
       >
         <TopBar />
         <View marginVertical={5} />
-        <CommandStatus status={status} justifyContent={"center"} />
+        <CommandStatus
+          status={status}
+          postponed={postponed}
+          justifyContent={"center"}
+        />
         <View marginVertical={20} />
         {deliveryFeedback?.length > 0 && (
           <Text style={[styles.message, { color: colors.red + "BB" }]}>
@@ -149,16 +154,19 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
           )}{" "}
           <Currency bigger />
         </Text>
-        {(status === "Reported" ||
-          status === "Failed" ||
-          status === "Hold") && (
-          <>
-            <Button onPress={() => setValidationModal(true)}>
-              {status === "Reported" ? "Valider" : "Reprogrammer"}
-            </Button>
-            <View marginVertical={10} />
-          </>
-        )}
+
+        {!postponed
+          ? (status === "Reported" ||
+              status === "Failed" ||
+              status === "Hold") && (
+              <>
+                <Button onPress={() => setValidationModal(true)}>
+                  {status === "Reported" ? "Valider" : "Reprogrammer"}
+                </Button>
+                <View marginVertical={10} />
+              </>
+            )
+          : null}
       </ScrollView>
     </Container>
   );

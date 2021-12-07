@@ -36,7 +36,8 @@ const CmdDetailsScreen = ({ navigation, route }) => {
     createdAt,
     status,
     _id,
-    comments
+    comments,
+    postponed
   } = item;
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
@@ -46,7 +47,11 @@ const CmdDetailsScreen = ({ navigation, route }) => {
       >
         <TopBar />
         <View marginVertical={5} />
-        <CommandStatus status={status} justifyContent={"center"} />
+        <CommandStatus
+          postponed={postponed}
+          status={status}
+          justifyContent={"center"}
+        />
         <View marginVertical={20} />
         <Text style={[styles.key, { color: colors.black }]}>
           {"ID de commande"}

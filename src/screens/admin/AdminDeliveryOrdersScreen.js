@@ -27,9 +27,7 @@ const AdminDeliveryOrdersScreen = ({ navigation, route }) => {
   const [deliveryOrders] = useSelector(({ usersData }) => [
     usersData.deliveryOrders
   ]);
-  // orders?.sort((x, y) => {
-  //   return x.status == "Hold" ? -1 : y.status == "Hold" ? 1 : 0;
-  // })
+
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
@@ -40,6 +38,7 @@ const AdminDeliveryOrdersScreen = ({ navigation, route }) => {
           <CommandeRow
             onPress={() => navigate("CmdDetails", { item })}
             status={item.status}
+            postponed={item.postponed}
             client={item.clientName}
             total={
               item.products.reduce(

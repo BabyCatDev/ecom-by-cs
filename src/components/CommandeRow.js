@@ -3,11 +3,18 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { CommandStatus } from "./CommandStatus";
 
-const CommandeRow = ({ status, client, total, date, onPress, onLongPress }) => {
+const CommandeRow = ({
+  status,
+  client,
+  total,
+  date,
+  onPress,
+  onLongPress,
+  postponed
+}) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
-
   return (
     <Pressable
       onPress={onPress}
@@ -17,7 +24,7 @@ const CommandeRow = ({ status, client, total, date, onPress, onLongPress }) => {
       <Text style={[styles.client, { color: colors.black }]}>
         {"Client: " + client}
       </Text>
-      <CommandStatus status={status} />
+      <CommandStatus status={status} postponed={postponed} />
       <View style={styles.row}>
         <Text style={[styles.price, { color: colors.black }]}>{total}</Text>
         <Text style={[styles.date, { color: "#92908F" }]}>{date}</Text>

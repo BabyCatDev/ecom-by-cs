@@ -35,7 +35,8 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
     createdAt,
     status,
     _id,
-    comments
+    comments,
+    postponed
   } = item;
   const [response, setResponse] = useState("");
   const [confimationModal, setConfimationModal] = useState(false);
@@ -58,7 +59,11 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
       >
         <TopBar />
         <View marginVertical={5} />
-        <CommandStatus status={status} justifyContent={"center"} />
+        <CommandStatus
+          status={status}
+          postponed={postponed}
+          justifyContent={"center"}
+        />
         <View marginVertical={20} />
         <Text style={[styles.key, { color: colors.black }]}>
           {"ID de commande"}
@@ -147,27 +152,29 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
           )}{" "}
           <Currency bigger />
         </Text>
-        {status === "Hold" && (
-          <>
-            <Button
-              onPress={() => {
-                setConfimationModal(true);
-                setResponse("yes");
-              }}
-            >
-              Livré
-            </Button>
-            <Button
-              onPress={() => {
-                setConfimationModal(true);
-                setResponse("non");
-              }}
-            >
-              Non Livré
-            </Button>
-            <View marginVertical={15} />
-          </>
-        )}
+        {!postponed
+          ? status === "Hold" && (
+              <>
+                <Button
+                  onPress={() => {
+                    setConfimationModal(true);
+                    setResponse("yes");
+                  }}
+                >
+                  Livré
+                </Button>
+                <Button
+                  onPress={() => {
+                    setConfimationModal(true);
+                    setResponse("non");
+                  }}
+                >
+                  Non Livré
+                </Button>
+                <View marginVertical={15} />
+              </>
+            )
+          : null}
       </ScrollView>
     </Container>
   );

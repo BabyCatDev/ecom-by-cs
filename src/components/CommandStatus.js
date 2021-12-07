@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { Playing, X, Info, Checked } from "../icons";
 
-const CommandStatus = ({ status, ...props }) => {
+const CommandStatus = ({ status, postponed, ...props }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
@@ -34,11 +34,12 @@ const CommandStatus = ({ status, ...props }) => {
       : status === "Failed"
       ? `Échec de livraison`
       : `Rapport`;
+  const displayedText = textStatus + (postponed ? " et reprogrammé" : "");
   return (
     <View style={styles.container} {...props}>
       <Text
         style={[styles.status, { color }]}
-      >{`${textStatus.toUpperCase()}`}</Text>
+      >{`${displayedText.toUpperCase()}`}</Text>
       {renderIcon()}
     </View>
   );

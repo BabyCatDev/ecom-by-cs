@@ -74,10 +74,13 @@ const SellerOrdersScreen = ({ navigation }) => {
           <CommandeRow
             onPress={() => navigate("SellerCmdDetails", { item })}
             onLongPress={() => {
-              sheetRef.current.openSheet();
-              setSelectedOrder(item);
+              if (!item.postponed) {
+                sheetRef.current.openSheet();
+                setSelectedOrder(item);
+              }
             }}
             status={item.status}
+            postponed={item.postponed}
             client={item.clientName}
             total={
               item.products.reduce(

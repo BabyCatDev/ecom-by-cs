@@ -40,6 +40,7 @@ const DeliveryOrdersScreen = ({ navigation }) => {
           <CommandeRow
             onPress={() => navigate("DeliveryCmdDetails", { item })}
             status={item.status}
+            postponed={item.postponed}
             client={item.clientName}
             total={
               item.products.reduce(
