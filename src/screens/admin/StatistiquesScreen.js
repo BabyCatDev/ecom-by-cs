@@ -73,6 +73,11 @@ const StatistiquesScreen = ({ navigation }) => {
           color={"#4D4A49"}
         />
         <DeliveryStat
+          title={"LIVRAISONS EN ATTENTE"}
+          value={stats.holdOrders}
+          color={colors.primary}
+        />
+        <DeliveryStat
           title={"LIVRÉ AVEC SUCCÈS"}
           value={stats.succeedOrders}
           color={colors.green}
@@ -106,7 +111,7 @@ const StatistiquesScreen = ({ navigation }) => {
         />
         <DeliveryStat
           title={"MOYENNE DES COMMANDES"}
-          value={stats.averageDaily}
+          value={stats?.averageDaily?.toFixed(2)}
           color={"#4D4A98"}
         />
         <DeliveryStat

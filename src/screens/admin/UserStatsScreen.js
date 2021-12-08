@@ -96,6 +96,11 @@ const UserStatsScreen = ({ navigation, route }) => {
           />
         </Pressable>
         <DeliveryStat
+          title={"LIVRAISONS EN ATTENTE"}
+          value={userStats.holdOrders || "0"}
+          color={colors.primary}
+        />
+        <DeliveryStat
           title={"LIVRÉ AVEC SUCCÈS"}
           value={userStats.succeedOrders || "0"}
           color={colors.green}

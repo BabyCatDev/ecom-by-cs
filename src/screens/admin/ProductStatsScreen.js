@@ -78,6 +78,11 @@ const ProductStatsScreen = ({ navigation, route }) => {
           color={"#4D4A49"}
         />
         <DeliveryStat
+          title={"LIVRAISONS EN ATTENTE"}
+          value={productStats.holdOrders || "0"}
+          color={colors.primary}
+        />
+        <DeliveryStat
           title={"LIVRÉ AVEC SUCCÈS"}
           value={productStats.succeedOrders || "0"}
           color={colors.green}
