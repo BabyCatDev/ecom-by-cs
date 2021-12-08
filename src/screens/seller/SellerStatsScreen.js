@@ -81,30 +81,6 @@ const SellerStatsScreen = ({ navigation }) => {
           value={stats.failedOrders || "0"}
           color={colors.red}
         />
-        <DeliveryStat
-          title={"REVENU RÉALISÉ"}
-          value={stats.realizedIncome || "0"}
-          color={"#B7931F"}
-          currencySign
-        />
-        <DeliveryStat
-          title={"REVENU MOYEN"}
-          value={stats?.averageIncome?.toFixed(2) || "0"}
-          color={"#B7931F"}
-          currencySign
-        />
-        <DeliveryStat
-          title={"REVENU POTENTIEL"}
-          value={stats.potentialIncome || "0"}
-          color={"#08AD8C"}
-          currencySign
-        />
-        <DeliveryStat
-          title={"MOYENNE POTENTIELLE"}
-          value={stats?.potentialAverage?.toFixed(2) || "0"}
-          color={"#08AD8C"}
-          currencySign
-        />
         <View marginVertical={20} />
       </ScrollView>
     </Container>
