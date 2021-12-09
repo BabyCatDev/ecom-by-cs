@@ -30,7 +30,7 @@ const DeliveryHomeScreen = ({ navigation }) => {
       >
         <ModeParagraph>{user?.type || ""}</ModeParagraph>
         <View style={styles.helloContainer}>
-          <View>
+          <View flex={1}>
             <Label>{`Salut`}</Label>
             <Label
               adjustsFontSizeToFit
