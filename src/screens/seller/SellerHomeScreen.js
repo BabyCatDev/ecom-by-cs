@@ -8,7 +8,7 @@ import {
   ModeParagraph,
   RoundedCard
 } from "../../components";
-import { Logout, Stats, FileText, Reports } from "../../icons";
+import { Logout, Stats, FileText, Reports, FileDeleted } from "../../icons";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile, logout } from "../../actions";
 
@@ -55,6 +55,12 @@ const SellerHomeScreen = ({ navigation }) => {
           icon={() => <FileText />}
         >
           {"Voir mes\nCommandes"}
+        </RoundedCard>
+        <RoundedCard
+          onPress={() => navigate("SellerFailedOrders")}
+          icon={() => <FileDeleted />}
+        >
+          {"Commandes\néchouées "}
         </RoundedCard>
         <RoundedCard
           onPress={() => navigate("SellerReports")}

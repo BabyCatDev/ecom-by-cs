@@ -22,3 +22,4 @@ export * from "./Delete";
 export * from "./Edit";
 export * from "./UserChecked";
 export * from "./Truck";
+export * from "./FileDeleted";

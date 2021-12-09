@@ -20,6 +20,7 @@ export default (state = INITIAL_STATE, action) => {
     case FETCH_ORDERS:
       return {
         ...state,
+        orders: [],
         loadingOrders: true
       };
     case FETCH_ORDERS_SUCCESS:

@@ -10,12 +10,26 @@ import apiInstance from "./Base";
 import { navigate, goBack } from "../navigations/RootNavigation";
 import { addDaytoDate } from "../helpers";
 
-//getUsers
 export const getSellerOrders = ({ fromDate, toDate }) => {
   return dispatch => {
-    dispatch({ type: FETCH_ORDERS });
+    dispatch({ type: FETCH_ORDERS, payload: [] });
     apiInstance
       .get(`/sellerorders?fromDate=${fromDate}&toDate=${addDaytoDate(toDate)}`)
+      .then(response => {
+        dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch({ type: FETCH_ORDERS_FAIL });
+      });
+  };
+};
+
+export const getSellerFailedOrders = () => {
+  return dispatch => {
+    dispatch({ type: FETCH_ORDERS, payload: [] });
+    apiInstance
+      .get(`/sellerfailedorders`)
       .then(response => {
         dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
       })
