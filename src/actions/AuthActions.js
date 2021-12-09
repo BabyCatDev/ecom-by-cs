@@ -13,13 +13,15 @@ import {
 } from "./types";
 import apiInstance from "./Base";
 import * as SecureStore from "expo-secure-store";
+import { registerForPushNotificationsAsync } from "../helpers";
 
 //Login
 export const login = ({ username, password }) => {
-  return dispatch => {
+  return async dispatch => {
     dispatch({ type: LOGIN_USER });
+    const pushToken = await registerForPushNotificationsAsync();
     apiInstance
-      .post("/login", { username, password })
+      .post("/login", { username, password, pushToken })
       .then(async response => {
         apiInstance.defaults.headers.common = {
           Authorization: "Bearer " + response.data.token
@@ -76,10 +78,12 @@ export const signup = ({
 
 //Logout
 export const logout = () => {
-  return dispatch => {
+  return async dispatch => {
     dispatch({ type: LOGOUT_USER });
+
+    const pushToken = await registerForPushNotificationsAsync();
     apiInstance
-      .post("/logout")
+      .post("/logout", { pushToken })
       .then(() => {
         dispatch({ type: LOGOUT_USER_SUCCESS });
       })
