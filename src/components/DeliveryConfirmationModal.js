@@ -7,7 +7,7 @@ import { Label } from "./Label";
 import { useSelector, useDispatch } from "react-redux";
 import { respondToOrder } from "../actions";
 
-const DeliveryConfirmationModal = ({ close, response, orderId }) => {
+const DeliveryConfirmationModal = ({ close, response, orderId, seller }) => {
   const { colors } = useTheme();
   const [message, setMessage] = useState("");
   const dispatch = useDispatch();
@@ -51,6 +51,7 @@ const DeliveryConfirmationModal = ({ close, response, orderId }) => {
                 respondToOrder({
                   orderId,
                   deliveryFeedback: message,
+                  seller,
                   status: response === "yes" ? "Succeed" : "Failed"
                 })
               );

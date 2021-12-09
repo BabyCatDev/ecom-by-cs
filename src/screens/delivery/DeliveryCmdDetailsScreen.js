@@ -51,6 +51,7 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
           close={() => setConfimationModal(false)}
           response={response}
           orderId={_id}
+          seller={seller._id}
         />
       </Modal>
       <ScrollView

@@ -90,12 +90,18 @@ export const getAdminDeliveryOrders = ({ deliveryId, fromDate, toDate }) => {
   };
 };
 
-export const respondToOrder = ({ orderId, deliveryFeedback, status }) => {
+export const respondToOrder = ({
+  orderId,
+  deliveryFeedback,
+  status,
+  seller
+}) => {
   return dispatch => {
     apiInstance
       .patch(`/delivery/` + orderId, {
         status,
-        deliveryFeedback
+        deliveryFeedback,
+        seller
       })
       .then(response => {
         dispatch(getDeliveryOrders());
