@@ -10,11 +10,13 @@ const CommandeRow = ({
   date,
   onPress,
   onLongPress,
-  postponed
+  postponed,
+  creationDate
 }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
+  const heading = date === creationDate ? "Soir" : "Matin";
   return (
     <Pressable
       onPress={onPress}
@@ -22,7 +24,7 @@ const CommandeRow = ({
       style={[styles.container, { backgroundColor: colors.white }]}
     >
       <Text style={[styles.client, { color: colors.black }]}>
-        {"Client: " + client}
+        {heading + " - " + client}
       </Text>
       <CommandStatus status={status} postponed={postponed} />
       <View style={styles.row}>

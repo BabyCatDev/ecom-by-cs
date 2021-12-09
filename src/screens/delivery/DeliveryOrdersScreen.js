@@ -48,7 +48,7 @@ const DeliveryOrdersScreen = ({ navigation }) => {
                 0
               ) + " CFA"
             }
-            date={dayjs(item.deliveryDate).format("YYYY-MM-DD")}
+            date={dayjs(item.deliveryDate).format("YYYY-MM-DD")} creationDate={dayjs(item.createdAt).format("YYYY-MM-DD")}
           />
         )}
       />
