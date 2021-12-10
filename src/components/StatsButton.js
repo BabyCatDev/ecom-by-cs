@@ -38,8 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     paddingHorizontal: 20,
     paddingVertical: 8,
-    marginBottom: 10,
-    marginHorizontal: 3
+    marginBottom: 6
   },
   textStyle: {
     fontFamily: "Montserrat-SemiBold",

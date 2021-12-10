@@ -44,6 +44,7 @@ const CompanyStatsScreen = ({ navigation, route }) => {
     (companyStats.succeedOrders / companyStats.totalOrders) * 100;
   const averageBasket =
     companyStats.turnoverRealized / companyStats.totalOrders;
+
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={rangeModal}>
@@ -112,6 +113,15 @@ const CompanyStatsScreen = ({ navigation, route }) => {
         <DeliveryStat
           title={"LIVRAISON MOYENNE"}
           value={averageBasket ? averageBasket.toFixed(2) : "0"}
+          color={"#4D4A98"}
+        />
+        <DeliveryStat
+          title={"POURCENTAGE CMD"}
+          value={
+            companyStats.percentagePerStore
+              ? companyStats.percentagePerStore + "%"
+              : "0%"
+          }
           color={"#4D4A98"}
         />
         <View marginVertical={20} />

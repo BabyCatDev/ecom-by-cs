@@ -128,6 +128,7 @@ const StatistiquesScreen = ({ navigation }) => {
           >
             {"COMMERCIALS"}
           </StatsButton>
+          <View marginHorizontal={3} />
           <StatsButton
             onPress={() => navigate("UsersStats", { type: "Livreur" })}
             icon={() => <Truck marginLeft={4} />}
@@ -144,6 +145,7 @@ const StatistiquesScreen = ({ navigation }) => {
           >
             {"PRODUITS"}
           </StatsButton>
+          <View marginHorizontal={3} />
           <StatsButton
             onPress={() => navigate("CommercesStats")}
             icon={() => <Buildings />}
