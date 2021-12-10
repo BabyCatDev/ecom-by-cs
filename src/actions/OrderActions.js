@@ -93,6 +93,22 @@ export const postponeOrder = ({ orderId, status, deliveryDate }) => {
       });
   };
 };
+export const reassignOrder = ({ orderId, newSeller }) => {
+  return dispatch => {
+    apiInstance
+      .patch(`/reassign/${orderId}`, {
+        newSeller
+      })
+      .then(response => {
+        dispatch(getSellerReports());
+        dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
+        goBack();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};
 export const confirmOrder = ({ orderId, deliveryDate }) => {
   return dispatch => {
     apiInstance

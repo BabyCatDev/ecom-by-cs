@@ -7,6 +7,7 @@ import SellerCmdDetailsScreen from "../screens/seller/SellerCmdDetailsScreen";
 import SellerStatsScreen from "../screens/seller/SellerStatsScreen";
 import SellerReportsScreen from "../screens/seller/SellerReportsScreen";
 import SellerFailedOrdersScreen from "../screens/seller/SellerFailedOrdersScreen";
+import ReassignOrderScreen from "../screens/seller/ReassignOrderScreen";
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ const SellerStack = ({}) => (
     <Stack.Screen name="SellerCmdDetails" component={SellerCmdDetailsScreen} />
     <Stack.Screen name="SellerStats" component={SellerStatsScreen} />
     <Stack.Screen name="SellerReports" component={SellerReportsScreen} />
+    <Stack.Screen name="ReassignOrder" component={ReassignOrderScreen} />
     <Stack.Screen
       name="SellerFailedOrders"
       component={SellerFailedOrdersScreen}

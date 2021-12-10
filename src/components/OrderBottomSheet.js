@@ -9,7 +9,7 @@ const OrderBottomSheet = forwardRef((props, ref) => {
   const navigation = useNavigation();
   const { navigate } = navigation;
   const refRBSheet = useRef(null);
-  const { editFunction, deleteFunction } = props;
+  const { editFunction, reassignFunction } = props;
   useImperativeHandle(ref, () => ({
     openSheet() {
       refRBSheet.current.open();
@@ -41,20 +41,22 @@ const OrderBottomSheet = forwardRef((props, ref) => {
         <Text style={[styles.textItem, { color: colors.black }]}>Modifier</Text>
         <Edit />
       </Pressable>
-      {/* <Pressable
-        onPress={() => deleteFunction()}
+      <Pressable
+        onPress={() => reassignFunction()}
         style={({ pressed }) => [styles.item, { opacity: pressed ? 0.7 : 1 }]}
       >
-        <Text style={[styles.textItem, { color: colors.red }]}>Supprimer</Text>
+        <Text style={[styles.textItem, { color: colors.black }]}>
+          Réaffecter
+        </Text>
         <View
           width={22}
           height={22}
           justifyContent={"center"}
           alignItems={"center"}
         >
-          <Delete />
+          <Edit />
         </View>
-      </Pressable> */}
+      </Pressable>
     </RBSheet>
   );
 });
