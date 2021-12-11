@@ -40,13 +40,15 @@ const AdminDeliveryOrdersScreen = ({ navigation, route }) => {
             status={item.status}
             postponed={item.postponed}
             client={item.clientName}
+            address={item.clientAddress}
             total={
               item.products.reduce(
                 (acc, val) => acc + val.sellingPrice * val.quantity,
                 0
               ) + " CFA"
             }
-            date={dayjs(item.deliveryDate).format("YYYY-MM-DD")} creationDate={dayjs(item.createdAt).format("YYYY-MM-DD")}
+            date={dayjs(item.deliveryDate).format("YYYY-MM-DD")}
+            creationDate={dayjs(item.createdAt).format("YYYY-MM-DD")}
           />
         )}
       />

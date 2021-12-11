@@ -82,6 +82,7 @@ const SellerOrdersScreen = ({ navigation }) => {
             status={item.status}
             postponed={item.postponed}
             client={item.clientName}
+            address={item.clientAddress}
             total={
               item.products.reduce(
                 (acc, val) => acc + val.sellingPrice * val.quantity,
