@@ -73,7 +73,8 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
         <Text style={[styles.value, { color: "#616161" }]}>{_id}</Text>
         <Text style={[styles.key, { color: colors.black }]}>Client</Text>
         <Text style={[styles.value, { color: "#616161" }]}>{clientName}</Text>
-        <Text style={[styles.address, { color: "#616161" }]}>
+        <Text style={[styles.key, { color: colors.black }]}>Son address</Text>
+        <Text style={[styles.value, { color: "#616161" }]}>
           {clientAddress}
         </Text>
         <Text style={[styles.key, { color: colors.black }]}>
@@ -190,12 +191,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginBottom: 10,
     lineHeight: 30
-  },
-  address: {
-    fontFamily: "Montserrat-Medium",
-    fontSize: 15,
-    marginBottom: 10,
-    lineHeight: 22
   },
   scrollStyle: {
     paddingHorizontal: 25,
