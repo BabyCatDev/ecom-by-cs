@@ -54,6 +54,18 @@ const DeliveryStatsScreen = ({ navigation }) => {
           value={(conversionRate ? conversionRate.toFixed(2) : 0) + "%"}
           color={colors.blue}
         />
+        <DeliveryStat
+          title={"REVENU RÉALISÉ"}
+          value={stats.turnoverRealized || "0"}
+          color={"#B7931F"}
+          currencySign
+        />
+        <DeliveryStat
+          title={"REVENU ÉCHOUÉ"}
+          value={stats.failedTurnover || "0"}
+          color={"#ff6347"}
+          currencySign
+        />
         <View marginVertical={20} />
       </ScrollView>
     </Container>
