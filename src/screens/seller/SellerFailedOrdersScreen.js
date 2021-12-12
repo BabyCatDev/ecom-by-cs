@@ -16,7 +16,8 @@ import {
   AddButton,
   DateRangePickerModal,
   OrderBottomSheet,
-  DateHeader
+  DateHeader,
+  Input
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getSellerFailedOrders } from "../../actions";
@@ -32,15 +33,28 @@ const SellerFailedOrdersScreen = ({ navigation }) => {
     dispatch(getSellerFailedOrders());
   }, []);
   const [selectedOrder, setSelectedOrder] = useState({});
+  const [search, setSearch] = useState("");
 
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
-
+  const filteredOrders = useMemo(() => {
+    return orders.filter(
+      o => o.clientName.includes(search) || o.clientAddress.includes(search)
+    );
+  }, [search]);
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
       <TopBar />
+      <View alignItems={"center"}>
+        <Input
+          label="Chercher :"
+          placeholder="Nom de client, address"
+          value={search}
+          onChangeText={val => setSearch(val)}
+        />
+      </View>
       <View marginVertical={20} />
       <FlatList
-        data={orders}
+        data={filteredOrders}
         keyExtractor={item => item._id}
         renderItem={({ item }) => (
           <CommandeRow
