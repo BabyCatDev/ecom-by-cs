@@ -15,7 +15,8 @@ import {
   DeliveryStat,
   StatsButton,
   DateRangePickerModal,
-  DateHeader
+  DateHeader,
+  StatsModal
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -28,6 +29,7 @@ const UserStatsScreen = ({ navigation, route }) => {
   const { navigate } = navigation;
 
   const [rangeModal, setRangeModal] = useState(false);
+  const [statsModal, setStatsModal] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const type = route.params.type;
@@ -49,6 +51,12 @@ const UserStatsScreen = ({ navigation, route }) => {
 
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
+      <Modal animationType="slide" transparent={true} visible={statsModal}>
+        <StatsModal
+          items={userStats.percentageCompanies}
+          close={() => setStatsModal(false)}
+        />
+      </Modal>
       <Modal animationType="slide" transparent={true} visible={rangeModal}>
         <DateRangePickerModal
           fromDate={fromDate}
@@ -71,7 +79,9 @@ const UserStatsScreen = ({ navigation, route }) => {
         contentContainerStyle={styles.scrollStyle}
       >
         <TopBar />
-        <Label>{userName}</Label>
+        <Pressable alignSelf={"flex-start"} onPress={() => setStatsModal(true)}>
+          <Label>{userName}</Label>
+        </Pressable>
         <View marginVertical={20} />
         <DateHeader
           setRangeModal={setRangeModal}
