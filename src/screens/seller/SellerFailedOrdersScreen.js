@@ -54,7 +54,7 @@ const SellerFailedOrdersScreen = ({ navigation }) => {
       </View>
       <View marginVertical={20} />
       <FlatList
-        data={filteredOrders}
+        data={search.length > 0 ? filteredOrders : orders}
         keyExtractor={item => item._id}
         renderItem={({ item }) => (
           <CommandeRow

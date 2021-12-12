@@ -125,15 +125,6 @@ const CompanyStatsScreen = ({ navigation, route }) => {
           value={averageBasket ? averageBasket.toFixed(2) : "0"}
           color={"#4D4A98"}
         />
-        <DeliveryStat
-          title={"POURCENTAGE CMD"}
-          value={
-            companyStats.percentagePerStore
-              ? companyStats.percentagePerStore + "%"
-              : "0%"
-          }
-          color={"#4D4A98"}
-        />
         <View marginVertical={20} />
       </ScrollView>
     </Container>

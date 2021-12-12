@@ -79,7 +79,10 @@ const UserStatsScreen = ({ navigation, route }) => {
         contentContainerStyle={styles.scrollStyle}
       >
         <TopBar />
-        <Pressable alignSelf={"flex-start"} onPress={() => setStatsModal(true)}>
+        <Pressable
+          alignSelf={"flex-start"}
+          onPress={() => type === "Commercial" && setStatsModal(true)}
+        >
           <Label>{userName}</Label>
         </Pressable>
         <View marginVertical={20} />
