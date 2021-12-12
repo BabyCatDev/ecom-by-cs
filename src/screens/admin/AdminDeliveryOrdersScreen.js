@@ -41,6 +41,7 @@ const AdminDeliveryOrdersScreen = ({ navigation, route }) => {
             postponed={item.postponed}
             client={item.clientName}
             address={item.clientAddress}
+            updated={item.updated}
             total={
               item.products.reduce(
                 (acc, val) => acc + val.sellingPrice * val.quantity,

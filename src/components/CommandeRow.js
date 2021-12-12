@@ -12,22 +12,33 @@ const CommandeRow = ({
   onLongPress,
   postponed,
   creationDate,
-  address
+  address,
+  updated
 }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
   const heading = date === creationDate ? "Soir" : "Matin";
+
   return (
     <Pressable
       onPress={onPress}
       onLongPress={onLongPress}
       style={[styles.container, { backgroundColor: colors.white }]}
     >
-      <Text style={[styles.client, { color: colors.black }]}>
-        {heading + " - " + client}
-      </Text>
-      <View marginVertical={5} />
+      <View
+        flexDirection={"row"}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
+        <Text style={[styles.client, { color: colors.black }]}>
+          {heading + " - " + client}
+        </Text>
+        {updated && (
+          <Text style={[styles.updated, { color: "#92908F99" }]}>modifié</Text>
+        )}
+      </View>
+      <View marginVertical={2.5} />
       <Text style={[styles.address, { color: colors.gray }]}>{address}</Text>
       <View marginVertical={5} />
       <CommandStatus status={status} postponed={postponed} />
@@ -61,6 +72,10 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   address: {
+    fontFamily: "Montserrat-Medium",
+    fontSize: 13
+  },
+  updated: {
     fontFamily: "Montserrat-Medium",
     fontSize: 13
   },

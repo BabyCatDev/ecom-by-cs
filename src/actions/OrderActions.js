@@ -50,7 +50,8 @@ export const updateOrder = ({
   delivery,
   oldDelivery,
   productsDetails,
-  oldProductsIds
+  oldProductsIds,
+  toBeDeletedProducts
 }) => {
   return dispatch => {
     apiInstance
@@ -63,7 +64,8 @@ export const updateOrder = ({
         delivery,
         oldDelivery,
         productsDetails,
-        oldProductsIds
+        oldProductsIds,
+        toBeDeletedProducts
       })
       .then(response => {
         dispatch(getSellerReports());

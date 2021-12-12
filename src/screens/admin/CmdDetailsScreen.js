@@ -33,6 +33,8 @@ const CmdDetailsScreen = ({ navigation, route }) => {
     seller,
     delivery,
     products,
+    oldProducts,
+    updated,
     createdAt,
     status,
     _id,
@@ -164,6 +166,31 @@ const CmdDetailsScreen = ({ navigation, route }) => {
           )}{" "}
           <Currency bigger />
         </Text>
+        {updated && oldProducts ? (
+          <>
+            <Text style={[styles.key, { color: colors.black }]}>
+              Avant la modification
+            </Text>
+            <View alignItems={"center"}>
+              {oldProducts.map(p => (
+                <ProduitDetails
+                  key={p._id}
+                  name={p?.product?.name || "Produit supprimé"}
+                  price={p.sellingPrice}
+                  qte={p.quantity}
+                />
+              ))}
+            </View>
+            <Text style={[styles.total, { color: colors.black }]}>
+              Total:{" "}
+              {oldProducts.reduce(
+                (acc, val) => acc + val.sellingPrice * val.quantity,
+                0
+              )}{" "}
+              <Currency bigger />
+            </Text>
+          </>
+        ) : null}
       </ScrollView>
     </Container>
   );

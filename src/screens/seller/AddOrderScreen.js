@@ -195,6 +195,7 @@ const AddOrderScreen = ({ navigation, route }) => {
                   productsDetails: products,
                   comments,
                   oldDelivery: order?.delivery._id,
+                  toBeDeletedProducts: order?.oldProducts,
                   oldProductsIds: order?.products.map(o => o._id)
                 })
               );
