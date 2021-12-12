@@ -5,7 +5,6 @@ import CommercesScreen from "../screens/admin/CommercesScreen";
 import PersonnelsScreen from "../screens/admin/PersonnelsScreen";
 import ProduitsScreen from "../screens/admin/ProduitsScreen";
 import CommerceProduitsScreen from "../screens/admin/CommerceProduitsScreen";
-import CommandeDetailsScreen from "../screens/admin/CommandeDetailsScreen";
 import StatistiquesScreen from "../screens/admin/StatistiquesScreen";
 import AjouterCommerceScreen from "../screens/admin/AjouterCommerceScreen";
 import AjouterPersonnelScreen from "../screens/admin/AjouterPersonnelScreen";
@@ -31,7 +30,6 @@ const MainStack = ({}) => (
     <Stack.Screen name="CommerceProduits" component={CommerceProduitsScreen} />
     <Stack.Screen name="Produits" component={ProduitsScreen} />
     <Stack.Screen name="Statistiques" component={StatistiquesScreen} />
-    <Stack.Screen name="CommandeDetails" component={CommandeDetailsScreen} />
     <Stack.Screen name="AjouterCommerce" component={AjouterCommerceScreen} />
     <Stack.Screen name="AjouterPersonnel" component={AjouterPersonnelScreen} />
     <Stack.Screen name="AjouterProduit" component={AjouterProduitScreen} />
