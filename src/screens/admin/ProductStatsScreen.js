@@ -15,7 +15,8 @@ import {
   DeliveryStat,
   StatsButton,
   DateRangePickerModal,
-  DateHeader
+  DateHeader,
+  StatsModal
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -28,6 +29,7 @@ const ProductStatsScreen = ({ navigation, route }) => {
   const { navigate } = navigation;
 
   const [rangeModal, setRangeModal] = useState(false);
+  const [statsModal, setStatsModal] = useState(false);
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
 
@@ -44,8 +46,15 @@ const ProductStatsScreen = ({ navigation, route }) => {
     (productStats.succeedOrders / productStats.totalOrders) * 100;
   const averageBasket =
     productStats.turnoverRealized / productStats.totalOrders;
+
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
+      <Modal animationType="slide" transparent={true} visible={statsModal}>
+        <StatsModal
+          items={productStats.percentageSellers}
+          close={() => setStatsModal(false)}
+        />
+      </Modal>
       <Modal animationType="slide" transparent={true} visible={rangeModal}>
         <DateRangePickerModal
           fromDate={fromDate}
@@ -64,7 +73,9 @@ const ProductStatsScreen = ({ navigation, route }) => {
         contentContainerStyle={styles.scrollStyle}
       >
         <TopBar />
-        <Label>{productName}</Label>
+        <Pressable alignSelf={"flex-start"} onPress={() => setStatsModal(true)}>
+          <Label>{productName}</Label>
+        </Pressable>
         <View marginVertical={20} />
         <DateHeader
           setRangeModal={setRangeModal}

@@ -2,10 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { Button } from "./Button";
-const StatsModal = ({ close, value, items }) => {
+const StatsModal = ({ close, items }) => {
   const { colors } = useTheme();
   const list = Object.entries(items).map(([k, v]) => ({ name: k, count: v }));
-  console.log(list);
   const total = list.reduce((acc, i) => acc + i.count, 0);
   return (
     <View
@@ -20,7 +19,7 @@ const StatsModal = ({ close, value, items }) => {
               style={[
                 styles.option,
                 {
-                  color: value == item ? colors.primary : colors.black
+                  color: colors.black
                 }
               ]}
             >
@@ -30,11 +29,11 @@ const StatsModal = ({ close, value, items }) => {
               style={[
                 styles.option,
                 {
-                  color: value == item ? colors.primary : colors.black
+                  color: colors.black
                 }
               ]}
             >
-              {(item.count / total) * 100 + " %"}
+              {((item.count / total) * 100).toFixed(2) + " %"}
             </Text>
           </View>
         ))}
