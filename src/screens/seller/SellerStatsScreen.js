@@ -35,7 +35,7 @@ const SellerStatsScreen = ({ navigation }) => {
   const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
 
   const averageBasket = stats.realizedIncome / stats.totalOrders;
-  console.log(stats.realizedIncome);
+
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={rangeModal}>
