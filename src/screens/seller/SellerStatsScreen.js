@@ -33,6 +33,9 @@ const SellerStatsScreen = ({ navigation }) => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
+
+  const averageBasket = stats.realizedIncome / stats.totalOrders;
+  console.log(stats.realizedIncome);
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={rangeModal}>
@@ -80,6 +83,11 @@ const SellerStatsScreen = ({ navigation }) => {
           title={"ÉCHEC DE LIVRAISON"}
           value={stats.failedOrders || "0"}
           color={colors.red}
+        />
+        <DeliveryStat
+          title={"PANIER MOYEN"}
+          value={averageBasket ? averageBasket.toFixed(2) : "0"}
+          color={"#4D4A98"}
         />
         <View marginVertical={20} />
       </ScrollView>
