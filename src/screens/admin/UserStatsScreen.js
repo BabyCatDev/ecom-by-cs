@@ -46,9 +46,14 @@ const UserStatsScreen = ({ navigation, route }) => {
   const [userStats] = useSelector(({ usersData }) => [usersData.userStats]);
   const conversionRate =
     (userStats.succeedOrders / userStats.totalOrders) * 100;
+
   const averageBasket = userStats.turnoverRealized / userStats.totalOrders;
   const average = userStats.turnoverRealized / userStats.succeedOrders;
-
+  let conversionRateEntered = 0;
+  if (type === "Commercial") {
+    conversionRateEntered =
+      (userStats.succeedOrders / userStats.totalEnteredOrders) * 100;
+  }
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={statsModal}>
@@ -110,6 +115,28 @@ const UserStatsScreen = ({ navigation, route }) => {
           />
         </Pressable>
         <DeliveryStat
+          title={"TAUX DE CONVERSION"}
+          value={(conversionRate ? conversionRate.toFixed(2) : 0) + "%"}
+          color={colors.blue}
+        />
+        {type === "Commercial" && (
+          <>
+            <DeliveryStat
+              title={"TOTAL ENTRÉ"}
+              value={userStats.totalEnteredOrders}
+              color={"#4D4A49"}
+            />
+            <DeliveryStat
+              title={"TAUX DE CONVERSION"}
+              value={
+                (conversionRateEntered ? conversionRateEntered.toFixed(2) : 0) +
+                "%"
+              }
+              color={colors.blue}
+            />
+          </>
+        )}
+        <DeliveryStat
           title={"LIVRAISONS EN ATTENTE"}
           value={userStats.holdOrders || "0"}
           color={colors.primary}
@@ -123,11 +150,6 @@ const UserStatsScreen = ({ navigation, route }) => {
           title={"ÉCHEC DE LIVRAISON"}
           value={userStats.failedOrders || "0"}
           color={colors.red}
-        />
-        <DeliveryStat
-          title={"TAUX DE CONVERSION"}
-          value={(conversionRate ? conversionRate.toFixed(2) : 0) + "%"}
-          color={colors.blue}
         />
         <DeliveryStat
           title={"REVENU RÉALISÉ"}

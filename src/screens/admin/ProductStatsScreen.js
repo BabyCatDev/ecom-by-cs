@@ -46,7 +46,8 @@ const ProductStatsScreen = ({ navigation, route }) => {
     (productStats.succeedOrders / productStats.totalOrders) * 100;
   const averageBasket =
     productStats.turnoverRealized / productStats.totalOrders;
-
+  const conversionRateEntered =
+    (productStats.succeedOrders / productStats.totalEnteredOrders) * 100;
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={statsModal}>
@@ -90,6 +91,23 @@ const ProductStatsScreen = ({ navigation, route }) => {
           color={"#4D4A49"}
         />
         <DeliveryStat
+          title={"TAUX DE CONVERSION"}
+          value={(conversionRate ? conversionRate.toFixed(2) : 0) + "%"}
+          color={colors.blue}
+        />
+        <DeliveryStat
+          title={"TOTAL ENTRÉ"}
+          value={productStats.totalEnteredOrders}
+          color={"#4D4A49"}
+        />
+        <DeliveryStat
+          title={"TAUX DE CONVERSION"}
+          value={
+            (conversionRateEntered ? conversionRateEntered.toFixed(2) : 0) + "%"
+          }
+          color={colors.blue}
+        />
+        <DeliveryStat
           title={"LIVRAISONS EN ATTENTE"}
           value={productStats.holdOrders || "0"}
           color={colors.primary}
@@ -103,11 +121,6 @@ const ProductStatsScreen = ({ navigation, route }) => {
           title={"ÉCHEC DE LIVRAISON"}
           value={productStats.failedOrders || "0"}
           color={colors.red}
-        />
-        <DeliveryStat
-          title={"TAUX DE CONVERSION"}
-          value={(conversionRate ? conversionRate.toFixed(2) : 0) + "%"}
-          color={colors.blue}
         />
         <DeliveryStat
           title={"REVENU RÉALISÉ"}
