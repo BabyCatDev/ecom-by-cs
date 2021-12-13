@@ -11,14 +11,12 @@ const CommandeRow = ({
   onPress,
   onLongPress,
   postponed,
-  creationDate,
   address,
   updated
 }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
-  const heading = date === creationDate ? "Soir" : "Matin";
 
   return (
     <Pressable
@@ -31,9 +29,7 @@ const CommandeRow = ({
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Text style={[styles.client, { color: colors.black }]}>
-          {heading + " - " + client}
-        </Text>
+        <Text style={[styles.client, { color: colors.black }]}>{client}</Text>
         {updated && (
           <Text style={[styles.updated, { color: "#92908F99" }]}>modifié</Text>
         )}

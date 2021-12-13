@@ -41,6 +41,10 @@ const CmdDetailsScreen = ({ navigation, route }) => {
     comments,
     postponed
   } = item;
+  const parsedDeliveryDate = dayjs(deliveryDate);
+  const parsedCreatedAt = dayjs(createdAt);
+  const isSame = parsedDeliveryDate.isSame(parsedCreatedAt, "day");
+  const heading = isSame ? "Soir" : "Matin";
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <ScrollView
@@ -54,7 +58,9 @@ const CmdDetailsScreen = ({ navigation, route }) => {
           status={status}
           justifyContent={"center"}
         />
-        <View marginVertical={20} />
+        <View marginVertical={25} />
+        <Label semi>{heading}</Label>
+        <View marginVertical={5} />
         <Text style={[styles.key, { color: colors.black }]}>
           {"ID de commande"}
         </Text>

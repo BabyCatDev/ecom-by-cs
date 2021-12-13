@@ -38,7 +38,9 @@ const SellerFailedOrdersScreen = ({ navigation }) => {
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
   const filteredOrders = useMemo(() => {
     return orders.filter(
-      o => o.clientName.includes(search) || o.clientAddress.includes(search)
+      o =>
+        o.clientName.toLowerCase().includes(search.toLowerCase()) ||
+        o.clientAddress.toLowerCase().includes(search.toLowerCase())
     );
   }, [search]);
   return (
@@ -76,7 +78,7 @@ const SellerFailedOrdersScreen = ({ navigation }) => {
               ) + " CFA"
             }
             date={dayjs(item.deliveryDate).format("YYYY-MM-DD")}
-            creationDate={dayjs(item.createdAt).format("YYYY-MM-DD")}
+             
           />
         )}
       />

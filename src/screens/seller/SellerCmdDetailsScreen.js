@@ -40,6 +40,11 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
     postponed
   } = item;
   const [validationModal, setValidationModal] = useState(false);
+
+  const parsedDeliveryDate = dayjs(deliveryDate);
+  const parsedCreatedAt = dayjs(createdAt);
+  const isSame = parsedDeliveryDate.isSame(parsedCreatedAt, "day");
+  const heading = isSame ? "Soir" : "Matin";
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={validationModal}>
@@ -62,11 +67,14 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
           justifyContent={"center"}
         />
         <View marginVertical={20} />
+        <View marginVertical={5} />
         {deliveryFeedback?.length > 0 && (
           <Text style={[styles.message, { color: colors.red + "BB" }]}>
             {deliveryFeedback}
           </Text>
         )}
+        <Label semi>{heading}</Label>
+        <View marginVertical={5} />
         <Text style={[styles.key, { color: colors.black }]}>
           {"ID de commande"}
         </Text>

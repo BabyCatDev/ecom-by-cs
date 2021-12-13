@@ -40,6 +40,10 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
   } = item;
   const [response, setResponse] = useState("");
   const [confimationModal, setConfimationModal] = useState(false);
+  const parsedDeliveryDate = dayjs(deliveryDate);
+  const parsedCreatedAt = dayjs(createdAt);
+  const isSame = parsedDeliveryDate.isSame(parsedCreatedAt, "day");
+  const heading = isSame ? "Soir" : "Matin";
   return (
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal
@@ -65,7 +69,9 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
           postponed={postponed}
           justifyContent={"center"}
         />
-        <View marginVertical={20} />
+        <View marginVertical={25} />
+        <Label semi>{heading}</Label>
+        <View marginVertical={5} />
         <Text style={[styles.key, { color: colors.black }]}>
           {"ID de commande"}
         </Text>
