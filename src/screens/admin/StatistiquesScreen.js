@@ -33,6 +33,8 @@ const StatistiquesScreen = ({ navigation }) => {
 
   const [stats] = useSelector(({ deliveryData }) => [deliveryData.stats]);
   const conversionRate = (stats.succeedOrders / stats.totalOrders) * 100;
+  const conversionRateEntered =
+    (stats.succeedOrders / stats.totalEnteredOrders) * 100;
   const averageBasket = stats.turnoverRealized / stats.succeedOrders;
 
   const daily = (stats.yesterdayOrders + stats.totalOrders) / 2;
@@ -73,6 +75,23 @@ const StatistiquesScreen = ({ navigation }) => {
           color={"#4D4A49"}
         />
         <DeliveryStat
+          title={"TAUX DE CONVERSION"}
+          value={(conversionRate ? conversionRate.toFixed(2) : 0) + "%"}
+          color={colors.blue}
+        />
+        <DeliveryStat
+          title={"TOTAL ENTRÉ"}
+          value={stats.totalEnteredOrders}
+          color={"#4D4A49"}
+        />
+        <DeliveryStat
+          title={"TAUX DE CONVERSION"}
+          value={
+            (conversionRateEntered ? conversionRateEntered.toFixed(2) : 0) + "%"
+          }
+          color={colors.blue}
+        />
+        <DeliveryStat
           title={"LIVRAISONS EN ATTENTE"}
           value={stats.holdOrders}
           color={colors.primary}
@@ -86,11 +105,6 @@ const StatistiquesScreen = ({ navigation }) => {
           title={"ÉCHEC DE LIVRAISON"}
           value={stats.failedOrders}
           color={colors.red}
-        />
-        <DeliveryStat
-          title={"TAUX DE CONVERSION"}
-          value={(conversionRate ? conversionRate.toFixed(2) : 0) + "%"}
-          color={colors.blue}
         />
         <DeliveryStat
           title={"C.A RÉALISÉ"}
