@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import { Button } from "./Button";
-const StatsModal = ({ close, items, items2 }) => {
+const StatsModal = ({ close, items, items2, title, title2 }) => {
   const { colors } = useTheme();
   const list = Object.entries(items).map(([k, v]) => ({ name: k, count: v }));
   const total = list.reduce((acc, i) => acc + i.count, 0);
@@ -18,6 +18,11 @@ const StatsModal = ({ close, items, items2 }) => {
       backgroundColor={colors.background + "DD"}
     >
       <ScrollView style={{ paddingTop: 130 }}>
+        {title && (
+          <Text style={[styles.titleStyle, { color: colors.primary }]}>
+            {title.toUpperCase()}
+          </Text>
+        )}
         {list.map((item, index) => (
           <View key={index}>
             <Text
@@ -43,6 +48,12 @@ const StatsModal = ({ close, items, items2 }) => {
           </View>
         ))}
         {list2 && <View paddingVertical={20} />}
+
+        {title2 && (
+          <Text style={[styles.titleStyle, { color: colors.primary }]}>
+            {title2.toUpperCase()}
+          </Text>
+        )}
         {list2?.map((item, index) => (
           <View key={index}>
             <Text
@@ -75,10 +86,17 @@ const StatsModal = ({ close, items, items2 }) => {
 };
 
 const styles = StyleSheet.create({
-  option: {
-    fontSize: 30,
-    fontFamily: "Montserrat-Bold",
+  titleStyle: {
+    fontSize: 13,
+    fontFamily: "Montserrat-SemiBold",
     paddingVertical: 3,
+    marginVertical: 5,
+    textAlign: "center"
+  },
+  option: {
+    fontSize: 20,
+    fontFamily: "Montserrat-Bold",
+    paddingVertical: 1.5,
     marginVertical: 2,
     textAlign: "center"
   }

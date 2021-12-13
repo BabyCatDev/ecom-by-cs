@@ -50,6 +50,8 @@ const CompanyStatsScreen = ({ navigation, route }) => {
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={statsModal}>
         <StatsModal
+          title={"Pourcentage des produits"}
+          title2={"Pourcentage des commercials"}
           items={companyStats.percentageProducts}
           items2={companyStats.percentageSellers}
           close={() => setStatsModal(false)}

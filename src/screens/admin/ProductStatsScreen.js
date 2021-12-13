@@ -51,6 +51,7 @@ const ProductStatsScreen = ({ navigation, route }) => {
     <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Modal animationType="slide" transparent={true} visible={statsModal}>
         <StatsModal
+          title={"Pourcentage des commercials"}
           items={productStats.percentageSellers}
           close={() => setStatsModal(false)}
         />
