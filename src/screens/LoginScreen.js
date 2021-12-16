@@ -14,11 +14,11 @@ const LoginScreen = ({ navigation }) => {
     <AuthContainer
       containerstyle={{ alignItems: "center", justifyContent: "space-around" }}
     >
-      <Image
-        source={require("../../assets/logo.png")}
-        style={styles.logoStyle}
-      />
-      <View>
+      <View alignItems={"center"}>
+        <Image
+          source={require("../../assets/logo.png")}
+          style={styles.logoStyle}
+        />
         <Input
           label="Identifiant :"
           placeholder="Votre identifiant"
@@ -43,7 +43,8 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   logoStyle: {
     width: 223,
-    height: 100
+    height: 100,
+    marginVertical: 50
   }
 });
 
