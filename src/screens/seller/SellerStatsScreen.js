@@ -89,6 +89,13 @@ const SellerStatsScreen = ({ navigation }) => {
           value={averageBasket ? averageBasket.toFixed(2) : "0"}
           color={"#4D4A98"}
         />
+        <DeliveryStat
+          title={"MOYENNE POTENTIELLE"}
+          value={
+            stats?.potentialAverage ? stats.potentialAverage.toFixed(2) : "0"
+          }
+          color={"#4D4A98"}
+        />
         <View marginVertical={20} />
       </ScrollView>
     </Container>
