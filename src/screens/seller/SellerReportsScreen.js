@@ -45,7 +45,7 @@ const SellerReportsScreen = ({ navigation }) => {
             }}
             status={item.status}
             client={item.clientName}
-            address={item.clientAddress}
+            address={item.clientAddress} createdAt={item.createdAt}
             total={
               item.products.reduce(
                 (acc, val) => acc + val.sellingPrice * val.quantity,

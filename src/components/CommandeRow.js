@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { CommandStatus } from "./CommandStatus";
+import dayjs from "dayjs";
 
 const CommandeRow = ({
   status,
@@ -12,18 +13,23 @@ const CommandeRow = ({
   onLongPress,
   postponed,
   address,
-  updated
+  updated,
+  createdAt
 }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { navigate } = navigation;
-
+  const parsedDeliveryDate = dayjs(date);
+  const parsedCreatedAt = dayjs(createdAt);
+  const isSame = parsedDeliveryDate.isSame(parsedCreatedAt, "day");
+  const heading = isSame ? "Soir" : "Matin";
   return (
     <Pressable
       onPress={onPress}
       onLongPress={onLongPress}
       style={[styles.container, { backgroundColor: colors.white }]}
     >
+      <Text style={[styles.heading, { color: colors.gray }]}>{heading}</Text>
       <View
         flexDirection={"row"}
         justifyContent={"space-between"}
@@ -62,6 +68,10 @@ const styles = StyleSheet.create({
     paddingVertical: 13,
     justifyContent: "space-between",
     marginBottom: 15
+  },
+  heading: {
+    fontFamily: "Montserrat-Medium",
+    fontSize: 20
   },
   client: {
     fontFamily: "Montserrat-Medium",

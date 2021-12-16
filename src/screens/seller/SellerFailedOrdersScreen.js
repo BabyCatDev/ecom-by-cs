@@ -69,7 +69,7 @@ const SellerFailedOrdersScreen = ({ navigation }) => {
             }}
             status={item.status}
             postponed={item.postponed}
-            address={item.clientAddress}
+            address={item.clientAddress} createdAt={item.createdAt}
             client={item.clientName}
             total={
               item.products.reduce(

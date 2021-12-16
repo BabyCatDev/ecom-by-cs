@@ -40,7 +40,7 @@ const AdminDeliveryOrdersScreen = ({ navigation, route }) => {
             status={item.status}
             postponed={item.postponed}
             client={item.clientName}
-            address={item.clientAddress}
+            address={item.clientAddress} createdAt={item.createdAt}
             updated={item.updated}
             total={
               item.products.reduce(
