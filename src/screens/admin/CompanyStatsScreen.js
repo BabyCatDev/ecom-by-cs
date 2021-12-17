@@ -142,6 +142,18 @@ const CompanyStatsScreen = ({ navigation, route }) => {
           value={averageBasket ? averageBasket.toFixed(2) : "0"}
           color={"#4D4A98"}
         />
+        <DeliveryStat
+          title={"MOYENNE DES COMMANDES"}
+          value={companyStats?.averageDaily?.toFixed(2)}
+          color={"#4D4A98"}
+        />
+        <DeliveryStat
+          title={"LIVRAISONS QUOTIDIENNES"}
+          value={
+            (companyStats?.percentageDailyDeliveries?.toFixed(2) || 0) + "%"
+          }
+          color={"#4D4A98"}
+        />
         <View marginVertical={20} />
       </ScrollView>
     </Container>
