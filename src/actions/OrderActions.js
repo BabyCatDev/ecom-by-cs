@@ -50,7 +50,7 @@ export const updateOrder = ({
   delivery,
   oldDelivery,
   productsDetails,
-  oldProductsIds,
+  oldProducts,
   toBeDeletedProducts
 }) => {
   return dispatch => {
@@ -64,7 +64,7 @@ export const updateOrder = ({
         delivery,
         oldDelivery,
         productsDetails,
-        oldProductsIds,
+        oldProducts,
         toBeDeletedProducts
       })
       .then(response => {

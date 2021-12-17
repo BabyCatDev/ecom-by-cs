@@ -203,7 +203,7 @@ const AddOrderScreen = ({ navigation, route }) => {
                     comments,
                     oldDelivery: order?.delivery._id,
                     toBeDeletedProducts: order?.oldProducts,
-                    oldProductsIds: order?.products.map(o => o._id)
+                    oldProducts: order?.products
                   })
                 );
               } else {
