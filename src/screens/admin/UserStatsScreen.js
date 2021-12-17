@@ -175,6 +175,16 @@ const UserStatsScreen = ({ navigation, route }) => {
             color={"#4D4A98"}
           />
         )}
+        <DeliveryStat
+          title={"MOYENNE DES COMMANDES"}
+          value={userStats?.averageDaily?.toFixed(2)}
+          color={"#4D4A98"}
+        />
+        <DeliveryStat
+          title={"LIVRAISONS QUOTIDIENNES"}
+          value={(userStats?.percentageDailyDeliveries?.toFixed(2) || 0) + "%"}
+          color={"#4D4A98"}
+        />
         <View marginVertical={20} />
       </ScrollView>
     </Container>
