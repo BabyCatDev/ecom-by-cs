@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Modal } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Modal,
+  Pressable,
+  Keyboard
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -31,53 +39,59 @@ const AjouterProduitScreen = ({ navigation, route }) => {
   const items = companies.map(c => c.name);
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
-      <Modal animationType="slide" transparent={true} visible={entrepriseModal}>
-        <SelectionModal
-          items={items}
-          close={() => setEntrepriseModal(false)}
-          value={entreprise}
-          onSelect={val => setEntreprise(val)}
-        />
-      </Modal>
-      <TopBar />
-      <Label>
-        {(productId ? "Mettre à jour" : "Ajouter") + " \nun produit"}
-      </Label>
-      <View flex={1} justifyContent={"space-between"}>
-        <View marginVertical={20} />
-        <View alignItems={"center"}>
-          <Selector
-            label="Nom de l'entreprise"
-            text={entreprise}
-            onPress={() => setEntrepriseModal(true)}
-          />
-          <Input
-            label="Nom de produit"
-            placeholder="Nom de produit"
-            value={name}
-            onChangeText={val => setName(val)}
-          />
-          <Input
-            label="Prix"
-            placeholder="Prix"
-            value={price}
-            onChangeText={val => setPrice(val)}
-            keyboardType={"decimal-pad"}
-          />
-        </View>
-        <View marginVertical={20} />
-        <Button
-          onPress={() => {
-            const companyId = companies.find(c => c.name === entreprise)._id;
-            productId
-              ? dispatch(updateProduct({ name, price, companyId, productId }))
-              : dispatch(addProduct({ name, price, companyId }));
-          }}
+      <Pressable style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={entrepriseModal}
         >
-          {productId ? "Mettre à jour" : "Ajouter"}
-        </Button>
-        <View marginVertical={20} />
-      </View>
+          <SelectionModal
+            items={items}
+            close={() => setEntrepriseModal(false)}
+            value={entreprise}
+            onSelect={val => setEntreprise(val)}
+          />
+        </Modal>
+        <TopBar />
+        <Label>
+          {(productId ? "Mettre à jour" : "Ajouter") + " \nun produit"}
+        </Label>
+        <View flex={1} justifyContent={"space-between"}>
+          <View marginVertical={20} />
+          <View alignItems={"center"}>
+            <Selector
+              label="Nom de l'entreprise"
+              text={entreprise}
+              onPress={() => setEntrepriseModal(true)}
+            />
+            <Input
+              label="Nom de produit"
+              placeholder="Nom de produit"
+              value={name}
+              onChangeText={val => setName(val)}
+            />
+            <Input
+              label="Prix"
+              placeholder="Prix"
+              value={price}
+              onChangeText={val => setPrice(val)}
+              keyboardType={"decimal-pad"}
+            />
+          </View>
+          <View marginVertical={20} />
+          <Button
+            onPress={() => {
+              const companyId = companies.find(c => c.name === entreprise)._id;
+              productId
+                ? dispatch(updateProduct({ name, price, companyId, productId }))
+                : dispatch(addProduct({ name, price, companyId }));
+            }}
+          >
+            {productId ? "Mettre à jour" : "Ajouter"}
+          </Button>
+          <View marginVertical={20} />
+        </View>
+      </Pressable>
     </Container>
   );
 };

@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Modal } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Modal,
+  Pressable,
+  Keyboard
+} from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
   Container,
@@ -26,27 +34,31 @@ const UpdateStockScreen = ({ navigation, route }) => {
 
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
-      <TopBar />
-      <Label>{"Quantité de " + productName}</Label>
-      <View flex={1} justifyContent={"space-between"}>
-        <View marginVertical={20} />
-        <View alignItems={"center"}>
-          <Input
-            label="Quantité"
-            placeholder="Quantité"
-            value={stock}
-            onChangeText={val => setStock(val)}
-            keyboardType={"decimal-pad"}
-          />
+      <Pressable style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
+        <TopBar />
+        <Label>{"Quantité de " + productName}</Label>
+        <View flex={1} justifyContent={"space-between"}>
+          <View marginVertical={20} />
+          <View alignItems={"center"}>
+            <Input
+              label="Quantité"
+              placeholder="Quantité"
+              value={stock}
+              onChangeText={val => setStock(val)}
+              keyboardType={"decimal-pad"}
+            />
+          </View>
+          <View marginVertical={20} />
+          <Button
+            onPress={() =>
+              dispatch(updateProductQuantity({ stock, productId }))
+            }
+          >
+            {"Mettre à jour"}
+          </Button>
+          <View marginVertical={20} />
         </View>
-        <View marginVertical={20} />
-        <Button
-          onPress={() => dispatch(updateProductQuantity({ stock, productId }))}
-        >
-          {"Mettre à jour"}
-        </Button>
-        <View marginVertical={20} />
-      </View>
+      </Pressable>
     </Container>
   );
 };
