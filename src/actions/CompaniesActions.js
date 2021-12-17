@@ -140,3 +140,17 @@ export const updateProduct = ({ productId, companyId, name, price }) => {
       });
   };
 };
+//update Product
+export const updateProductQuantity = ({ productId, stock }) => {
+  return dispatch => {
+    apiInstance
+      .patch(`/product/${productId}`, { stock })
+      .then(response => {
+        dispatch(fetchProducts());
+        goBack();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+};

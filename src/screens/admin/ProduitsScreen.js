@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useTheme } from "@react-navigation/native";
-import {
-  Container,
-  Label,
-  TopBar,
-  ProduitRow,
-  AddButton
-} from "../../components";
+import { Container, Label, TopBar, ProduitRow } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../actions";
 
@@ -30,10 +24,13 @@ const ProduitsScreen = ({ navigation }) => {
         data={products}
         keyExtractor={item => item._id}
         renderItem={({ item }) => (
-          <ProduitRow name={item.name} prix={item.price + " CFA"} />
+          <ProduitRow
+            onPress={() => navigate("UpdateStock", { product: item })}
+            name={item.name}
+            prix={item.price + " CFA"}
+          />
         )}
       />
-      {/* <AddButton onPress={() => navigate("AjouterProduit")}>Ajouter</AddButton> */}
     </Container>
   );
 };
