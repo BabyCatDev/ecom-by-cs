@@ -15,8 +15,9 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.ecombycs.ecombycsapp"
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ecombycs.ecombycsapp",
+      "buildNumber": "1.0.1"
     },
     "android": {
       "package": "com.ecombycs.ecombycsapp",
