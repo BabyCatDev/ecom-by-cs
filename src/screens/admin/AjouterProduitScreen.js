@@ -6,7 +6,9 @@ import {
   ScrollView,
   Modal,
   Pressable,
-  Keyboard
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -38,7 +40,7 @@ const AjouterProduitScreen = ({ navigation, route }) => {
   ]);
   const items = companies.map(c => c.name);
   return (
-    <Container containerstyle={{ paddingHorizontal: 10 }}>
+    <Container containerstyle={{ margin: 0, marginTop: 0 }}>
       <Pressable style={{ flex: 1 }} onPress={() => Keyboard.dismiss()}>
         <Modal
           animationType="slide"
@@ -52,45 +54,57 @@ const AjouterProduitScreen = ({ navigation, route }) => {
             onSelect={val => setEntreprise(val)}
           />
         </Modal>
-        <TopBar />
-        <Label>
-          {(productId ? "Mettre à jour" : "Ajouter") + " \nun produit"}
-        </Label>
-        <View flex={1} justifyContent={"space-between"}>
-          <View marginVertical={20} />
-          <View alignItems={"center"}>
-            <Selector
-              label="Nom de l'entreprise"
-              text={entreprise}
-              onPress={() => setEntrepriseModal(true)}
-            />
-            <Input
-              label="Nom de produit"
-              placeholder="Nom de produit"
-              value={name}
-              onChangeText={val => setName(val)}
-            />
-            <Input
-              label="Prix"
-              placeholder="Prix"
-              value={price}
-              onChangeText={val => setPrice(val)}
-              keyboardType={"decimal-pad"}
-            />
-          </View>
-          <View marginVertical={20} />
-          <Button
-            onPress={() => {
-              const companyId = companies.find(c => c.name === entreprise)._id;
-              productId
-                ? dispatch(updateProduct({ name, price, companyId, productId }))
-                : dispatch(addProduct({ name, price, companyId }));
-            }}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <ScrollView
+            overScrollMode={"never"}
+            contentContainerStyle={styles.scrollStyle}
           >
-            {productId ? "Mettre à jour" : "Ajouter"}
-          </Button>
-          <View marginVertical={20} />
-        </View>
+            <TopBar />
+            <Label>
+              {(productId ? "Mettre à jour" : "Ajouter") + " \nun produit"}
+            </Label>
+            <View flex={1} justifyContent={"space-between"}>
+              <View marginVertical={20} />
+              <View alignItems={"center"}>
+                <Selector
+                  label="Nom de l'entreprise"
+                  text={entreprise}
+                  onPress={() => setEntrepriseModal(true)}
+                />
+                <Input
+                  label="Nom de produit"
+                  placeholder="Nom de produit"
+                  value={name}
+                  onChangeText={val => setName(val)}
+                />
+                <Input
+                  label="Prix"
+                  placeholder="Prix"
+                  value={price}
+                  onChangeText={val => setPrice(val)}
+                  keyboardType={"decimal-pad"}
+                />
+              </View>
+              <View marginVertical={20} />
+              <Button
+                onPress={() => {
+                  const companyId = companies.find(c => c.name === entreprise)
+                    ._id;
+                  productId
+                    ? dispatch(
+                        updateProduct({ name, price, companyId, productId })
+                      )
+                    : dispatch(addProduct({ name, price, companyId }));
+                }}
+              >
+                {productId ? "Mettre à jour" : "Ajouter"}
+              </Button>
+              <View marginVertical={20} />
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </Pressable>
     </Container>
   );

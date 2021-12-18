@@ -5,7 +5,9 @@ import {
   StyleSheet,
   ScrollView,
   Modal,
-  Pressable
+  Pressable,
+  KeyboardAvoidingView,
+  Platform
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -64,95 +66,99 @@ const AjouterPersonnelScreen = ({ navigation }) => {
           }}
         />
       </Modal>
-      <ScrollView
-        overScrollMode={"never"}
-        contentContainerStyle={styles.scrollStyle}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <TopBar />
-        <Label>{"Ajouter un \npersonnel"}</Label>
-        <View marginVertical={20} />
-        <View alignItems={"center"}>
-          <Selector
-            label="Type d'emploi"
-            text={type}
-            onPress={() => setTypeModal(true)}
-          />
-          <Input
-            label="Nom complet"
-            placeholder="Nom complet"
-            value={fullName}
-            onChangeText={val => setFullName(val)}
-          />
-          <Input
-            label="Identifiant"
-            placeholder="Identifiant"
-            value={username}
-            onChangeText={val => setUsername(val)}
-          />
-          <Input
-            label="Email"
-            placeholder="name@gmail.com"
-            value={email}
-            onChangeText={val => setEmail(val)}
-          />
-          {phones.map((p, index1) => (
-            <Input
-              key={index1}
-              label={`Téléphone (${index1 + 1})`}
-              placeholder="01-23-45-56-78"
-              value={p}
-              onChangeText={val =>
-                setPhones([
-                  ...phones.map((phone, index2) =>
-                    index1 === index2 ? val : phone
-                  )
-                ])
-              }
-              keyboardType={"decimal-pad"}
+        <ScrollView
+          overScrollMode={"never"}
+          contentContainerStyle={styles.scrollStyle}
+        >
+          <TopBar />
+          <Label>{"Ajouter un \npersonnel"}</Label>
+          <View marginVertical={20} />
+          <View alignItems={"center"}>
+            <Selector
+              label="Type d'emploi"
+              text={type}
+              onPress={() => setTypeModal(true)}
             />
-          ))}
-          <View flexDirection={"row"}>
-            <Pressable
-              style={({ pressed }) => [
-                { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 }
-              ]}
-              onPress={() => setPhones([...phones, ""])}
-            >
-              <Text style={[styles.btn, { color: colors.green }]}>
-                AJOUTER PLUS
-              </Text>
-            </Pressable>
-            {phones.length > 1 && (
+            <Input
+              label="Nom complet"
+              placeholder="Nom complet"
+              value={fullName}
+              onChangeText={val => setFullName(val)}
+            />
+            <Input
+              label="Identifiant"
+              placeholder="Identifiant"
+              value={username}
+              onChangeText={val => setUsername(val)}
+            />
+            <Input
+              label="Email"
+              placeholder="name@gmail.com"
+              value={email}
+              onChangeText={val => setEmail(val)}
+            />
+            {phones.map((p, index1) => (
+              <Input
+                key={index1}
+                label={`Téléphone (${index1 + 1})`}
+                placeholder="01-23-45-56-78"
+                value={p}
+                onChangeText={val =>
+                  setPhones([
+                    ...phones.map((phone, index2) =>
+                      index1 === index2 ? val : phone
+                    )
+                  ])
+                }
+                keyboardType={"decimal-pad"}
+              />
+            ))}
+            <View flexDirection={"row"}>
               <Pressable
                 style={({ pressed }) => [
                   { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 }
                 ]}
-                onPress={() => setPhones([...phones.slice(0, -1)])}
+                onPress={() => setPhones([...phones, ""])}
               >
-                <Text style={[styles.btn, { color: colors.red }]}>
-                  SUPPRIMER
+                <Text style={[styles.btn, { color: colors.green }]}>
+                  AJOUTER PLUS
                 </Text>
               </Pressable>
-            )}
+              {phones.length > 1 && (
+                <Pressable
+                  style={({ pressed }) => [
+                    { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 }
+                  ]}
+                  onPress={() => setPhones([...phones.slice(0, -1)])}
+                >
+                  <Text style={[styles.btn, { color: colors.red }]}>
+                    SUPPRIMER
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+            <Input
+              label="Emplacement"
+              placeholder="Emplacement"
+              value={place}
+              onChangeText={val => setPlace(val)}
+              multiline
+            />
           </View>
-          <Input
-            label="Emplacement"
-            placeholder="Emplacement"
-            value={place}
-            onChangeText={val => setPlace(val)}
-            multiline
-          />
-        </View>
-        <View marginVertical={20} />
-        <Button
-          onPress={() => {
-            setPasswordModal(true);
-          }}
-        >
-          Ajouter
-        </Button>
-        <View marginVertical={20} />
-      </ScrollView>
+          <View marginVertical={20} />
+          <Button
+            onPress={() => {
+              setPasswordModal(true);
+            }}
+          >
+            Ajouter
+          </Button>
+          <View marginVertical={20} />
+        </ScrollView>
+      </KeyboardAvoidingView>
     </Container>
   );
 };
