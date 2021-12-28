@@ -169,7 +169,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
               status === "Hold") && (
               <>
                 <Button onPress={() => setValidationModal(true)}>
-                  {status === "Reported" ? "Valider" : "Reprogrammer"}
+                  {"Reprogrammer"}
                 </Button>
                 <View marginVertical={10} />
               </>

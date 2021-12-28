@@ -45,7 +45,7 @@ const SellerValidationModal = ({ close, orderId, deliveryDate, status }) => {
       >
         <Label>
           {status === "Reported"
-            ? "Confirmation de la commande"
+            ? "Reprogrammation ou Confirmation"
             : "Reprogrammation de la commande"}
         </Label>
 
@@ -56,28 +56,36 @@ const SellerValidationModal = ({ close, orderId, deliveryDate, status }) => {
           onPress={() => setDateModal(true)}
         />
 
-        <View marginVertical={40} />
+        <View marginVertical={60} />
         <View>
           <Button
             onPress={() => {
-              status === "Reported"
-                ? dispatch(
-                    confirmOrder({
-                      orderId,
-                      deliveryDate: scheduledDate
-                    })
-                  )
-                : dispatch(
-                    postponeOrder({
-                      orderId,
-                      deliveryDate: scheduledDate,
-                      status: status
-                    })
-                  );
+              dispatch(
+                postponeOrder({
+                  orderId,
+                  deliveryDate: scheduledDate,
+                  status: status
+                })
+              );
             }}
           >
-            {status === "Reported" ? "Confirmer" : "Reprogrammer"}
+            {"Reprogrammer"}
           </Button>
+          {status === "Reported" && (
+            <Button
+              onPress={() => {
+                dispatch(
+                  confirmOrder({
+                    orderId,
+                    deliveryDate: scheduledDate
+                  })
+                );
+              }}
+            >
+              {"Confirmer"}
+            </Button>
+          )}
+
           <Button onPress={() => close()}>Fermer</Button>
         </View>
       </ScrollView>
