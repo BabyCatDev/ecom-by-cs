@@ -44,8 +44,7 @@ const ProductStatsScreen = ({ navigation, route }) => {
   ]);
   const conversionRate =
     (productStats.succeedOrders / productStats.totalOrders) * 100;
-  const averageBasket =
-    productStats.turnoverRealized / productStats.totalOrders;
+
   const conversionRateEntered =
     (productStats.succeedOrders / productStats.totalEnteredOrders) * 100;
   return (
@@ -133,11 +132,6 @@ const ProductStatsScreen = ({ navigation, route }) => {
           value={productStats.failedTurnover || "0"}
           color={"#ff6347"}
           currencySign
-        />
-        <DeliveryStat
-          title={"LIVRAISON MOYENNE"}
-          value={averageBasket ? averageBasket.toFixed(2) : "0"}
-          color={"#4D4A98"}
         />
         <DeliveryStat
           title={"MOYENNE DES COMMANDES"}

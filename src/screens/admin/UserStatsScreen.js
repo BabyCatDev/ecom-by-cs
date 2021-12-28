@@ -47,7 +47,6 @@ const UserStatsScreen = ({ navigation, route }) => {
   const conversionRate =
     (userStats.succeedOrders / userStats.totalOrders) * 100;
 
-  const averageBasket = userStats.turnoverRealized / userStats.totalOrders;
   const average = userStats.turnoverRealized / userStats.succeedOrders;
   let conversionRateEntered = 0;
   if (type === "Commercial") {
@@ -162,11 +161,6 @@ const UserStatsScreen = ({ navigation, route }) => {
           value={userStats.failedTurnover || "0"}
           color={"#ff6347"}
           currencySign
-        />
-        <DeliveryStat
-          title={"LIVRAISON MOYENNE"}
-          value={averageBasket ? averageBasket.toFixed(2) : "0"}
-          color={"#4D4A98"}
         />
         {type === "Commercial" && (
           <DeliveryStat
