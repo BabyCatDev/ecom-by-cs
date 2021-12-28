@@ -29,17 +29,19 @@ const CommandeRow = ({
       onLongPress={onLongPress}
       style={[styles.container, { backgroundColor: colors.white }]}
     >
-      <Text style={[styles.heading, { color: colors.gray }]}>{heading}</Text>
       <View
         flexDirection={"row"}
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Text style={[styles.client, { color: colors.black }]}>{client}</Text>
+        <Text style={[styles.heading, { color: colors.gray }]}>{heading}</Text>
         {updated && (
-          <Text style={[styles.updated, { color: "#92908F99" }]}>modifié</Text>
+          <Text style={[styles.updated, { color: colors.red + "CC" }]}>
+            modifié
+          </Text>
         )}
       </View>
+      <Text style={[styles.client, { color: colors.black }]}>{client}</Text>
       <View marginVertical={2.5} />
       <Text style={[styles.address, { color: colors.gray }]}>{address}</Text>
       <View marginVertical={5} />
