@@ -5,7 +5,7 @@ import {
   StyleSheet,
   FlatList,
   Modal,
-  Pressable
+  Pressable,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -16,11 +16,12 @@ import {
   AddButton,
   DateRangePickerModal,
   OrderBottomSheet,
-  DateHeader
+  DateHeader,
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getSellerOrders } from "../../actions";
 import dayjs from "dayjs";
+import ButtonSet from "../../components/ButtonSet";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 const SellerOrdersScreen = ({ navigation }) => {
@@ -35,15 +36,44 @@ const SellerOrdersScreen = ({ navigation }) => {
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [selectedOrder, setSelectedOrder] = useState({});
+  const [selectedPart, setSelectedPart] = useState(1);
+  const [length1, setLength1] = useState();
+  const [length2, setLength2] = useState();
+  const [length3, setLength3] = useState();
 
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
   const sortedOrders = useMemo(() => {
+    console.log(orders);
     return [
-      ...orders.filter(o => o.status === "Hold"),
-      ...orders.filter(o => o.status === "Failed"),
-      ...orders.filter(o => o.status === "Succeed")
+      ...orders.filter((o) => o.status === "Hold"),
+      ...orders.filter((o) => o.status === "Failed"),
+      ...orders.filter((o) => o.status === "Succeed"),
     ];
   }, [orders]);
+  const filteredOrders = useMemo(() => {
+    const tmp_filtered1 = [
+      ...sortedOrders.filter(
+        (o) => dayjs(o.deliveryDate).isSame(dayjs(o.createdAt), "day") == false
+      ),
+    ];
+    const tmp_filtered2 = [
+      ...sortedOrders.filter((o) =>
+        dayjs(o.deliveryDate).isSame(dayjs(o.createdAt), "day")
+      ),
+    ];
+
+    setLength1(sortedOrders.length);
+    setLength2(tmp_filtered1.length);
+    setLength3(tmp_filtered2.length);
+
+    if (selectedPart === 1) {
+      return sortedOrders;
+    } else if (selectedPart === 3) {
+      return tmp_filtered2;
+    } else {
+      return tmp_filtered1;
+    }
+  }, [selectedPart, sortedOrders]);
 
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
@@ -66,10 +96,19 @@ const SellerOrdersScreen = ({ navigation }) => {
         fromDate={fromDate}
         toDate={toDate}
       />
-      <View marginVertical={20} />
+      <View marginVertical={10} />
+
+      <ButtonSet
+        selectedIndex={selectedPart}
+        setSelectedIndex={(index) => setSelectedPart(index)}
+        length1={length1}
+        length2={length2}
+        length3={length3}
+      ></ButtonSet>
+      <View marginVertical={10} />
       <FlatList
-        data={sortedOrders}
-        keyExtractor={item => item._id}
+        data={filteredOrders}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <CommandeRow
             onPress={() => navigate("SellerCmdDetails", { item })}
@@ -82,15 +121,16 @@ const SellerOrdersScreen = ({ navigation }) => {
             status={item.status}
             postponed={item.postponed}
             client={item.clientName}
-            address={item.clientAddress} createdAt={item.createdAt}
+            address={item.clientAddress}
+            createdAt={item.createdAt}
+            comments={item.comments}
             total={
-              item.products.reduce(
-                (acc, val) => acc + val.sellingPrice * val.quantity,
-                0
-              ) + " CFA"
+              item.products
+                .reduce((acc, val) => acc + val.sellingPrice * val.quantity, 0)
+                .toLocaleString("en-US")
+                .replace(/,/g, " ") + " CFA"
             }
             date={dayjs(item.deliveryDate).format("YYYY-MM-DD")}
-             
           />
         )}
       />

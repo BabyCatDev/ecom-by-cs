@@ -5,7 +5,7 @@ import {
   StyleSheet,
   FlatList,
   Modal,
-  Pressable
+  Pressable,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -17,7 +17,7 @@ import {
   DateRangePickerModal,
   OrderBottomSheet,
   DateHeader,
-  Input
+  Input,
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getSellerFailedOrders } from "../../actions";
@@ -38,7 +38,7 @@ const SellerFailedOrdersScreen = ({ navigation }) => {
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
   const filteredOrders = useMemo(() => {
     return orders.filter(
-      o =>
+      (o) =>
         o.clientName.toLowerCase().includes(search.toLowerCase()) ||
         o.clientAddress.toLowerCase().includes(search.toLowerCase())
     );
@@ -51,13 +51,13 @@ const SellerFailedOrdersScreen = ({ navigation }) => {
           label="Chercher :"
           placeholder="Nom de client, address"
           value={search}
-          onChangeText={val => setSearch(val)}
+          onChangeText={(val) => setSearch(val)}
         />
       </View>
       <View marginVertical={20} />
       <FlatList
         data={search.length > 0 ? filteredOrders : orders}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <CommandeRow
             onPress={() => navigate("SellerCmdDetails", { item })}
@@ -69,16 +69,16 @@ const SellerFailedOrdersScreen = ({ navigation }) => {
             }}
             status={item.status}
             postponed={item.postponed}
-            address={item.clientAddress} createdAt={item.createdAt}
+            address={item.clientAddress}
+            createdAt={item.createdAt}
             client={item.clientName}
             total={
-              item.products.reduce(
-                (acc, val) => acc + val.sellingPrice * val.quantity,
-                0
-              ) + " CFA"
+              item.products
+                .reduce((acc, val) => acc + val.sellingPrice * val.quantity, 0)
+                .toLocaleString("en-US")
+                .replace(/,/g, " ") + " CFA"
             }
             date={dayjs(item.deliveryDate).format("YYYY-MM-DD")}
-             
           />
         )}
       />

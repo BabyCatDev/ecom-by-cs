@@ -15,7 +15,7 @@ const DateRangePickerModal = ({
   setFromDate,
   toDate,
   setToDate,
-  submit
+  submit,
 }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -34,7 +34,7 @@ const DateRangePickerModal = ({
       <Modal animationType="slide" transparent={true} visible={fromModal}>
         <CustomDatePicker
           value={dayjs(fromDate || new Date()).format("YYYY-MM-DD")}
-          setValue={val => {
+          setValue={(val) => {
             setFromDate(val);
             setToDate(val);
           }}
@@ -45,7 +45,7 @@ const DateRangePickerModal = ({
       <Modal animationType="slide" transparent={true} visible={toModal}>
         <CustomDatePicker
           value={dayjs(toDate || new Date()).format("YYYY-MM-DD")}
-          setValue={val => setToDate(val)}
+          setValue={(val) => setToDate(val)}
           close={() => setToModal(false)}
           minimumDate={null}
         />
@@ -66,11 +66,61 @@ const DateRangePickerModal = ({
                 fontFamily:
                   mode === `Aujourd'hui`
                     ? "Montserrat-SemiBold"
-                    : "Montserrat-Regular"
-              }
+                    : "Montserrat-Regular",
+              },
             ]}
           >
             Aujourd'hui
+          </Text>
+        </Pressable>
+        <View style={styles.separator} backgroundColor={colors.primary} />
+        <Pressable
+          onPress={() => {
+            setMode(`Hier`);
+            var yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            setToDate(`${dayjs(yesterday).format("YYYY-MM-DD")}`);
+            setFromDate(`${dayjs(yesterday).format("YYYY-MM-DD")}`);
+          }}
+        >
+          <Text
+            style={[
+              styles.text,
+              {
+                color: colors.black,
+                fontFamily:
+                  mode === `Hier`
+                    ? "Montserrat-SemiBold"
+                    : "Montserrat-Regular",
+              },
+            ]}
+          >
+            Hier
+          </Text>
+        </Pressable>
+        <View style={styles.separator} backgroundColor={colors.primary} />
+        <Pressable
+          onPress={() => {
+            setMode(`7 derniers jours`);
+            var period = new Date();
+            period.setDate(period.getDate() - 7);
+            setToDate(`${dayjs(new Date()).format("YYYY-MM-DD")}`);
+            setFromDate(`${dayjs(period).format("YYYY-MM-DD")}`);
+          }}
+        >
+          <Text
+            style={[
+              styles.text,
+              {
+                color: colors.black,
+                fontFamily:
+                  mode === `7 derniers jours`
+                    ? "Montserrat-SemiBold"
+                    : "Montserrat-Regular",
+              },
+            ]}
+          >
+            7 derniers jours
           </Text>
         </Pressable>
         <View style={styles.separator} backgroundColor={colors.primary} />
@@ -85,8 +135,10 @@ const DateRangePickerModal = ({
               {
                 color: colors.black,
                 fontFamily:
-                  mode === `Jour` ? "Montserrat-SemiBold" : "Montserrat-Regular"
-              }
+                  mode === `Jour`
+                    ? "Montserrat-SemiBold"
+                    : "Montserrat-Regular",
+              },
             ]}
           >
             Un jour précis
@@ -107,8 +159,8 @@ const DateRangePickerModal = ({
                 fontFamily:
                   mode === `Period`
                     ? "Montserrat-SemiBold"
-                    : "Montserrat-Regular"
-              }
+                    : "Montserrat-Regular",
+              },
             ]}
           >
             Une période de jours
@@ -159,15 +211,15 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     textAlign: "center",
-    marginBottom: 20
+    marginBottom: 20,
   },
   separator: {
     width: 100,
     height: 2,
     borderRadius: 1,
     alignSelf: "center",
-    marginBottom: 20
-  }
+    marginBottom: 20,
+  },
 });
 
 export { DateRangePickerModal };

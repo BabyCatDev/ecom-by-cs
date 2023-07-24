@@ -9,7 +9,7 @@ import {
   LOGOUT_USER_SUCCESS,
   LOGOUT_USER_FAIL,
   TOKEN_CHANGED,
-  SAVE_PROFILE
+  SAVE_PROFILE,
 } from "./types";
 import apiInstance from "./Base";
 import * as SecureStore from "expo-secure-store";
@@ -17,14 +17,15 @@ import { registerForPushNotificationsAsync } from "../helpers";
 
 //Login
 export const login = ({ username, password }) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({ type: LOGIN_USER });
     const pushToken = await registerForPushNotificationsAsync();
     apiInstance
       .post("/login", { username, password, pushToken })
-      .then(async response => {
+      .then(async (response) => {
+        console.log(response);
         apiInstance.defaults.headers.common = {
-          Authorization: "Bearer " + response.data.token
+          Authorization: "Bearer " + response.data.token,
         };
 
         try {
@@ -37,8 +38,23 @@ export const login = ({ username, password }) => {
         dispatch({ type: TOKEN_CHANGED });
         dispatch({ type: LOGIN_USER_SUCCESS, payload: response.data });
       })
-      .catch(error => {
-        alert("Indentifiant ou mot de passe incorrect");
+      .catch((error) => {
+        console.log("AuthError", error);
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser
+          // and an instance of http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+        }
         dispatch({ type: LOGIN_USER_FAIL });
       });
   };
@@ -52,9 +68,9 @@ export const signup = ({
   password,
   type,
   phone,
-  place
+  place,
 }) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: SIGNUP_USER });
     apiInstance
       .post("/user", {
@@ -64,12 +80,12 @@ export const signup = ({
         password,
         type,
         phone,
-        place
+        place,
       })
-      .then(response => {
+      .then((response) => {
         dispatch({ type: SIGNUP_USER_SUCCESS, payload: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         alert("Vous avez inséré une valeur incorrecte");
         dispatch({ type: SIGNUP_USER_FAIL });
       });
@@ -78,7 +94,7 @@ export const signup = ({
 
 //Logout
 export const logout = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch({ type: LOGOUT_USER });
 
     const pushToken = await registerForPushNotificationsAsync();
@@ -87,7 +103,7 @@ export const logout = () => {
       .then(() => {
         dispatch({ type: LOGOUT_USER_SUCCESS });
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch({ type: LOGOUT_USER_FAIL });
         console.log(error);
       })
@@ -104,13 +120,13 @@ export const logout = () => {
 };
 //getProfile
 export const getProfile = () => {
-  return dispatch => {
+  return (dispatch) => {
     apiInstance
       .get("/user")
-      .then(async response => {
+      .then(async (response) => {
         dispatch({ type: SAVE_PROFILE, payload: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };

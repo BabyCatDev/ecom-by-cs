@@ -7,7 +7,7 @@ import {
   Modal,
   Pressable,
   KeyboardAvoidingView,
-  Platform
+  Platform,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -18,7 +18,7 @@ import {
   Input,
   TypeEmploiModal,
   Selector,
-  GeneratePasswordModal
+  GeneratePasswordModal,
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../../actions";
@@ -42,7 +42,7 @@ const AjouterPersonnelScreen = ({ navigation }) => {
         <TypeEmploiModal
           close={() => setTypeModal(false)}
           value={type}
-          onTypeSelect={type => setType(type)}
+          onTypeSelect={(type) => setType(type)}
         />
       </Modal>
       <Modal animationType="slide" transparent={true} visible={passwordModal}>
@@ -60,7 +60,7 @@ const AjouterPersonnelScreen = ({ navigation }) => {
                 email,
                 phones,
                 place,
-                password
+                password,
               })
             );
           }}
@@ -86,19 +86,19 @@ const AjouterPersonnelScreen = ({ navigation }) => {
               label="Nom complet"
               placeholder="Nom complet"
               value={fullName}
-              onChangeText={val => setFullName(val)}
+              onChangeText={(val) => setFullName(val)}
             />
             <Input
               label="Identifiant"
               placeholder="Identifiant"
               value={username}
-              onChangeText={val => setUsername(val)}
+              onChangeText={(val) => setUsername(val)}
             />
             <Input
               label="Email"
               placeholder="name@gmail.com"
               value={email}
-              onChangeText={val => setEmail(val)}
+              onChangeText={(val) => setEmail(val)}
             />
             {phones.map((p, index1) => (
               <Input
@@ -106,11 +106,11 @@ const AjouterPersonnelScreen = ({ navigation }) => {
                 label={`Téléphone (${index1 + 1})`}
                 placeholder="01-23-45-56-78"
                 value={p}
-                onChangeText={val =>
+                onChangeText={(val) =>
                   setPhones([
                     ...phones.map((phone, index2) =>
                       index1 === index2 ? val : phone
-                    )
+                    ),
                   ])
                 }
                 keyboardType={"decimal-pad"}
@@ -119,7 +119,7 @@ const AjouterPersonnelScreen = ({ navigation }) => {
             <View flexDirection={"row"}>
               <Pressable
                 style={({ pressed }) => [
-                  { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 }
+                  { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 },
                 ]}
                 onPress={() => setPhones([...phones, ""])}
               >
@@ -130,7 +130,7 @@ const AjouterPersonnelScreen = ({ navigation }) => {
               {phones.length > 1 && (
                 <Pressable
                   style={({ pressed }) => [
-                    { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 }
+                    { opacity: pressed ? 0.7 : 1, marginHorizontal: 10 },
                   ]}
                   onPress={() => setPhones([...phones.slice(0, -1)])}
                 >
@@ -144,7 +144,7 @@ const AjouterPersonnelScreen = ({ navigation }) => {
               label="Emplacement"
               placeholder="Emplacement"
               value={place}
-              onChangeText={val => setPlace(val)}
+              onChangeText={(val) => setPlace(val)}
               multiline
             />
           </View>
@@ -166,13 +166,13 @@ const AjouterPersonnelScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   scrollStyle: {
     paddingHorizontal: 25,
-    paddingTop: 30
+    paddingTop: 30,
   },
   btn: {
     fontFamily: "Montserrat-SemiBold",
     marginVertical: 10,
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 });
 
 export default AjouterPersonnelScreen;
