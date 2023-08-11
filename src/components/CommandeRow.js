@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useTheme, useNavigation } from "@react-navigation/native";
 import { CommandStatus } from "./CommandStatus";
 import dayjs from "dayjs";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const CommandeRow = ({
   status,
@@ -48,16 +49,26 @@ const CommandeRow = ({
       <View marginVertical={5} />
       <CommandStatus status={status} postponed={postponed} />
       <View marginVertical={5} />
-      {comments != "" ? (
-        <Text style={[styles.address, { color: colors.gray }]}>{comments}</Text>
-      ) : (
-        <></>
-      )}
 
       <View style={styles.row}>
         <Text style={[styles.price, { color: colors.black }]}>{total}</Text>
         <Text style={[styles.date, { color: "#92908F" }]}>{date}</Text>
       </View>
+      {comments != "" ? (
+        <View style={{ marginTop: 10 }}>
+          <View style={{ flex: 1, flexDirection: "row" }}>
+            <MaterialIcons name="message" size={24} color="gray" />
+            <Text color={"gray"} fontSize={12} style={{ marginLeft: 5 }}>
+              Commentaires
+            </Text>
+          </View>
+          <Text
+            style={[styles.address, { color: colors.gray, paddingLeft: 30 }]}
+          >{`${comments}`}</Text>
+        </View>
+      ) : (
+        <></>
+      )}
     </Pressable>
   );
 };

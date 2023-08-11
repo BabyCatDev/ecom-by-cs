@@ -123,10 +123,15 @@ const DateRangePickerModal = ({
             7 derniers jours
           </Text>
         </Pressable>
+
         <View style={styles.separator} backgroundColor={colors.primary} />
         <Pressable
           onPress={() => {
-            setMode("Jour");
+            setMode(`30 derniers jours`);
+            var period = new Date();
+            period.setDate(period.getDate() - 30);
+            setToDate(`${dayjs(new Date()).format("YYYY-MM-DD")}`);
+            setFromDate(`${dayjs(period).format("YYYY-MM-DD")}`);
           }}
         >
           <Text
@@ -135,16 +140,15 @@ const DateRangePickerModal = ({
               {
                 color: colors.black,
                 fontFamily:
-                  mode === `Jour`
+                  mode === `30 derniers jours`
                     ? "Montserrat-SemiBold"
                     : "Montserrat-Regular",
               },
             ]}
           >
-            Un jour précis
+            30 derniers jours
           </Text>
         </Pressable>
-
         <View style={styles.separator} backgroundColor={colors.primary} />
         <Pressable
           onPress={() => {

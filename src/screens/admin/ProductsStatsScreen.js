@@ -6,7 +6,7 @@ import {
   Label,
   TopBar,
   ProduitRow,
-  AddButton
+  AddButton,
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "../../actions";
@@ -19,7 +19,7 @@ const ProductsStatsScreen = ({ navigation }) => {
     dispatch(fetchProducts());
   }, []);
   const [products] = useSelector(({ companiesData }) => [
-    companiesData.products
+    companiesData.products,
   ]);
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
@@ -28,12 +28,14 @@ const ProductsStatsScreen = ({ navigation }) => {
       <View marginVertical={20} />
       <FlatList
         data={products}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <ProduitRow
             onPress={() => navigate("ProductStats", { item })}
             name={item.name}
-            prix={item.price + " CFA"}
+            prix={
+              item.price.toLocaleString("en-US").replace(/,/g, " ") + " CFA"
+            }
           />
         )}
       />

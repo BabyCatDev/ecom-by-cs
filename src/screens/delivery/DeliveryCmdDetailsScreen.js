@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   Modal,
-  Pressable
+  Pressable,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -16,7 +16,7 @@ import {
   ProduitDetails,
   Currency,
   Button,
-  DeliveryConfirmationModal
+  DeliveryConfirmationModal,
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -36,7 +36,7 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
     status,
     _id,
     comments,
-    postponed
+    postponed,
   } = item;
   const [response, setResponse] = useState("");
   const [confimationModal, setConfimationModal] = useState(false);
@@ -142,7 +142,7 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
           Liste des produits
         </Text>
         <View alignItems={"center"}>
-          {products.map(p => (
+          {products.map((p) => (
             <ProduitDetails
               key={p._id}
               name={p?.product?.name || "Produit supprimé"}
@@ -153,10 +153,10 @@ const DeliveryCmdDetailsScreen = ({ navigation, route }) => {
         </View>
         <Text style={[styles.total, { color: colors.black }]}>
           Total:{" "}
-          {products.reduce(
-            (acc, val) => acc + val.sellingPrice * val.quantity,
-            0
-          )}{" "}
+          {products
+            .reduce((acc, val) => acc + val.sellingPrice * val.quantity, 0)
+            .toLocaleString("en-US")
+            .replace(/,/g, " ")}{" "}
           <Currency bigger />
         </Text>
         {!postponed
@@ -192,25 +192,25 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat-SemiBold",
     fontSize: 25,
     marginBottom: 10,
-    marginTop: 15
+    marginTop: 15,
   },
   value: {
     fontFamily: "Montserrat-Medium",
     fontSize: 22,
     marginBottom: 10,
-    lineHeight: 30
+    lineHeight: 30,
   },
   scrollStyle: {
     paddingHorizontal: 25,
-    paddingTop: 30
+    paddingTop: 30,
   },
   total: {
     fontFamily: "Montserrat-Bold",
     fontSize: 24,
     textAlign: "center",
     marginVertical: 30,
-    marginHorizontal: 20
-  }
+    marginHorizontal: 20,
+  },
 });
 
 export default DeliveryCmdDetailsScreen;

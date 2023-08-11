@@ -6,7 +6,7 @@ import {
   Label,
   TopBar,
   CommandeRow,
-  AddButton
+  AddButton,
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminDeliveryOrders } from "../../actions";
@@ -25,7 +25,7 @@ const AdminDeliveryOrdersScreen = ({ navigation, route }) => {
   }, []);
 
   const [deliveryOrders] = useSelector(({ usersData }) => [
-    usersData.deliveryOrders
+    usersData.deliveryOrders,
   ]);
 
   return (
@@ -33,23 +33,23 @@ const AdminDeliveryOrdersScreen = ({ navigation, route }) => {
       <TopBar />
       <FlatList
         data={deliveryOrders}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <CommandeRow
             onPress={() => navigate("CmdDetails", { item })}
             status={item.status}
             postponed={item.postponed}
             client={item.clientName}
-            address={item.clientAddress} createdAt={item.createdAt}
+            address={item.clientAddress}
+            createdAt={item.createdAt}
             updated={item.updated}
             total={
-              item.products.reduce(
-                (acc, val) => acc + val.sellingPrice * val.quantity,
-                0
-              ) + " CFA"
+              item.products
+                .reduce((acc, val) => acc + val.sellingPrice * val.quantity, 0)
+                .toLocaleString("en-US")
+                .replace(/,/g, " ") + " CFA"
             }
             date={dayjs(item.deliveryDate).format("YYYY-MM-DD")}
-             
           />
         )}
       />

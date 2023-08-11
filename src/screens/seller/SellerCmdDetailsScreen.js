@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
-  Modal
+  Modal,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -16,7 +16,7 @@ import {
   ProduitDetails,
   Currency,
   Button,
-  SellerValidationModal
+  SellerValidationModal,
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -37,7 +37,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
     deliveryFeedback,
     comments,
     _id,
-    postponed
+    postponed,
   } = item;
   const [validationModal, setValidationModal] = useState(false);
 
@@ -145,7 +145,7 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
           Liste des produits
         </Text>
         <View alignItems={"center"}>
-          {products.map(p => (
+          {products.map((p) => (
             <ProduitDetails
               key={p._id}
               name={p?.product?.name || "Produit supprimé"}
@@ -156,10 +156,10 @@ const SellerCmdDetailsScreen = ({ navigation, route }) => {
         </View>
         <Text style={[styles.total, { color: colors.black }]}>
           Total:{" "}
-          {products.reduce(
-            (acc, val) => acc + val.sellingPrice * val.quantity,
-            0
-          )}{" "}
+          {products
+            .reduce((acc, val) => acc + val.sellingPrice * val.quantity, 0)
+            .toLocaleString("en-US")
+            .replace(/,/g, " ")}{" "}
           <Currency bigger />
         </Text>
 
@@ -186,31 +186,31 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginHorizontal: 20,
     marginBottom: 40,
-    lineHeight: 28
+    lineHeight: 28,
   },
   key: {
     fontFamily: "Montserrat-SemiBold",
     fontSize: 25,
     marginBottom: 10,
-    marginTop: 15
+    marginTop: 15,
   },
   value: {
     fontFamily: "Montserrat-Medium",
     fontSize: 22,
     marginBottom: 10,
-    lineHeight: 30
+    lineHeight: 30,
   },
   scrollStyle: {
     paddingHorizontal: 25,
-    paddingTop: 30
+    paddingTop: 30,
   },
   total: {
     fontFamily: "Montserrat-Bold",
     fontSize: 27,
     textAlign: "right",
     marginVertical: 30,
-    marginHorizontal: 20
-  }
+    marginHorizontal: 20,
+  },
 });
 
 export default SellerCmdDetailsScreen;

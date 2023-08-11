@@ -7,7 +7,7 @@ import {
   TopBar,
   ProduitRow,
   AddButton,
-  OwnBottomSheet
+  OwnBottomSheet,
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCompanies, selectCompany, deleteProduct } from "../../actions";
@@ -17,7 +17,7 @@ const CommerceProduitsScreen = ({ navigation }) => {
   const { navigate } = navigation;
   const dispatch = useDispatch();
   const [selectedCompany] = useSelector(({ companiesData }) => [
-    companiesData.selectedCompany
+    companiesData.selectedCompany,
   ]);
   const { name, products, _id } = selectedCompany;
   const [selectedProduct, setSelectedProduct] = useState({});
@@ -29,7 +29,7 @@ const CommerceProduitsScreen = ({ navigation }) => {
       <View marginVertical={20} />
       <FlatList
         data={products}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <ProduitRow
             onLongPress={() => {
@@ -37,7 +37,9 @@ const CommerceProduitsScreen = ({ navigation }) => {
               setSelectedProduct(item);
             }}
             name={item.name}
-            prix={item.price + " CFA"}
+            prix={
+              item.price.toLocaleString("en-US").replace(/,/g, " ") + " CFA"
+            }
           />
         )}
       />
@@ -47,7 +49,7 @@ const CommerceProduitsScreen = ({ navigation }) => {
           sheetRef.current.closeSheet();
           navigate("AjouterProduit", {
             companyName: name,
-            product: selectedProduct
+            product: selectedProduct,
           });
         }}
         deleteFunction={() => {

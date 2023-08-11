@@ -13,7 +13,7 @@ const ProduitsScreen = ({ navigation }) => {
     dispatch(fetchProducts());
   }, []);
   const [products] = useSelector(({ companiesData }) => [
-    companiesData.products
+    companiesData.products,
   ]);
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
@@ -22,12 +22,14 @@ const ProduitsScreen = ({ navigation }) => {
       <View marginVertical={20} />
       <FlatList
         data={products}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <ProduitRow
             onPress={() => navigate("UpdateStock", { product: item })}
             name={item.name}
-            prix={item.price + " CFA"}
+            prix={
+              item.price.toLocaleString("en-US").replace(/,/g, " ") + " CFA"
+            }
           />
         )}
       />

@@ -6,7 +6,7 @@ import {
   Label,
   TopBar,
   CommandeRow,
-  AddButton
+  AddButton,
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getDeliveryOrders } from "../../actions";
@@ -24,9 +24,9 @@ const DeliveryOrdersScreen = ({ navigation }) => {
   const [orders] = useSelector(({ orderData }) => [orderData.orders]);
   const sortedOrders = useMemo(() => {
     return [
-      ...orders.filter(o => o.status === "Hold"),
-      ...orders.filter(o => o.status === "Failed"),
-      ...orders.filter(o => o.status === "Succeed")
+      ...orders.filter((o) => o.status === "Hold"),
+      ...orders.filter((o) => o.status === "Failed"),
+      ...orders.filter((o) => o.status === "Succeed"),
     ];
   }, [orders]);
 
@@ -35,22 +35,22 @@ const DeliveryOrdersScreen = ({ navigation }) => {
       <TopBar />
       <FlatList
         data={sortedOrders}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <CommandeRow
             onPress={() => navigate("DeliveryCmdDetails", { item })}
             status={item.status}
             postponed={item.postponed}
             client={item.clientName}
-            address={item.clientAddress} createdAt={item.createdAt}
+            address={item.clientAddress}
+            createdAt={item.createdAt}
             total={
-              item.products.reduce(
-                (acc, val) => acc + val.sellingPrice * val.quantity,
-                0
-              ) + " CFA"
+              item.products
+                .reduce((acc, val) => acc + val.sellingPrice * val.quantity, 0)
+                .toLocaleString("en-US")
+                .replace(/,/g, " ") + " CFA"
             }
             date={dayjs(item.deliveryDate).format("YYYY-MM-DD")}
-             
           />
         )}
       />

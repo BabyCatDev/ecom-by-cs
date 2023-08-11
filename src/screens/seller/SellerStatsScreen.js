@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
-  Modal
+  Modal,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -15,7 +15,7 @@ import {
   DeliveryStat,
   Currency,
   DateRangePickerModal,
-  DateHeader
+  DateHeader,
 } from "../../components";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -105,8 +105,8 @@ const SellerStatsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   scrollStyle: {
     paddingHorizontal: 25,
-    paddingTop: 30
-  }
+    paddingTop: 30,
+  },
 });
 
 export default SellerStatsScreen;

@@ -13,10 +13,10 @@ const ProduitDetails = ({ name, price, qte }) => {
         {name}
       </Text>
       <Text style={[styles.priceQte, { color: "#8C8683" }]}>
-        {price} <Currency /> x {qte}
+        {price.toLocaleString("en-US").replace(/,/g, " ")} <Currency /> x {qte}
       </Text>
       <Text style={[styles.total, { color: colors.primary }]}>
-        {price * qte} <Currency />
+        {(price * qte).toLocaleString("en-US").replace(/,/g, " ")} <Currency />
       </Text>
     </View>
   );
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 1
+      height: 1,
     },
     shadowOpacity: 0.08,
     shadowRadius: 2.22,
@@ -38,21 +38,21 @@ const styles = StyleSheet.create({
     height: 140,
     justifyContent: "space-between",
     marginVertical: 10,
-    width: 250
+    width: 250,
   },
   name: {
     fontFamily: "Montserrat-SemiBold",
-    fontSize: 22
+    fontSize: 22,
   },
   priceQte: {
     fontFamily: "Montserrat-Medium",
-    fontSize: 18
+    fontSize: 18,
   },
   total: {
     fontFamily: "Montserrat-SemiBold",
     fontSize: 18,
-    textAlign: "right"
-  }
+    textAlign: "right",
+  },
 });
 
 export { ProduitDetails };

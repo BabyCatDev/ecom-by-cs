@@ -5,7 +5,7 @@ import {
   StyleSheet,
   FlatList,
   Modal,
-  Pressable
+  Pressable,
 } from "react-native";
 import { useTheme } from "@react-navigation/native";
 import {
@@ -13,7 +13,7 @@ import {
   Label,
   TopBar,
   CommandeRow,
-  OrderBottomSheet
+  OrderBottomSheet,
 } from "../../components";
 import { useSelector, useDispatch } from "react-redux";
 import { getSellerReports } from "../../actions";
@@ -35,7 +35,7 @@ const SellerReportsScreen = ({ navigation }) => {
       <TopBar />
       <FlatList
         data={reports}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
           <CommandeRow
             onPress={() => navigate("SellerCmdDetails", { item })}
@@ -45,15 +45,15 @@ const SellerReportsScreen = ({ navigation }) => {
             }}
             status={item.status}
             client={item.clientName}
-            address={item.clientAddress} createdAt={item.createdAt}
+            address={item.clientAddress}
+            createdAt={item.createdAt}
             total={
-              item.products.reduce(
-                (acc, val) => acc + val.sellingPrice * val.quantity,
-                0
-              ) + " CFA"
+              item.products
+                .reduce((acc, val) => acc + val.sellingPrice * val.quantity, 0)
+                .toLocaleString("en-US")
+                .replace(/,/g, " ") + " CFA"
             }
             date={dayjs(item.deliveryDate).format("YYYY-MM-DD")}
-             
           />
         )}
       />
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat-SemiBold",
     fontSize: 20,
     textAlign: "center",
-    marginBottom: 40
-  }
+    marginBottom: 40,
+  },
 });
 
 export default SellerReportsScreen;
