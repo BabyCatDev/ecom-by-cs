@@ -12,6 +12,8 @@ import {
   Container,
   Label,
   TopBar,
+  DateRangePickerModal,
+  DateHeader,
   CommandeRow,
   OrderBottomSheet,
 } from "../../components";
@@ -23,16 +25,38 @@ import relativeTime from "dayjs/plugin/relativeTime";
 const SellerReportsScreen = ({ navigation }) => {
   const { colors } = useTheme();
   const { navigate } = navigation;
+  const [rangeModal, setRangeModal] = useState(false);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
   const sheetRef = useRef(null);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getSellerReports());
+    dispatch(getSellerReports({ fromDate, toDate }));
   }, []);
   const [reports] = useSelector(({ orderData }) => [orderData.reports]);
   const [selectedOrder, setSelectedOrder] = useState({});
   return (
     <Container containerstyle={{ paddingHorizontal: 10 }}>
+      <Modal animationType="slide" transparent={true} visible={rangeModal}>
+        <DateRangePickerModal
+          fromDate={fromDate}
+          setFromDate={setFromDate}
+          toDate={toDate}
+          setToDate={setToDate}
+          close={() => setRangeModal(false)}
+          submit={() => {
+            dispatch(getSellerReports({ fromDate, toDate }));
+            setRangeModal(false);
+          }}
+        />
+      </Modal>
       <TopBar />
+      <DateHeader
+        setRangeModal={setRangeModal}
+        fromDate={fromDate}
+        toDate={toDate}
+      />
+      <View marginVertical={10} />
       <FlatList
         data={reports}
         keyExtractor={(item) => item._id}

@@ -4,21 +4,21 @@ import {
   FETCH_ORDERS_FAIL,
   FETCH_REPORTS,
   FETCH_REPORTS_SUCCESS,
-  FETCH_REPORTS_FAIL
+  FETCH_REPORTS_FAIL,
 } from "./types";
 import apiInstance from "./Base";
 import { navigate, goBack } from "../navigations/RootNavigation";
 import { addDaytoDate } from "../helpers";
 
 export const getSellerOrders = ({ fromDate, toDate }) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: FETCH_ORDERS, payload: [] });
     apiInstance
       .get(`/sellerorders?fromDate=${fromDate}&toDate=${addDaytoDate(toDate)}`)
-      .then(response => {
+      .then((response) => {
         dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         dispatch({ type: FETCH_ORDERS_FAIL });
       });
@@ -26,14 +26,14 @@ export const getSellerOrders = ({ fromDate, toDate }) => {
 };
 
 export const getSellerFailedOrders = () => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch({ type: FETCH_ORDERS, payload: [] });
     apiInstance
       .get(`/sellerfailedorders`)
-      .then(response => {
+      .then((response) => {
         dispatch({ type: FETCH_ORDERS_SUCCESS, payload: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         dispatch({ type: FETCH_ORDERS_FAIL });
       });
@@ -51,9 +51,9 @@ export const updateOrder = ({
   oldDelivery,
   productsDetails,
   oldProducts,
-  toBeDeletedProducts
+  toBeDeletedProducts,
 }) => {
-  return dispatch => {
+  return (dispatch) => {
     apiInstance
       .patch(`/order/${orderId}`, {
         clientAddress,
@@ -65,78 +65,78 @@ export const updateOrder = ({
         oldDelivery,
         productsDetails,
         oldProducts,
-        toBeDeletedProducts
+        toBeDeletedProducts,
       })
-      .then(response => {
+      .then((response) => {
         dispatch(getSellerReports());
         dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
         goBack();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 };
 export const postponeOrder = ({ orderId, status, deliveryDate }) => {
-  return dispatch => {
+  return (dispatch) => {
     apiInstance
       .patch(`/postpone/${orderId}`, {
         status,
         deliveryDate,
-        deliveryFeedback: ""
+        deliveryFeedback: "",
       })
-      .then(response => {
+      .then((response) => {
         dispatch(getSellerReports());
         dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
         goBack();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 };
 export const reassignOrder = ({ orderId, newSeller }) => {
-  return dispatch => {
+  return (dispatch) => {
     apiInstance
       .patch(`/reassign/${orderId}`, {
-        newSeller
+        newSeller,
       })
-      .then(response => {
+      .then((response) => {
         dispatch(getSellerReports());
         dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
         goBack();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 };
 export const confirmOrder = ({ orderId, deliveryDate }) => {
-  return dispatch => {
+  return (dispatch) => {
     apiInstance
       .patch(`/confirm/${orderId}`, {
-        deliveryDate
+        deliveryDate,
       })
-      .then(response => {
+      .then((response) => {
         dispatch(getSellerReports());
         dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
         goBack();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 };
 
-export const getSellerReports = () => {
-  return dispatch => {
+export const getSellerReports = ({ fromDate, toDate }) => {
+  return (dispatch) => {
     dispatch({ type: FETCH_REPORTS });
     apiInstance
-      .get(`/sellerreports`)
-      .then(response => {
+      .get(`/sellerreports?fromDate=${fromDate}&toDate=${addDaytoDate(toDate)}`)
+      .then((response) => {
         dispatch({ type: FETCH_REPORTS_SUCCESS, payload: response.data });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         dispatch({ type: FETCH_REPORTS_FAIL });
       });
@@ -151,9 +151,9 @@ export const createOrder = ({
   clientName,
   delivery,
   productsDetails,
-  comments
+  comments,
 }) => {
-  return dispatch => {
+  return (dispatch) => {
     apiInstance
       .post("/order", {
         deliveryDate,
@@ -162,13 +162,13 @@ export const createOrder = ({
         clientName,
         delivery,
         productsDetails,
-        comments
+        comments,
       })
-      .then(response => {
+      .then((response) => {
         dispatch(getSellerOrders({ fromDate: "", toDate: "" }));
         goBack();
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
