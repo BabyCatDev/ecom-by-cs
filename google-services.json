@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "746710650304",
+    "project_id": "ecombycs-e11f2",
+    "storage_bucket": "ecombycs-e11f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746710650304:android:ce6173fc87411af8c7cc25",
+        "android_client_info": {
+          "package_name": "com.ecombycs.ecombycsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "746710650304-u7lcs25j1df2npelrlakor0sdtiiec8s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPnzaavRKsJrIEcL-xRQUdc8AZ7epqx3o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "746710650304-u7lcs25j1df2npelrlakor0sdtiiec8s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

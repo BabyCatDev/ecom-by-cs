@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "ECOM BY CS",
+    "slug": "ecom-by-cs",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FDFBF9"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.ecombycs.ecombycsapp",
+      "buildNumber": "1.0.1"
+    },
+    "android": {
+      "package": "com.ecombycs.ecombycsapp",
+      "googleServicesFile": "./google-services.json"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#FDFBF9"
+        }
+      ]
+    ]
+  }
+}
